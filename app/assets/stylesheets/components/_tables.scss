@@ -1,0 +1,25 @@
+.table-borderless td {
+  border-top:none !important;
+  border-bottom:none !important;
+  line-height:2.2 !Important;
+}
+.table-borderless th {
+  border-top:none !important;
+  border-bottom:none !important;
+}
+.table-borderless tfoot td {
+  border-bottom:none;
+}
+.table-borderless-2 {
+  border-bottom:none !important;
+  width:auto;
+}
+.table-clean > tbody > tr > td{
+  border-right: none !Important;
+}
+table.table-clean thead th {
+  border-right: none !Important;
+}
+.modal h5 {
+  margin:0;
+}

@@ -1,0 +1,29 @@
+//= require bootstrap
+//= require datetimepicker
+//= require uniform.default.min.css
+//= require metronic/metronic-components.css
+//= require iCheck/skins/minimal/_all.scss
+//= require iCheck/skins/square/_all.css
+//= require iCheck/skins/flat/_all.css
+//= require iCheck/skins/line/_all.css
+//= require iCheck/skins/polaris/polaris.css
+//= require iCheck/skins/futurico/futurico.css
+//= require fullcalendar/fullcalendar.css
+//= require_self
+
+@import "base/font-awesome-v5.0.4";
+@import "views/widgets/snapshot_navigator_widget";
+@import "vendor-overrides/datepicker_overrides";
+@import "views/cameras/single/snapshot-recorder";
+
+label {
+  font-size: 12px;
+}
+
+body {
+  font-family: $bold-family;
+}
+
+.nav-tabs > li > a, .nav-pills > li > a {
+  font-size: 14px !important;
+}

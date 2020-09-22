@@ -1,0 +1,46 @@
+.btn {
+  border-radius: $border-radius;
+}
+.btn-edit {
+  font-size: 16px !important;
+  color: $main-color;
+  transition: all .2s linear;
+  background-color: $white;
+  border-radius: 30px !important;
+  border: 1px solid $main-color;
+  padding: 6px 14px;
+}
+.portlet .btn-edit {
+  font-family: $bold-family;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  margin-left: 25px;
+  font-size: 11px !important;
+}
+.btn-edit:hover {
+  transition: all .2s linear;
+  color: $main-color;
+}
+
+.non-button {
+  background-color: #ffffff !Important;
+  border: none !Important;
+  padding: 0 !Important;
+  color: #428bca;
+}
+.non-button:hover {
+  color: lighten( $main-color, 15% );
+}
+.delete:hover {
+  color:$evercam-red;
+  text-decoration: underline;
+}
+.action:hover {
+  color:$main-color;
+  text-decoration: underline;
+}
+.delete, .action {
+  color:$grey;
+  text-decoration: underline;
+  cursor: pointer;
+}

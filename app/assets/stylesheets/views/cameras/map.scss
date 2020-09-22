@@ -1,0 +1,41 @@
+#map-container {
+  max-width: 300px;
+
+  th {
+    font-size: 12px;
+    vertical-align: middle;
+    padding-right: 0px;
+  }
+
+  td {
+    font-size: 11px;
+    padding-right: 0px;
+  }
+}
+
+.gm-style {
+
+  .gm-style-iw {
+    padding-left: 10px;
+  }
+
+  .map-thumbnail-img {
+    max-width: 300px;
+    padding-top: 20px;
+  }
+}
+
+.page-container .page-content-wrapper .table {
+  margin: 0px;
+}
+
+.link-to-map {
+  position: absolute;
+  z-index: 999999999999999;
+  padding: 10px;
+  margin: 5px;
+  font-size: 20px;
+  background-color: $white-transparent-background;
+  border-radius: 20px;
+  display: none;
+}

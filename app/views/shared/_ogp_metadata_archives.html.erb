@@ -1,0 +1,42 @@
+<% if @archive
+  title = "Evercam: Archive View {#{@archive['title']}}"
+  description = "This is a public archive, Enjoy this public video from anywhere. Use your mobile, laptop or tablet from the office, on the road or even on-site."
+  release_date = Time.iso8601(@archive['created_at']).utc.strftime("%d/%m/%Y, %H:%M:%S")
+  site_name = "Evercam"
+
+  if @archive['type'].eql?("compare")
+    title = "Evercam Compare {#{@archive['title']}}"
+    from_date = Time.iso8601(@archive['from_date']).utc.strftime("%d/%m/%Y, %H:%M:%S")
+    to_date = Time.iso8601(@archive['to_date']).utc.strftime("%d/%m/%Y, %H:%M:%S")
+    description = "See progress from #{from_date} to #{to_date} with Evercam Compare"
+    site_name = "Evercam Construction Cameras"
+  end
+%>
+<% end %>
+<meta property='og:title' content='<%= title %>'/>
+<meta property='og:description' content='<%= description %>'/>
+<meta property='og:image' content='<%= "https://media.evercam.io/v2/cameras/#{@camera_id}/archives/#{@archive_id}/thumbnail?type=#{@archive_type}" %>'/>
+<meta property="og:image:alt" content="<%= @archive['title'] %>" />
+<meta property='og:url' content='<%= "https://dash.evercam.io/v2/cameras/#{@camera_id}/archives/#{@archive_id}" %>' />
+<meta property='og:site_name' content='<%= site_name %>'/>
+<% unless @archive_type.eql?("image") %>
+  <meta property='og:type' content='video.other' />
+<% end %>
+
+<% if @archive && @archive['type'].eql?("clip") %>
+  <%
+    from_date = Time.iso8601(@archive['from_date']).utc
+    to_date = Time.iso8601(@archive['to_date']).utc
+    duration = (to_date - from_date).to_i / 60
+  %>
+  <meta property='og:video:duration' content='<%= duration %>'/>
+  <meta property='og:video:release_date' content='<%= release_date %>'/>
+  <meta property='og:video:tag' content='Construction'/>
+<% end %>
+
+<meta name="twitter:title" content='<%= title %>' />
+<meta name="twitter:description" content='<%= description %>' />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@evrcm" />
+<meta name="twitter:image" content='<%= "https://media.evercam.io/v2/cameras/#{@camera_id}/archives/archives/thumbnail?type=#{@archive_type}" %>' />
+<meta name="twitter:creator" content="@evrcm" />

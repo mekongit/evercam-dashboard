@@ -1,0 +1,23 @@
+<div id="info-tab">
+  <%= render partial: "cameras/single/info/settings_modal" %>
+  <div class="row margin-top-10">
+    <div class="col-md-6">
+      <%= render partial: "cameras/single/info/camera_details_panel" %>
+      <% if @has_edit_rights %>
+        <%= render partial: "cameras/single/info/connection_info_panel" %>
+      <% end %>
+      <%= render partial: "cameras/single/info/urls_panel" %>
+      <% if @has_edit_rights %>
+        <%= render partial: "cameras/single/info/offline_notification_email" %>
+      <% end %>
+    </div>
+    <div class="col-md-6">
+      <%= render partial: "cameras/single/info/location_panel" %>
+      <%= render partial: "cameras/single/info/last_snapshot_panel" %>
+      <%= render partial: "cameras/single/info/camera_actions_panel" %>
+    </div>
+  </div>
+</div>
+
+
+<script src="//maps.google.com/maps/api/js?key=AIzaSyAy8aEXXqqJFG-kFVxrIJOJAR33O74G1Pg&libraries=places"></script>

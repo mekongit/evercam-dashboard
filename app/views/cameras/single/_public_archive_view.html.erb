@@ -1,0 +1,108 @@
+<div id="archives" class="row padding-right15">
+  <div id="archives-tab" class="col-md-12 margin-top-15">
+    <div id="archives-box">
+      <div id="camera-video-archive" style="float: left;">
+        <div class="archive-container">
+          <video id="archive-play" class="video-js vjs-default-skin" width="100%" controls autoplay data-setup='{ "playbackRates": [0.25, 0.5, 1, 1.5, 2] }'></video>
+          <iframe id="iframe_archive" width="100%" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+          <img id="file_upload_viewer" src="" width="auto">
+        </div>
+        <div id="text-info">
+          <div class="player-header">
+            <div id="player-buttons">
+              <div class='dropdown'>
+                <a id="on_share" class="archive-actions archive-title onclick-share-button" href="javascript:;" title="share" data-toggle="modal" data-target="#modal-archive-info"><i class="fas fa-share-alt"></i> share</a>
+
+                <div style="display:inline-block;cursor:pointer;" class=" archive-actions">
+                  <a class="download-animation archive-icon" data-download-target="#mp4clip-201810-f1oy" title="Download MP4"><i class="fa fa-download"></i> Download</a>
+                </div>
+                <input type="hidden" name="download_url" id="download_url">
+              </div>
+            </div>
+            <strong class="div-archive-values" id="txt_title"><%= @archive['title'] %></strong>
+          </div>
+          <div id="info-archive">
+            <span id="archive-autor">Requested by: <%= @archive['requester_name'] %></span><br>
+            <span id="archive-dates">From <%= @archive['from_date'] %> to <%= @archive['to_date'] %><br></span>
+            <span id="archive-time-1">Created at <%= @archive['created_at'] %></span>
+          </div>
+        </div>
+        <div class="inactive-error-display hide"></div>
+      </div>
+    </div>
+  </div>
+  <div id="modal-archive-info" class="modal fade modal-archive-info">
+    <div class="modal-dialog max-width-600">
+      <div class="modal-content">
+        <div id="form-create-clip" class="modal-body">
+          <div class="row">
+            <div class="col-md-12" id="list-content">
+              <button type="button" class="close margin-top-minus5" data-dismiss="modal" aria-hidden="true"><i class="fas fa-times"></i></button>
+              <div id="row-compare" class="div-archive-compare">
+                <div id="image-compare" class="archive-img-compare embed">
+                  <div style="display: none;">
+                    <span class="images-compare-label">Before</span>
+                    <img id="archive_compare_before" src="" alt="Before"/>
+                  </div>
+                  <div>
+                    <span class="images-compare-label">After</span>
+                    <img id="archive_compare_after" src="" alt="After"/>
+                  </div>
+                  <div class="evercam-brand">
+                    <%= image_tag("evercam-logo-white.png", :class => "svg-logo", alt: "Evercam.io") %>
+                  </div>
+                </div>
+              </div>
+              <div class="div-thumbnail margin-top-15">
+                <img id="archive-thumbnail" class="public-archive-img" src=""/>
+                </video>
+              </div>
+              <div id="row-frames" class="div-row">
+                <div class="col-md-2 archive-label margin-top-2">Frames</div>
+                <div id="div_frames" class="input-group col-sm-10 col-xs-10 col-md-10"></div>
+              </div>
+              <div id="row-duration" class="div-row">
+                <div class="col-md-2 archive-label margin-top-2">Duration</div>
+                <div id="div_duration" class="input-group col-sm-10 col-xs-10 col-md-10"></div>
+              </div>
+              <div id="row-embed-code" class="div-row">
+                <div class="col-md-2 archive-label margin-top-40">Embed</div>
+                <div class="input-group col-sm-10 col-xs-10 col-md-10">
+                  <textarea id="archive_embed_code" class="form-control embed-code copy-text" readonly="true"><%= @archive['embed_code'] %></textarea>
+                  <i class="icon-font copy-url-icon copy-embed-code far fa-copy" data-clipboard-target="#archive_embed_code" title="Copy URL"></i>
+                </div>
+              </div>
+              <div id="row-gif" class="div-row">
+                <div class="col-md-2 archive-label margin-top-10">GIF</div>
+                <div class="input-group col-sm-10 col-xs-10 col-md-10">
+                  <input type="text" name="archive_gif_url" id="archive_gif_url" class="form-control copy-text" readonly="true" />
+                  <i class="icon-font copy-url-icon fa fa-download download-animation" data-download-target="#archive_gif_url" title="Download GIF (Good for emails)"></i>
+                  <i class="icon-font copy-url-icon far fa-copy copy-animation" data-clipboard-target="#archive_gif_url" title="Copy URL"></i>
+                </div>
+              </div>
+              <div id="row-mp4" class="div-row">
+                <div class="col-md-2 archive-label margin-top-10">MP4</div>
+                <div class="input-group col-sm-10 col-xs-10 col-md-10">
+                  <input type="text" name="archive_mp4_url" id="archive_mp4_url" class="form-control copy-text" readonly="true" />
+                  <i class="icon-font copy-url-icon fa fa-download download-animation" data-download-target="#archive_mp4_url" title="Download MP4 (Good for everything else)"></i>
+                  <i class="icon-font copy-url-icon far fa-copy copy-animation" data-clipboard-target="#archive_mp4_url" title="Copy URL"></i>
+                </div>
+              </div>
+              <div id="div_shares" class="div-row">
+                <div class="col-md-2 archive-label margin-top-10">Share</div>
+                <div class="input-group col-sm-10 col-xs-10 col-md-10" id="share-buttons-new">
+                  <a class="facebook" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i> Share</a>
+                  <a class="whatsapp" target="_blank" title="Whatsapp"><i class="fab fa-whatsapp"></i> Message</a>
+                  <a class="linkedin" target="_blank" title="Linkedin"><i class="fab fa-linkedin-in"></i> Post</a>
+                  <a class="twitter" target="_blank" title="Twitter"><i class="fab fa-twitter"></i> Tweet</a>
+                </div>
+              </div>
+              <div class="disabled share-buttons">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,44 @@
+<% if @archive_view %>
+  <div class="page-header navbar navbar-fixed-top">
+    <div class="page-header-inner">
+      <div class="menu-toggler sidebar-toggler"></div>
+      <a href="javascript:;" class="pull-left menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse"></a>
+    </div>
+  </div>
+<% else %>
+<div class="page-header <%= "camera-#{@camera['id']}" if @camera %> navbar navbar-fixed-top">
+  <div class="page-header-inner">
+    <div class="menu-toggler sidebar-toggler"></div>
+    <a href="javascript:;" class="pull-left menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse"></a>
+    <% if params[:controller] == 'cameras' and params[:action] == 'single' %>
+      <div class="camera-switch <% if @camera['status'] == "offline" %>camera-offline<% end %>">
+        <a class="dropdown-toggle" data-toggle="dropdown">
+          <span class="status-circle"></span>
+          <span class="camera-name"><%= @camera['name'] %></span>
+          <span class="camera-caret"><i class="fa fa-caret-down"></i></span>
+        </a>
+        <ul class="dropdown-menu scroll-menu" role="menu">
+          <% if @cameras %>
+            <% @cameras.each do |camera| %>
+              <li class="sub-menu-item camera-<%= camera['id'] %> <%= is_active?("/cameras/#{camera['id']}") %> <% if camera['status'] == "offline" %>sidebar-offline<% end %>">
+                <%= link_to camera['name'] , cameras_single_path(camera['id'])%>
+                <i class="red header-sidebar fa fa-unlink"></i>
+              </li>
+            <% end %>
+          <% else %>
+          <li class="sub-menu-item camera-<%= @camera['id'] %> <%= is_active?("/cameras/#{@camera['id']}") %> <% if @camera['status'] == "offline" %>sidebar-offline<% end %>">
+            <%= link_to @camera['name'] , cameras_single_path(@camera['id'])%>
+            <i class="red header-sidebar fa fa-unlink"></i>
+          </li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+  </div>
+</div>
+<% end %>
+<script>
+$(document).ready(function () {
+  window.initializeHeader();
+});
+</script>

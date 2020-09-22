@@ -1,0 +1,31 @@
+<%= content_for(:title, "Camera Online/Offline Report") %>
+<div class="page-content-wrapper">
+  <div id="status-report" class="page-content">
+    <div id="loading-image-div" class="loading-image-div">
+      <img class="snapmail-animation" src="/assets/evercam-loading-gif.gif">
+    </div>
+    <div style="margin: 0 auto; width: 100%;padding: 10px" id="visavail_container">
+      <div id="status-dropdown" class="status-dropdown float-left hide">
+        <select id="select-history-days" class="select-history-days" name="select_days" disabled>
+          <option> 1 Day </option>
+          <option> 3 Days </option>
+          <option selected="selected"> 7 Days </option>
+          <option> 30 Days </option>
+          <option> 90 Days </option>
+        </select>
+      </div>
+      <div class="offline-flag">
+        <div class="input-group checkbox">
+          <input id="type-all" name="offline_only" class="" type="checkbox" value="true" /> <label class="type-label" for="type-all">Offline Only </label>
+        </div>
+      </div>
+      <p id="draw_report" class="margin-top-5"></p>
+    </div>
+  </div>
+</div>
+<script>
+  moment.locale('en');
+  $(document).ready(function () {
+    window.initializeOnlineOfflineReport();
+  });
+</script>

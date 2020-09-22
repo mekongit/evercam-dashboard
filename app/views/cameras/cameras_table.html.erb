@@ -1,0 +1,34 @@
+<% provide(:title, "Evercam: Cameras Table") %>
+<% %>
+
+<div id="cameras-table" class="camera-table">
+  <div class="page-content-wrapper">
+    <div class="page-content">
+      <div class="row">
+        <div class="col-sm-12 padding-none">
+          <div class="col-sm-12 col-md-12 padding-none">
+            <table id="cameras-log-table" class="cameras-log-table table cell-border display compact">
+              <thead>
+                <th>Camera Name</th>
+                <th>Rights</th>
+                <th>Vendor (Model)</th>
+                <th>Timezone</th>
+                <th>Public</th>
+                <th>Cloud Recordings</th>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<input id="base-url" type="hidden" value="<%= "#{EVERCAM_API}cameras?api_id=#{current_user.api_id}&api_key=#{current_user.api_key}" %>">
+
+<script>
+$(document).ready(function () {
+  window.initializeCamerasTable();
+});
+</script>

@@ -1,0 +1,10 @@
+$(".cart").html("<%= escape_javascript(render :partial => 'subscriptions/cart') %>");
+$("#<%=params[:product_id] %>-qty").val(0);
+$("#<%=params[:product_id] %>-quantity").val(0);
+$("#spnTotalPrice").text($("#total-price").val())
+$(".cart-count").text($("#cart-total").val());
+var cart_count = parseInt($("#cart-total").val());
+if (cart_count > 0) {
+  $("#divCart").slideDown(400);
+}
+Notification.show("<%= flash.now[:message] %>");

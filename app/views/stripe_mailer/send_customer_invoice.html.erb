@@ -1,0 +1,153 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" style="font-family: Arial, Helvetica, sans-serif; margin: 0; padding: 0;">
+<head>
+  <meta name="viewport" content="width=device-width">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <title>Evercam.io</title>
+</head>
+<body bgcolor="#FFFFFF" style="font-family: Arial, Helvetica, sans-serif; -webkit-font-smoothing: antialiased; -webkit-text-size-adjust: none; width: 100% !important; height: 100%; margin: 0; padding: 0;">
+<style type="text/css">
+  @media only screen and (max-width: 600px) {
+    a[class="btn"] {
+      display: block !important; margin-bottom: 10px !important; background-image: none !important; margin-right: 0 !important;
+    }
+    div[class="column"] {
+      width: auto !important; float: none !important;
+    }
+    table.social div[class="column"] {
+      width: auto !important;
+    }
+    table {
+      border-collapse: collapse;
+      width:100%;
+      font-family: Arial, Helvetica, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+  }
+  @media only screen and (max-width: 480px){
+    .logo{
+      max-width:28% !important;
+      max-width:175px !important;
+    }
+  }
+  table {
+    border-collapse: collapse;
+    width:100%;
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  .table-product tr{
+    border-bottom: 1px solid #aaaaaa;
+  }
+</style>
+<!-- HEADER -->
+<table class="head-wrap" bgcolor="#f5f5f5" style="width: 100%; margin: 0; padding: 0;">
+  <tr style="margin: 0; padding: 0;">
+    <td style="margin: 0; padding: 0;"></td>
+    <td class="header container" style="display: block !important; max-width: 600px !important; clear: both !important; margin: 0 auto; padding: 0;">
+      <div class="content" style="max-width: 600px; display: block; margin: 0 auto; padding: 15px;">
+        <table bgcolor="#f5f5f5" style="width: 100%; margin: 0; padding: 0;">
+          <tr style="margin: 0; padding: 0;text-align:center;">
+            <td style="margin: 0; padding: 0;">
+              <img src="https://www.evercam.io/img/logo.png" class="logo" style="max-width:28%;max-width:175px;padding-top:10px;margin:0;">
+            </td>
+          </tr>
+        </table>
+      </div>
+    </td>
+    <td style="margin: 0; padding: 0;"></td>
+  </tr>
+</table>
+<!-- /HEADER -->
+<!-- BODY -->
+<table class="body-wrap" style="font-family: Arial, Helvetica, sans-serif; width: 100%; margin: 0; background-color:#f5f5f5; padding: 0;">
+  <tr style="font-family: Arial, Helvetica, sans-serif; margin: 0; padding: 0;"><td style="font-family: Arial, Helvetica, sans-serif; margin: 0; padding: 0;"></td>
+    <td class="container" bgcolor="#FFFFFF" style="font-family: Arial, Helvetica, sans-serif; display: block !important; border-radius:3px; max-width: 600px !important; clear: both !important; margin: 0 auto; padding: 0;">
+
+      <div class="content" style="font-family: Arial, Helvetica, sans-serif;font-weight: normal; font-size: 14px; max-width: 600px; display: block; margin: 0 auto; padding: 15px;">
+        <table style="width: 100%;">
+          <tr style="font-family: Arial, Helvetica, sans-serif; margin: 0; padding: 0;">
+            <td colspan="3" style="margin: 0; padding: 0;">
+              <div style="text-align: right">
+                <h3>INVOICES</h3>
+                <div style="color: green;"><%= @invoice[:paid] ? "Paid" : "Pending" %></div>
+                <div style="margin-bottom: 5px;margin-top: 15px;"><strong>Invoice ID:</strong> <%= @invoice[:id] %></div>
+                <div style="margin-bottom: 5px;"><strong>Date:</strong> <%= Time.at(@invoice[:date]).strftime("%B %d, %Y") %></div>
+                <div style="margin-bottom: 5px;"><strong>Period:</strong> <%= Time.at(@invoice[:date]).strftime("%B %d, %Y") %> <span style="color:grey;">to</span> <%= @period.eql?("year") ? (Time.at(@invoice[:date]) + 1.year).strftime("%B %d, %Y") : (Time.at(@invoice[:date]) + 30.days).strftime("%B %d, %Y") %></div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td style="width: 45%;" valign="top">
+              <div style="margin-top: 30px;">
+                <div style="padding: 2px 0px;"><strong>From:</strong> Evercam.io</div>
+                <div style="padding: 3px 0px;">Wayra Ireland</div>
+                <div style="padding: 3px 0px;">29 Sir John Rogerson's Quay</div>
+                <div style="padding: 3px 0px;">Dublin, Ireland</div>
+              </div>
+            </td>
+            <td style="width: 10%;"></td>
+            <td style="width: 45%;" valign="top">
+              <div style="margin-top: 30px;text-align: right;">
+                <div style="padding: 2px 0px;"><strong>To:</strong> <%= @to_user_email %></div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="3">
+              <div style="margin-top: 30px;">
+                <table class="table-product" style="width: 100%;">
+                  <tr>
+                    <th align="left">Product</th>
+                    <th>Qty.</th>
+                    <th align="right">Price</th>
+                  </tr>
+                  <% @invoice_lines.each do |item| %>
+                    <tr style="border-top: solid 1px #eeeeee;">
+                      <td align="left"><%= item.description.blank? ? item.plan.id : item.description%></td>
+                      <td align="center"><%= item.quantity %></td>
+                      <td align="right"><%= number_to_currency(item.amount / 100, :precision => 2) %> </td>
+                    </tr>
+                  <% end %>
+                </table>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="3">
+              <div style="margin-top: 30px;font-weight: bold">
+                <div>
+                  <div style="float: right;width:100px;text-align: right;"><%= number_to_currency(@invoice[:subtotal] / 100, :precision => 2) %></div>
+                  <div style="float: right;width:100px;text-align: right;">Sub Total:</div>
+                </div>
+                <div style="clear: both;"></div>
+                <div>
+                  <div style="float: right;width:100px;text-align: right;"><%= number_to_currency(@invoice[:total] / 100, :precision => 2) %></div>
+                  <div style="float: right;width:100px;text-align: right;">Total:</div>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </td>
+    <td style="font-family: Arial, Helvetica, sans-serif; margin: 0; padding: 0;"></td>
+  </tr>
+</table>
+<!-- /BODY -->
+<!-- FOOTER -->
+<table class="footer-wrap" style="background-color:#f5f5f5; font-family: Arial, Helvetica, sans-serif; width: 100%; clear: both !important; margin: 0; padding: 0;">
+  <tr style="margin: 0; padding: 0;"><td style="font-family: Arial, Helvetica, sans-serif; margin: 0; padding: 0;"></td>
+    <td class="container" style="text-align:center; display: block !important; max-width: 600px !important; clear: both !important; margin: 0 auto; padding: 0;">
+
+      <p style="color:#aaaaaa; font-family: Arial, Helvetica, sans-serif; font-weight: normal; font-size: 12px; line-height: 1.0; margin: 10px 0 40px; padding: 0;">© 2015    <a href="https://www.evercam.io" style="color:#428bca;text-decoration: none;">www.evercam.io</a></p>
+
+    </td>
+  </tr>
+</table>
+<!-- /FOOTER -->
+</body>
+</html>

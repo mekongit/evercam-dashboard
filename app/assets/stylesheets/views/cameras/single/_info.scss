@@ -1,0 +1,440 @@
+// Place all the styles related to the live controller here.
+
+.tint {
+  width: 100%;
+}
+.tint img {
+  -webkit-filter: grayscale(100%);
+  -moz-filter: grayscale(100%);
+  filter: grayscale(100%);
+  width:100%;
+  min-width: 500px;
+}
+.tint img:hover {
+  -webkit-filter: grayscale(10%);
+  -moz-filter: grayscale(10%);
+  filter: grayscale(10%);
+  -moz-transition: all .1s linear;
+  -webkit-transition: all .1s linear;
+  -o-transition: all .1s linear;
+  transition: all .1s linear;
+}
+
+#details .portlet.solid.bordered > .portlet-title {
+  margin-bottom: 5px;
+  border-bottom: 1px solid $white;
+}
+#details .portlet.solid {
+  overflow-x: hidden;
+  background-color: $white;
+  padding: 0px;
+}
+.margin-bottom-5 {
+  margin-bottom: 5px;
+}
+#details .table-borderless td {
+  line-height: 1.2 !Important;
+  padding: 6px 2px !important;
+}
+
+#details .table {
+  margin-bottom: 5px;
+}
+
+#details .help-block {
+  font-size: 12px;
+  background: none;
+}
+.info-preview {
+  width:100%;
+  overflow: hidden;
+  margin-bottom: 5px;
+
+  .refresh-detail-snap {
+    position: absolute;
+    right: 0%;
+    cursor: pointer;
+    background: rgba(0, 0, 0, 0.65);
+    border-radius: 50px;
+    border: none;
+    height: 35px;
+    width: 36px;
+    text-align: center;
+
+    .refresh-gif {
+      width: 16px;
+    }
+
+    .fa-sync {
+      margin: 10px;
+      color: $white;
+    }
+  }
+}
+.info-preview img {
+  width: 100%;
+  min-width: 169px;
+  max-width: 100%;
+}
+.capture {
+  max-width: 450px;
+}
+#details .portlet-body{
+  position: relative;
+}
+.image-placeholder-detail-page{
+  border: 1px solid $lighter-grey;
+  max-height: 137px;
+  padding: 5px;
+  text-align: center;
+  width: 139px;
+  position: absolute;
+  z-index: 999;
+  top: 0px;
+  right: 0px;
+  #vemdor-image{
+    max-height: 12px;
+    margin-top: -11px;
+    float: left;
+    margin-left: -20px;
+  }
+  #model-image{
+    max-height: 127px;
+    max-width: 100%;
+  }
+}
+
+.settings-modal-width .margin-top-8 {
+  margin-top: 8px;
+}
+
+@media (max-width: 780px) {
+
+  .image-placeholder-detail-page{
+    position: relative;
+    margin: 20px auto 0px;
+    display: none;
+  }
+
+}
+
+.title-label {
+  font-size: 12px;
+  text-transform: uppercase;
+  color: #AAAAAA;
+}
+.proxy-info {
+  font-size: 12px;
+  text-transform: uppercase;
+  color: $main-color;
+}
+
+.table-fixed {
+  table-layout: fixed;
+  word-wrap: break-word;
+}
+
+.margin-bottom-0 {
+  margin-bottom: 0px; /*temp fix*/
+}
+.margin-top-0 {
+  margin-bottom: 0px; /*temp fix*/
+}
+#map-info {
+  height: 350px;
+}
+.dark-grey {
+  color:#777777;
+  font: 400 14px 'Open Sans', Arial, sans-serif;
+}
+.first-row {
+  max-width:200px;
+  min-width:200px;
+}
+#details .table>tbody>tr>td {
+  padding: 1px 2px;
+}
+#details .table>thead>tr>th {
+  padding: 0px 0 4px;
+}
+#settings-modal .portlet, #settings-modal-1 .portlet {
+  margin-bottom: 0px;
+}
+#settings-modal .table-borderless td, #settings-modal-1 .table-borderless td  {
+  padding: 2px 2px !important;
+}
+
+#settings-modal-1 .has-error .help-block {
+  background-color: transparent;
+}
+#settings-modal-1 .control-label {
+  margin-top: 8px;
+}
+#details {
+  border: none;
+  width: 100%;
+  height: auto;
+  padding-right: 15px;
+}
+.uppercase-title {
+  margin-top: 12px;
+}
+/*LOCATION */
+#location #map-canvas {
+  max-height: 680px;
+}
+#location p {
+  margin-bottom: 0px;
+}
+#co-ordinates {
+  margin-top: 5px;
+}
+
+#location-settings {
+  margin-right: 0px;
+}
+#location-settings .table {
+  margin-bottom: 10px;
+}
+.center-image {
+  text-align: center;
+  height: 100%;
+}
+
+/*CAMERA SETTINGS*/
+
+#camera-settings .form-control {
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+#camera-settings .input-group-addon {
+  background-color: $white;
+  border: none;
+  padding: 6px 8px 6px 10px;
+}
+#camera-settings .table > tbody > tr > td {
+  padding: 4px 0px;
+}
+
+.modal {
+  margin-right: -15px;
+}
+
+.save-settings {
+  margin-top: 10px;
+}
+.save-settings .form-group {
+  margin-bottom: 0px;
+}
+.test-img-settings {
+  background-color: $white;
+  min-height:165px;
+  overflow: hidden;
+  width: 100%;
+}
+#testimg {
+  height: auto;
+  width:100%;
+}
+.radio label {
+  float:left;
+}
+.settings-id {
+  width: 168px;
+  padding-left: 10px;
+  margin-top: 8px;
+}
+#camera-settings .test-snapshot{
+  float: left;
+}
+#camera-settings #test-error {
+  float: left;
+  clear: both;
+  text-align: left;
+  margin-top: 8px;
+}
+#camera-settings #test {
+  width:auto;
+}
+
+#details {
+  td:first-child {
+    color: #666666;
+  }
+}
+.controls {
+  margin-top: 6px;
+  border: 1px solid transparent;
+  border-radius: 2px 0 0 2px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  height: 36px;
+  outline: none;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+#search-location {
+  background-color: #fff;
+  font-family: Roboto;
+  font-size: 15px;
+  font-weight: 300;
+  padding: 0 11px 0 13px;
+  text-overflow: ellipsis;
+  width: 400px;
+  position: absolute;
+  z-index: 10000;
+}
+
+#search-location:focus {
+  border-color: #4d90fe;
+}
+
+#type-selector {
+  color: #fff;
+  background-color: #4d90fe;
+  padding: 5px 11px 0px 11px;
+}
+
+#type-selector label {
+  font-family: Roboto;
+  font-size: 13px;
+  font-weight: 300;
+}
+.coordinates {
+  position: absolute;
+  top: 0;
+  margin-left: -2px;
+}
+p#search-notes {
+  margin-top: 42px !important;
+}
+.location-search {
+ transition:0.3s;
+}
+#map-info{
+  display: none;
+}
+#coordinates-value .btn-edit {
+  margin-top: 2px;
+  float: right;
+}
+#save-map-location {
+  float: right;
+  margin-right: 26px !important;
+}
+
+.refresh-detail-snap:hover {
+  background: #68a2d5;
+}
+
+.table {
+
+  .port-changes {
+    background-color: $form-grey;
+  }
+
+  .nvr-port-changes {
+    background-color: $form-grey;
+  }
+
+  .rtsp-port-changes {
+    background-color: $form-grey;
+  }
+
+  .port,
+  .nvr-port {
+    background-color: transparent;
+    border: 0;
+    width: 50%;
+    display: inline-block;
+  }
+
+  .rtsp-port {
+    background-color: transparent;
+    border: 0;
+    width: 50%;
+    display: inline-block;
+  }
+
+  .port-status,
+  .nvr-port-status {
+    display: inline;
+    margin-right: 10px;
+    float: right;
+    margin-top: 10px;
+    min-width: 100px;
+    text-align: right;
+    font-size: 12px;
+  }
+
+  .rtsp-port-status {
+    display: inline;
+    margin-right: 10px;
+    float: right;
+    margin-top: 10px;
+    min-width: 100px;
+    font-size: 12px;
+    text-align: right;
+  }
+
+  .refresh-gif,
+  .nvr-refresh-gif {
+    display: none;
+    width: 16px;
+    margin-right: 20px;
+    float: right;
+    margin-top: 10px;
+  }
+
+  .rtsp-refresh-gif {
+    display: none;
+    margin-right: 20px;
+    float: right;
+    width: 16px;
+    margin-top: 10px;
+  }
+
+}
+
+.width-420 {
+  max-width: 420px;
+}
+
+.width-25 {
+  width: 25%;
+}
+
+.padding-left-9 {
+  padding-left: 9px;
+}
+
+@media (min-width: 600px) {
+
+  .settings-modal-width .col-sm-8 {
+    width: 66.66666667%;
+    float: left;
+  }
+
+  .settings-modal-width .col-sm-4 {
+    width: 33.33333333%;
+    float: left;
+  }
+
+}
+
+@media (max-width: 600px) {
+
+  .width-25 {
+    width: 30%;
+  }
+
+}
+
+.uniform-camera-notification {
+
+  margin-top: 0px;
+
+  .checker{
+    display: none;
+  }
+}

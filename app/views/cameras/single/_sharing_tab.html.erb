@@ -1,0 +1,338 @@
+<div id="myModal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <button type="button" class="close margin-top-minus5" data-dismiss="modal" aria-hidden="true"><i class="fas fa-times"></i></button>
+        <div class="col-md-12">
+          <div class="row"><h5>Visibility Options</h5></div>
+          <div class="form-group">
+            <div class="radio-list input-group">
+              <label class="radio-inline">
+                <input type="radio" class="icheck" name="sharingOptionRadios" id="sharingOptionRadios1" value="public_discoverable" <%= "checked" if @camera["is_public"] && @camera["discoverable"] %>>
+                Public on the web
+                <small> - Is Public: [Yes] &amp; Discoverable: [Yes]</small>
+              </label>
+
+              <label class="radio-inline">
+                <input type="radio" name="sharingOptionRadios" id="sharingOptionRadios2" value="public_undiscoverable" <%= "checked" if @camera["is_public"] && !@camera["discoverable"] %>>
+                Anyone with the link
+                <small> - Is Public: [Yes] &amp; Discoverable: [No]</small>
+              </label>
+
+              <label class="radio-inline">
+                <input type="radio" name="sharingOptionRadios" id="sharingOptionRadios2" value="private" <%= "checked" if !@camera["is_public"] %>>
+                Specific people can access (listed emails)
+                <small> - Is Public: [No] &amp; Discoverable: [No]</small>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <input type="hidden" name="sharing_tab_camera_id" id="sharing_tab_camera_id" value="<%= @camera["id"] %>"/>
+        <a href="#" type="button" data-dismiss="modal" id="set_permissions_submit" class="btn btn-primary">Save</a>
+        <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="change_owner2" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close margin-top-minus5" data-dismiss="modal" aria-hidden="true"><i class="fas fa-times"></i></button>
+        <h4>Transfer Camera Ownership</h4>
+      </div>
+      <div class="modal-body">
+        <p class="text-left">
+          Transfer ownership to a user who you are already sharing the camera with.
+        </p>
+        <p>
+          <strong>
+            Once you transfer, Camera will be shared with you with full-rights.
+          </strong>
+        </p>
+        <p id="change_owner_error" class="alert alert-danger" style="padding: 5px; display: none;"></p>
+        <div class="row" style="margin-top: 5px;">
+          <div class="col-md-8">
+            <select id="new_owner_email" name="new_owner_email" class="form-control">
+              <option value="">Select a new owner...</option>
+              <% if @camera_shares %>
+                <% @camera_shares.each do |share| %>
+                 <option value="<%= share["user_id"] %>" share_id="<%= share["id"] %>" data-email="<%= share["email"] %>"><%= share["fullname"] %></option>
+                <% end %>
+              <% end %>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <div class="row">
+          <div class="col-sm-8">
+            <div class="btn-toolbar pull-left">
+              <div class="btn-group">
+                <button type="button" id="submit_change_owner_button" camera_id="<%= @camera["id"] %>" class="btn btn-danger change_camera_ownership">Transfer</button>
+              </div>
+              <div class="btn-group">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<% has_edit_right = @camera["rights"].split(",").include?("edit") %>
+<div class="row padding-right15">
+  <div class="col-md-12">
+    <% styling = 'display: none;' %>
+    <div id="Sharespublic_discoverable" class="desc" style="<%= (@camera["is_public"] && @camera["discoverable"]) ? '' : styling %>">
+      <p>
+        <i class="fa fa-globe"></i>
+        This Camera is Public on the Web
+        <small> - Is Public: [Yes] &amp; Discoverable: [Yes]</small>
+        <% if has_edit_right %>
+          <a href="#" class="change" data-toggle="modal" data-target="#myModal">change</a>
+        <% end %>
+      </p>
+    </div>
+    <div id="Sharespublic_undiscoverable" class="desc" style="<%= (@camera["is_public"] && !@camera["discoverable"]) ? '' : styling %>">
+      <p>
+        <i class="fa fa-link"></i>
+        This camera can be accessed by anyone with the link
+        <small> - Is Public: [Yes] &amp; Discoverable: [No]</small>
+        <% if has_edit_right %>
+          <a href="#" class="change" data-toggle="modal" data-target="#myModal">change</a>
+        <% end %>
+      </p>
+    </div>
+    <div id="Sharesprivate" class="desc" style="<%= !@camera["is_public"] ? '' : styling %>">
+      <p>
+        <i class="fas fa-users"></i>
+        Only specific users (listed below) can access this camera
+        <small> - Is Public: [No] &amp; Discoverable: [No]</small>
+        <% if has_edit_right %>
+          <a href="#" class="change" data-toggle="modal" data-target="#myModal">change</a>
+        <% end %>
+      </p>
+    </div>
+    <input type="hidden" id="user_name" value="<%= current_user.username %>">
+    <table class="table table-bordered-top table-hover table-full-width" id="sharing_list_table">
+      <thead>
+      <th>Shared With</th>
+      <th class="share-by">Shared By</th>
+      <th class="col-lg-2">Rights</th>
+      <th></th>
+      <th>Action</th>
+      </thead>
+      <tbody>
+      <% if @owner %>
+      <tr>
+        <td class="owner-email" share-username="<%= @owner.username %>" share-email="<%= @owner.email %>">
+          <div class="gravatar-placeholder">
+            <% unless @camera['id'] == "evercam-remembrance-camera" %>
+              <img class="gravatar" id="gravatar-0" email="<%= @owner.email %>"/>
+            <% end %>
+          </div>
+          <div class="username-id">
+            <%= @owner.fullname %>
+            <% if @camera['owner'] == current_user.username %>
+              <small>(you)</small>
+            <% end %><br>
+            <small class="blue"><%= @owner.email %></small>
+          </div>
+        </td>
+        <td class="share-by"></td>
+        <td class="is-owner">Is Owner</td>
+        <td></td>
+        <td class="col-lg-2">
+          <% if @camera['owner'] == current_user.username %>
+            <a href="#" id="transfer" data-toggle="modal" data-target="#change_owner2">
+              Transfer
+            </a>
+          <% end %></td>
+      </tr>
+      <% end %>
+      <% if @camera_shares %>
+        <% @camera_shares.each do |share| %>
+          <% rights = share["rights"].split(",") %>
+          <tr id="row-share-<%= share["id"] %>" share-username="<%= share["user_id"] %>" share-email="<%= share["email"] %>">
+            <td class="col-lg-4">
+              <div class="gravatar-placeholder">
+                <% unless @camera['id'] == "evercam-remembrance-camera" %>
+                  <img class="gravatar" email="<%= share['email'] %>" />
+                <% end %>
+              </div>
+              <div class="username-id sharee_info">
+                <%= share["fullname"] %>
+                <% if share["user_id"] == current_user.username %>
+                  <small class="blue"> (you)</small>
+                <% end %><br>
+                <small class="blue"><%= share["email"] %></small>
+              </div>
+            </td>
+            <td class="col-lg-3 share-by">
+              <div class="username-id">
+                <% unless share["sharer_name"].nil? %>
+                  <%= share["sharer_name"] %><br>
+                  <small class="blue"><%= share["sharer_email"] %></small>
+                <% else %>
+                  Deleted User<br>
+                <% end %>
+              </div>
+            </td>
+            <td class="col-lg-2">
+              <div class="input-group">
+                <select class="form-control reveal <% if share["user_id"] == current_user.username %>disabled<% end %>"
+                  show-class="show-save" <% if share["user_id"] == current_user.username %>disabled<% end %>>
+                <option <%= "selected" if !rights.include?("view") %> value="minimal">Read Only</option>
+                <option <%= "selected" if rights.include?("view") %> value="full">Full Rights</option>
+                </select>
+              </div>
+            </td>
+            <td class="col-lg-1">
+              <button type="submit" class="save show-save btn btn-primary update-share-button">Save</button>
+            </td>
+            <td class="col-lg-2">
+              <div class="form-group">
+                <div class="popbox2">
+                  <span class="open2"><span class="remove"></span><i title="Remove" class="fas fa-trash-alt icon-font"></i></span>
+                  <div class="collapse-popup">
+                    <div class="box2">
+                      <div class="arrow2"></div>
+                      <div class="arrow-border2"></div>
+                      <div class="margin-bottom-10">Are you sure?</div>
+                      <div class="margin-bottom-10">
+                        <input class="btn btn-primary delete-btn delete-share" type="button" value="Yes, Remove" camera_id="<%= @camera["id"] %>" share_id="<%= share["id"] %>" />
+                        <div class="btn closepopup2 grey"><div class="text-center" fit>Cancel</div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+        <% end %>
+      <% end %>
+
+      <% if @share_requests %>
+        <% @share_requests.each do |share_request| %>
+          <% rights = share_request["rights"].split(",") %>
+          <tr class="share-request" id="row-share-<%= share_request["id"] %>" share-request-email="<%= share_request["email"] %>">
+            <td class="col-lg-4">
+              <% unless @camera['id'] == "evercam-remembrance-camera" %>
+                <img class="gravatar" email = "<%= share_request['email'] %>" />
+              <% end %>
+              <%= share_request["email"] %>
+              <small class="blue"> ...pending</small>
+            </td>
+            <td class="col-lg-3 share-by">
+              <div class="username-id">
+                <% unless share_request["sharer_name"].nil? %>
+                    <%= share_request["sharer_name"] %><br>
+                    <small class="blue"><%= share_request["sharer_email"] %></small>
+                <% else %>
+                    Deleted User<br>
+                <% end %>
+              </div>
+            </td>
+            <td class="col-lg-2">
+              <div class="input-group">
+                <select class="form-control reveal" show-class="show-save">
+                  <option <%= "selected" if !rights.include?("view") %> value="minimal">Read Only</option>
+                  <option <%= "selected" if rights.include?("view") %> value="full">Full Rights</option>
+                </select>
+              </div>
+            </td>
+            <td class="col-lg-1">
+              <button type="submit" class="save show-save btn btn-primary update-share-request-button">Save</button>
+            </td>
+            <td class="col-lg-2">
+              <div class="form-group">
+                <div class="popbox2">
+                  <span class="open2"><span class="remove"></span><i class="fas fa-trash-alt icon-font" title="Revoke"></i></span>
+                  <span class="resend-share-request" share_request_id="<%= share_request["id"] %>" camera_id="<%= @camera["id"] %>" email="<%= share_request["email"] %>"><i class="fa fa-paper-plane icon-font" title="Resend Email"></i></span>
+                  <div class="collapse-popup">
+                    <div class="box2">
+                      <div class="arrow2"></div>
+                      <div class="arrow-border2"></div>
+                      <div class="margin-bottom-10">Are you sure?</div>
+                      <div class="margin-bottom-10">
+                        <input class="btn btn-primary delete-btn delete-share-request-control" type="button" value="Yes, Revoke" share_request_id="<%= share_request["id"] %>" camera_id="<%= @camera["id"] %>" email="<%= share_request["email"] %>" />
+                        <div class="btn delete-btn closepopup2 grey">Cancel</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+        <% end %>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="row form-horizontal margin-top-10">
+  <div class="col-md-12 col-sm-12">
+    <div class="sharing-title title-padding">
+      <span class="bold">Share Camera with:</span>
+    </div>
+    <div class="add-user">
+      <table class="table remove-borders col-lg-5">
+        <tr>
+          <td class="col-lg-4">
+            <div class="input-group">
+              <select id="sharingPermissionLevel" class="form-control">
+                <option value="minimal">Read Only</option>
+                <option value="minimal+share">Read Only + Share</option>
+                <option value="full" <% unless has_edit_right %> disabled="disabled" <% end %>>Full Rights</option>
+              </select>
+            </div>
+          </td>
+        </tr>
+
+        <%# <tr>
+          <td class="col-lg-4">
+            <div class="email-input">
+              <div class="input-group">
+                <select id="sharing-user-email" name="sharing-user-email" class="js-example-basic-multiple form-control" multiple="multiple" style="width: 500px">
+                </select>
+              </div>
+            </div>
+          </td>
+        </tr> %>
+
+        <tr>
+          <td class="col-lg-4">
+            <div class="email-input">
+              <div class="input-group">
+                <select id="selectize-share-email" name="selectize-share-email" placeholder="Enter Email Address" style="width: 500px"></select>
+              </div>
+            </div>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="col-lg-4">
+            <div class="email-input">
+              <div class="input-group">
+                <textarea id="sharing-message" rows="5" placeholder="Message to send in email" class="form-control"></textarea>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="col-lg-4">
+            <div class="input-group">
+              <button type="submit" class="btn btn-primary" id="submit_share_button" disabled="disable">Share</button>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

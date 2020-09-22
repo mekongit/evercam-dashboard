@@ -1,0 +1,127 @@
+<div id="user-settings">
+  <div class="user-settings-portal col-sm-6 col-md-4 col-lg-4">
+    <div class="profile">
+      <%= image_tag avatar_url(current_user.email), class: 'gravatar pull-left' %>
+      <div class="username">
+        <span class="grey">Email </span><span> <%= current_user.email -%></span>
+      </div>
+      <p class="small grey">Manage your avatar with <a href="https://en.gravatar.com/" target="_blank">Gravatar</a> </p>
+    </div>
+    <div class="portlet-body form">
+      <form id="userProfile" role="form" method="post">
+        <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
+        <div class="form-group">
+          <input data-validation="email" type="text" value="<%= current_user.email -%>" class="form-control" id="email" name="email" required>
+          <i class="minus-margin-top-25 float-right margin-right-10 far fa-envelope font-16 icon-color"></i>
+          <span class="form-highlight"></span>
+          <span class="form-bar"></span>
+          <label class="float-label" for="email">Email</label>
+        </div>
+        <div class="form-group">
+          <input data-validation-error-msg="Cannot be blank" data-validation="length" data-validation-length="min1" type="text" value="<%= current_user.firstname -%>" class="form-control" id="user-firstname" name="user-firstname" required>
+          <span class="form-highlight"></span>
+          <span class="form-bar"></span>
+          <label class="float-label" for="user-firstname">First Name</label>
+        </div>
+        <div class="form-group">
+          <input data-validation-error-msg="Cannot be blank" data-validation="length" data-validation-length="min1" type="text" value="<%= current_user.lastname -%>" class="form-control" id="user-lastname" name="user-lastname" required>
+          <span class="form-highlight"></span>
+          <span class="form-bar"></span>
+          <label class="float-label" for="user-lastname">Last Name</label>
+        </div>
+        <div class="form-group">
+          <input data-validation="length" data-validation-length="min0" type="text" value="<%= current_user.telegram_username -%>" class="form-control" id="telegram-username" name="telegram-username">
+          <i class="minus-margin-top-25 float-right margin-right-10 fab fa-telegram font-16 icon-color"></i>
+          <span class="form-highlight"></span>
+          <span class="form-bar"></span>
+          <label class="float-label" for="user-lastname">Telegram Username</label>
+        </div>
+        <div class="form-group">
+          <label class="grey" for="country">Country</label>
+          <select id="country" name="country" class="form-control">
+            <% if current_user.country.blank? %>
+              <option value="">Not Specified</option>
+            <% end %>
+            <% @countries.each do |c| %>
+              <option value="<%= c.iso3166_a2 -%>" <%= 'selected="selected"' if c == current_user.country %>>
+                <%= c.name -%>
+              </option>
+            <% end %>
+          </select>
+        </div>
+        <div class="margin-top-40 row">
+          <div class="col-md-12">
+          <input type="submit" class="btn blue" value="Update" name="Save"/>
+          </div>
+        </div>
+      </form>
+      <% unless current_user.confirmed_at %>
+        <div class="alert alert-info alert-dismissible fade in margin-top-40" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span></button>
+              <span>
+                It looks like your account has not been verified yet.
+                <%= link_to 'Resend verification email.', user_email_resend_path, class: 'resend-email' %>
+              </span>
+        </div>
+      <% end %>
+    </div>
+    <div class="table-responsive table-borderless table-fixed col-lg-6 col-md-6 col-sm-12 no-padding margin-top-20">
+      <table class="table">
+        <tr>
+          <td class="online-offline-toggle padding-left-0">
+            <strong>Hide Offline Cameras</strong>
+          </td>
+          <td>
+            <div id="siderbar">
+              <label class="label toggle title">
+                <input type="checkbox" class="toggle_input" id="offline-btn"/>
+                <div class="toggle-control"></div>
+              </label>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="padding-left-0">
+            <p class="delete" data-toggle="modal" data-target="#delete-account">Delete your account</p>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<form role="form" method="post">
+  <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
+<div class="modal fade" id="delete-account" tabindex="-1" role="dialog" aria-labelledby="delete-account" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close margin-top-minus5" data-dismiss="modal" aria-hidden="true"><i class="fas fa-times"></i></button>
+        <h5>Delete your account (<%= current_user.email -%>) </h5>
+      </div>
+      <div class="modal-body">
+        <div class="">
+          <% @cameras.each do |camera| %>
+            <% if camera['owned'] %>
+              <p class="text-left">You must confirm you would like to delete the cameras you own or you can transfer ownership before deleting your account. <br>Check the box to confirm you would like to delete the camera:</p>
+              <div class="camera-row">
+                <div class="form-group checkbox">
+                  <input id="chk-camera-<%= camera['id'] %>" class="camera-delete" type="checkbox" value="<%= camera['id'] %>"> <label for="chk-camera-<%= camera['id'] %>" class="camera-row-label"><%= camera['name'] %></label>
+                  <label class="transfer-span"><%= link_to 'Transfer camera', "#{cameras_single_path(camera['id'])}/shares/transfer", class: 'transfer-link' %></label>
+                </div>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+        <p class="text-left margin-top-20">Type 'Delete' to confirm you would like delete your account and any cameras you currently own.</p>
+        <input data-validation-error-msg="Cannot be blank" required="true" type="text" class="form-control" id="delete-camera" name="delete-camera" required>
+      </div>
+      <div class="modal-footer">
+        <input type="hidden" name="_method" value="delete"/>
+        <input type="submit" id="close-account" name="close-account" class="btn btn-danger pull-left" value="Delete Account">
+      </div>
+    </div>
+  </div>
+</div>
+</form>

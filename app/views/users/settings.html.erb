@@ -1,0 +1,60 @@
+<% provide(:title, "Evercam: User Settings") %>
+<div id="user-settings">
+  <div class="page-content-wrapper settings-tab" id="manage-account">
+    <div class="page-content">
+      <div class="tabbable tabbable-custom">
+        <div class="center-tabs">
+          <ul id="ul-nav-tab" class="nav nav-tabs">
+            <li class="active">
+              <a data-toggle="tab" data-target="#account" class="nav-tab-account nav-tab-">Account</a>
+            </li>
+            <li>
+              <a data-toggle="tab" data-target="#password" class="nav-tab-details">Password</a>
+            </li>
+            <li>
+              <a data-toggle="tab" data-target="#activities" class="nav-tab-activities">Activities</a>
+            </li>
+            <li>
+              <a data-toggle="tab" data-target="#embedded-live-view" class="nav-tab-live nav-tab-">Live View Widget</a>
+            </li>
+            <li>
+              <a data-toggle="tab" data-target="#embedded-recordings" class="nav-tab-recording-widget">Recording Widget</a>
+            </li>
+            <li>
+              <a data-toggle="tab" data-target="#api-call" class="nav-tab-api">API</a>
+            </li>
+          </ul>
+        </div>
+        <div class="tab-content">
+          <div id="account" class="account-setting margin-top-20 tab-pane active">
+            <%= render partial: "users/settings/account_tab" %>
+          </div>
+          <div id="password" class="account-password margin-top-20 tab-pane">
+            <%= render partial: "users/settings/password_tab" %>
+          </div>
+          <div id="activities" class="user-history tab-pane">
+            <%= render partial: "users/settings/user_activities_tab" %>
+          </div>
+          <div id="embedded-live-view" class="tab-pane margin-top-20">
+            <%= render partial: "widgets/widgets_new" %>
+          </div>
+          <div id="embedded-recordings" class="tab-pane margin-top-20">
+            <%= render partial: "widgets/widget_snapshot_navigator" %>
+          </div>
+          <div id="api-call" class="tab-pane margin-top-20">
+            <%= render partial: "users/settings/simple_api_calls" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function () {
+    window.initializeUserAccount();
+    window.initializeUserActivity();
+    <% if flash[:message] %>
+    Notification.show('<%= flash[:message] %>');
+    <% end %>
+  });
+</script>

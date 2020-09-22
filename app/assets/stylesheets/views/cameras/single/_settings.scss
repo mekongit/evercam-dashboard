@@ -1,0 +1,36 @@
+#settings-modal .table-borderless td.model-td {
+  padding-bottom: 10px !important;
+  padding-top: 4px !Important;
+}
+#settings-modal .table-borderless td.id-td {
+  padding-bottom: 10px !important;
+  padding-top: 4px !Important;
+}
+
+/* settings-tab */
+.list-group-item h5 {
+  margin-top: 0px;
+}
+.list-group-lg>.list-group-item {
+  padding-bottom: 30px;
+  padding-top: 35px;
+  border-bottom: 1px solid #e5e5e5;
+  overflow: auto;
+}
+.list-group-item:last-child {
+  border-bottom: none;
+}
+.list-group-item {
+  position: relative;
+  display: block;
+  padding: 10px 15px;
+  margin-bottom: 0px;
+  background-color: #fff;
+  border: none;
+}
+.list-group-item:first-child {
+  padding-top: 10px;
+}
+#deleteModal .alert {
+  padding: 9px;
+}

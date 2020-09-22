@@ -1,0 +1,320 @@
+<% if @archive_view %>
+  <%= content_for(:title, "Evercam: Archive View") %>
+  <div class="page-content-wrapper">
+    <div class="page-content" id="camera-single">
+      <div class="tab-content">
+        <%= render partial: "cameras/single/public_archive_view" %>
+      </div>
+    </div>
+  </div>
+  <script>
+  window.Evercam.Archive = {
+    id: '<%= @archive['id'] %>',
+    title:'<%= @archive['title'] %>',
+    camera_id: '<%= @archive['camera_id'] %>',
+    type: '<%= @archive['type'] %>',
+    from_date: '<%= @archive['from_date'] %>',
+    to_date: '<%= @archive['to_date'] %>',
+    thumbnail_url: '<%= @archive['thumbnail_url'] %>',
+    status: '<%= @archive['status'] %>',
+    public: '<%= @archive['public'] %>',
+    requester_name: '<%= @archive['requester_name'] %>',
+    requester_email: '<%= @archive['requester_email'] %>',
+    requested_by: '<%= @archive['requested_by'] %>',
+    frames: <%= @archive['frames'] %>,
+    file_name: '<%= @archive['file_name'] %>',
+    embed_time: '<%= @archive['embed_time'] %>',
+    embed_code: '<%= @archive['embed_code'] %>',
+    media_url: '<%= @archive['media_url']%>',
+    created_at: <%= @archive['created_at'] %>
+  };
+  $(document).ready(function () {
+    window.initializePublicArchivesView();
+  });
+</script>
+<% else %>
+<%= content_for(:title, "#{@camera['name']} | Evercam: Camera View") %>
+
+<div class="page-content-wrapper">
+  <div class="page-content camera-<%= @camera['id'] %>" id="camera-single">
+
+    <div class="portlet-body">
+      <div class="alert alert-info public-camera-alert">
+        <span>To add this camera into your account, you need to <%= link_to "Sign In",signin_path, :class => "bold" %> or <%= link_to "Create New Account",signup_path, :class => "bold" %></span>
+      </div>
+      <% has_edit_right = @camera["rights"].split(",").include?("edit") %>
+      <div class="tabbable tabbable-custom">
+        <div class="center-tabs">
+          <ul id="ul-nav-tab" class="nav nav-tabs ul-nav-tab-single">
+            <% if @camera["status"] != "project_finished" %>
+              <li id="live-view-tab" class="active">
+                <a data-toggle="tab" data-target="#live" class="nav-tab-live nav-tab-"><span>Live View</span></a>
+              </li>
+            <% end %>
+            <% if current_user %>
+              <li id="recording-list" class="<%= 'active'if @camera["status"] == 'project_finished' %>">
+                <a data-toggle="tab" data-target="#recordings" class="nav-tab-recordings"></i>Recordings</a>
+              </li>
+              <% if !has_edit_right && !@camera["rights"].include?("share") %>
+                <li id="ro-sharing-tab">
+                  <p id="read-only-sharing-tab" data-toggle="modal" data-target="#sharing-modal" class="nav-tab-shares read-only-sharing-tab">Sharing</p>
+                </li>
+              <% end %>
+            <% end %>
+
+            <% if has_edit_right || @camera["rights"].include?("share") %>
+              <li>
+                <a data-toggle="tab" data-target="#shares" class="nav-tab-shares"> Sharing</a>
+              </li>
+            <% end %>
+
+            <li>
+              <a id="maps-tab-fix" data-toggle="tab" data-target="#details" class="nav-tab-details">Details</a>
+            </li>
+            <% if has_edit_right %>
+              <li>
+                <a data-toggle="tab" data-target="#logs" class="nav-tab-logs"> Logs</a>
+              </li>
+            <% end %>
+            <% if current_user %>
+              <li>
+                <a data-toggle="tab" data-target="#archives" class="nav-tab-archives">Archives</a>
+              </li>
+              <li>
+                <a data-toggle="tab" data-target="#compare" class="nav-tab-compare">Compare</a>
+              </li>
+              <% if ["marco@evercam.io", "vq@evercam.io", "oldconstruction", "construction@evercam.io", "azhar@evercam.io", "lauranela"].include?(current_user.username) && @camera["vendor_id"].eql?("hikvision") %>
+                <li>
+                  <a data-toggle="tab" data-target="#local-recordings" class="nav-tab-local-recordings">Local Recordings</a>
+                </li>
+              <% end %>
+              <% if @camera['owner'] != current_user.username && !@has_shared && @camera["is_public"] %>
+                <div class="pull-right add-to-share">
+                  <i id="add-to-cameras" class="fa fa-plus delete-share-icon icon-font create-share-button" title="Add to my camera" aria-hidden="true"></i>
+                </div>
+              <% end %>
+            <% else %>
+              <div class="pull-right add-to-share">
+                <i id="add-to-public-cameras" class="fa fa-plus delete-share-icon icon-font create-share-button" title="Add to my camera" aria-hidden="true"></i>
+              </div>
+            <% end %>
+            <% if current_user %>
+              <div id="delete-read-only-camera">
+                <% unless has_edit_right %>
+                  <i class="fas fa-trash-alt delete-share-icon icon-font" data-toggle="modal" data-target="#deleteModal" title="Delete" aria-hidden="true"></i>
+                <% end %>
+              </div>
+              <div id="sharing-modal" class="modal fade sharing-modal">
+                <div class="modal-dialog max-width-470">
+                  <div class="modal-content">
+                    <div class="modal-body">
+                      <button type="button" class="close margin-top-minus5" data-dismiss="modal" aria-hidden="true"><i class="fas fa-times"></i></button>
+                      <div class='portlet sharing-portlet'>
+                        <div class="portlet-title">
+                          <div class="caption"> Sharing Camera</div>
+                        </div>
+                      </div>
+                      <div class="col-md-12 padding-0 margin-top-10">
+                        <p class="text-left margin-0">You have <strong> Read Only </strong>access to this <strong> private camera</strong>.</p><br>
+                        <p class="text-left margin-0">In order to share this camera with other people, it must either be a <strong> public camera </strong> or you must have Full Rights to share.</p>
+                        <br>
+                        <p class="text-left margin-0">If you would like to share this camera, please request <strong> Full Rights </strong> access from the owner, <strong> <%= @owner.fullname %> </strong>on <%= @owner.email %> or contact Evercam Live Support.</p>
+                        <br>
+                        <p class="text-left margin-0">With Evercam, it is possible to share your camera with as many people as you wish.</p>
+                        <br>
+                        <p class="text-left margin-0">Go ahead, share the love !</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+            <div id="deleteModal" class="modal fade">
+              <div class="modal-dialog width-420">
+                <div class="modal-content">
+                  <div class="modal-body">
+                    <button type="button" class="close margin-top-minus5" data-dismiss="modal" aria-hidden="true"><i class="fas fa-times"></i></button>
+                    <div class="col-md-12 padding-0">
+                      <% if current_user %>
+                        <% if @is_owner %>
+                          <p class="text-left margin-0">Are you sure you want to <strong>Delete</strong> this camera?</p>
+                        <% else %>
+                          <p class="text-left margin-0">Are you sure you want to <strong>Remove</strong> this camera?</p>
+                        <% end %>
+                      <% end %>
+                    </div>
+                    <div class="col-md-12 margin-top-10 padding-0">
+                      <% if current_user %>
+                        <% if @is_owner %>
+                          <div class="col-md-12 margin-top-10 padding-0">
+                            <p>Enter camera id (<strong><%= @camera['id'] %></strong>) to confirm that you want to permanently delete this camera</p>
+                            <input id="camera_specified_id" name="camera_specified_id" type="text" class="form-control">
+                          </div>
+                        <% end %>
+                      <% end %>
+                    </div>
+                  </div>
+                  <div class="modal-footer padding-15">
+                    <div class="col-sm-8 padding-0">
+                      <% if current_user %>
+                        <% if @is_owner %>
+                          <input type="hidden" id="share" name="share" value="false"/>
+                          <button id="delete-camera" name="delete-camera" class="btn btn-danger pull-left">Delete</button>
+                        <% else %>
+                          <input type="hidden" id="share_id" name="share_id" value=""/>
+                          <input type="hidden" id="share" name="share" value="true"/>
+                          <button id="remove-camera" name="remove-camera" class="btn btn-danger pull-left">Yes</button>
+                        <% end %>
+                        <!-- <input type="button" class="btn btn-default pull-left" value="<% if @is_owner %>Cancel<% else %>No<% end %>" data-dismiss="modal" /> -->
+                      <% end %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <li id="tab_image_editor" class="hide">
+              <a data-toggle="tab" data-target="#image-editor" class="nav-tab-image-editor">Image Editor</a>
+            </li>
+          </ul>
+          <div id="archive-modal" class="modal fade archive-modal">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div id="form-create-clip" class="modal-body">
+                  <div class="row">
+                    <div class='col-lg-12 col-md-12 col-sm-12'>
+                      <div class='portlet'>
+                        <button type="button" class="close margin-top-minus5" data-dismiss="modal" aria-hidden="true"><i class="fas fa-times"></i></button>
+                        <div class="portlet-title">
+                          <div id="archive_create_caption" class="caption"> Create a new Clip</div>
+                        </div>
+                        <div class="portlet-body">
+                          <div class="add-clip">
+                            <table class="table table-fixed table-borderless">
+                              <tr>
+                                <td style="width: 100px;"><label class="control-label camera-name" for="camera-name">Clip Name*</label></td>
+                                <td>
+                                  <input type="text" required placeholder="e.g. My First Clip" class="form-control clip-text-box" id="clip-name" name="clip-name">
+                                </td>
+                              </tr>
+                              <tr>
+                                <td class="col-md-4"><label class="control-label" for="camera-vendor">Start*</label></td>
+                                <td>
+                                  <input id="from-date" name="from-date" class="date-input form-control padding-top-7 clip-text-box clip-datepicker" type="text" />
+                                  <input id="archive-time" class="date-input margin-top-1 form-input col-sm-2 text-center timepicker-default" type="text"/>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td class="model-td"><label class="control-label">Duration*</label></td>
+                                <td>
+                                  <input id="to-date" name="to-date" class="duration-input padding-top-7 clip-text-box form-control" placeholder="1-60" type="number" min="1" max="60" value="30">
+                                  <span class="duration-error">Minutes (Max 1hr per clip)</span>
+                                </td>
+                              </tr>
+                              <tr id="row-archive-has-snapshots" style="display: none;">
+                                <td></td>
+                                <td class="has-image-td"><div id="td-has-snapshot" class="alert-info margin-left15"></div></td>
+                              </tr>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <fieldset>
+                    <div class="save-settings">
+                      <div class='pull-left form-group'><label class="control-label" for="add-button"></label>
+                        <input type="button" class="push btn btn-primary margin-right-10" id="create_clip_button" value="Create Clip"/>
+                        <input type="hidden" id="archive-url" value="<%= request_clip_path(params[:id]) %>">
+                        <input type="hidden" id="archive-delete-url" value="<%= delete_clip_path %>">
+                        <input type="hidden" id="txtCreateArchiveType" value="">
+                      </div>
+                    </div>
+                  </fieldset>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <input type="hidden" name="camera_time_offset" id="camera_time_offset" value="<%= @offset %>">
+          <input type="hidden" name="camera_selected_time" id="camera_selected_time" value="<%= @selected_date %>">
+          <input type="hidden" id="archive-create-button" value="<%= @cr_status %>">
+
+        </div>
+        <div class="tab-content">
+          <% if @camera["status"] != "project_finished" %>
+            <div id="live" class="tab-pane active">
+              <%= render partial: "cameras/single/live_view_tab" %>
+            </div>
+          <% end %>
+          <div id="details" class="tab-pane">
+            <%= render partial: "cameras/single/info_tab" %>
+          </div>
+          <div id="recordings" class="tab-pane <%= 'active' if @camera['status'] == 'project_finished' %>">
+            <%= render partial: "cameras/single/snapshots_navigator_tab" %>
+          </div>
+
+          <% if has_edit_right || @camera["rights"].include?("share") %>
+            <div id="shares" class="tab-pane shares_tab">
+              <%= render partial: "cameras/single/sharing_tab" %>
+            </div>
+          <% end %>
+          <% if has_edit_right %>
+            <div id="logs" class="tab-pane">
+              <%= render partial: "cameras/single/logs_tab" %>
+            </div>
+          <% end %>
+          <% if current_user %>
+            <div id="archives" class="tab-pane">
+              <%= render partial: "cameras/single/archives_tab" %>
+            </div>
+          <% end %>
+          <div id="compare" class="tab-pane compare_tab">
+            <%= render partial: "cameras/single/compare_tab" %>
+          </div>
+          <% if current_user %>
+            <% if ["marco@evercam.io", "vq@evercam.io", "oldconstruction", "construction@evercam.io", "azhar@evercam.io", "lauranela"].include?(current_user.username) && @camera["vendor_id"].eql?("hikvision") %>
+              <div id="local-recordings" class="tab-pane local_recordings">
+                <%= render partial: "cameras/single/local_recording_tab" %>
+              </div>
+            <% end %>
+          <% end %>
+          <div id="image-editor" class="tab-pane image_editor_tab">
+            <%= render partial: "cameras/single/image_editor_tab" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  window.Evercam.Camera = {
+    id: '<%= @camera['id'] %>',
+    name:'<%= @camera['name'] %>',
+    status: '<%= @camera['status'] %>',
+    is_public: <%= @camera['is_public'] %>,
+    vendor_id: '<%= @camera['vendor_id'] %>',
+    model_name: '<%= @camera['model_name'] %>',
+    timezone: '<%= @camera['timezone'] %>',
+    created_at: '<%= @camera['created_at'] %>',
+    has_edit_right: <%= @camera["rights"].split(",").include?("edit") %>,
+    has_share_right: <%= @camera["rights"].include?("share") %>,
+    <% if current_user %>
+      is_owner: <%= @camera['owner'] == current_user[:username]? true : false %>,
+    <% end %>
+    location: {
+      lat: <%= @camera.deep_fetch('location', 'lat') {} %>,
+      lng: <%= @camera.deep_fetch('location', 'lng') {} %>
+    },
+    cloud_recording: {
+      frequency: <%= @cloud_recording['frequency'].to_i %>,
+      storage_duration: <%= @cloud_recording['storage_duration'].to_i %>,
+      status: '<%= @cloud_recording['status'].to_s %>',
+      schedule: <%= raw(@cloud_recording['schedule'].to_json) %>
+    }
+  };
+  $(document).ready(function () {
+    window.initializeCameraSingle();
+  });
+</script>
+<% end %>

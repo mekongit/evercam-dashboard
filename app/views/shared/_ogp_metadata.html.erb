@@ -1,0 +1,7 @@
+<% if @camera['is_public'] %>
+  <meta property='og:title' content='<%= yield(:title) %>'/>
+  <meta property='og:image' content='<%= "https://media.evercam.io/v2/cameras/#{@camera['id']}/thumbnail" %>'/>
+  <meta property='og:description' content='<%= "#{@camera['name']} is a public camera, Enjoy a live view of this public camera from anywhere. Use your mobile, laptop or tablet from the office, on the road or even on-site." %>'/>
+  <meta property='og:url' content='<%= "https://dash.evercam.io/v2/cameras/#{@camera['id']}" %>' />
+  <meta property='og:type' content='video.movie' />
+<% end %>

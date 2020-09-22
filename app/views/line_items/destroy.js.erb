@@ -1,0 +1,16 @@
+$(".cart").html("<%= escape_javascript(render :partial => 'subscriptions/cart') %>");
+$(".cart-count").text($("#cart-total").val());
+var cart_count = parseInt($("#cart-total").val());
+if (cart_count == 0) {
+  $("#divCart").slideUp(400);
+}
+Notification.show("<%= flash.now[:message] %>");
+<% if params[:type].eql?("add-on") %>
+  var qty = parseInt($("#add-<%= params["id"] %>-qty").val());
+  $("#add-<%= params["id"] %>-qty").val(qty-1);
+<% elsif params[:type].eql?("plan") %>
+  $(".add-on-text").val("0");
+<% elsif params[:product].present? %>
+  var qty = parseInt($("#add-<%= params[:product] %>-qty").val());
+  $("#add-<%= params[:product] %>-qty").val(qty-1);
+<% end %>

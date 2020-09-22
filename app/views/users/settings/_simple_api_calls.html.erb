@@ -1,0 +1,123 @@
+<div id="api-calls" class="api-calls">
+  <div class="col-sm-12 col-md-12">
+    <div>
+      <p>API ID & Keys are for use by developers. <strong>Do not share this information,</strong> it gives the holder access to your Evercam account.</p>
+    </div>
+    <div class="col-lg-12 col-sm-12-col-md-12 no-padding margin-top-20">
+      <label class="col-md-2 api-id padding-right-10-media-992 float-left padding-left-0 padding-right-0 margin-top-10"><strong class="font-16">ID & Key</strong></label>
+      <input class="col-md-12 col-sm-12 max-width-115 height-34 font-14" readonly value="ID: <%= current_user.api_id -%>">
+      <input class="col-md-12 col-sm-12 max-width-310 height-34 font-14 margin-left-10" readonly value="Key: <%= current_user.api_key -%>">
+    </div>
+    <div class="col-md-12 no-padding margin-top-20">
+      <div class="portlet margin-bottom-20">
+        <div class="portlet-title">
+          <div class="caption">Live Snapshot</div>
+        </div>
+      </div>
+      <form id="simple-api-calls" role="form" method="post" class="center-block">
+        <div class="api-call-input form-group">
+          <div class="my-row">
+            <label class="col-md-2 control-label margin-top-10" for="api-call-camera">Choose Camera</label>
+          </div>
+          <div class="padding-left-10 input-group col-xs-12 col-sm-12 col-md-8 max-width-310">
+            <select id="api-call-camera" name="api-call-camera" class="form-control is-required">
+              <% @cameras.each do |camera| %>
+                <% css = "onlinec"
+                  thumbnail_url = "https://media.evercam.io/v2/cameras/#{camera['id']}/thumbnail?api_id=#{current_user.api_id}&api_key=#{current_user.api_key}"
+                  if camera['status'] == "offline"
+                    css = "offlinec"
+                  end
+                %>
+                <option class="<%= css %>" value="<%= camera['id'] %>" data-val="<%= thumbnail_url %>" data-timezone="<%= camera['timezone'] %>">
+                  <%= camera['name'] %> <% if camera['status'] == "offline" %>(Offline)<% end %> <% unless camera['is_public'] %><% end %>
+                </option>
+              <% end %>
+            </select>
+          </div>
+        </div>
+        <div class="form-group api-call-input margin-top-10">
+          <div class="my-row">
+            <label class="col-md-2 control-label margin-top-10" for="api-call-datetime">URL to JPEG</label>
+          </div>
+          <div class="input-group padding-left-10 col-sm-12 col-xs-12 col-md-10">
+            <input id="live-snapshot-url" name="live-snapshot-url" placeholder="JPEG URL" class="url-input-design form-control" type="text" readonly value=""><i class="btn margin-left-62 copy-url-icon far fa-copy" data-clipboard-target="#live-snapshot-url" title="Copy URL"></i><a id="live-api-url" href="" target="_blank"><i class="fa fa-external-link-alt icon-font external-link-url copy-url-icon " title="Open URL"></i></a>
+          </div>
+        </div>
+        <div class="form-group api-call-input margin-top-10">
+          <div class="my-row">
+            <label class="col-md-2 control-label margin-top-10" for="api-call-datetime">URL to Dash</label>
+          </div>
+          <div class="input-group padding-left-10 col-sm-12 col-xs-12 col-md-10">
+            <input id="live-snapshot-dashboard-url" name="live-snapshot-url" placeholder="Dashboard URL" class="url-input-design form-control" type="text" readonly><i class="btn margin-left-62 copy-url-icon far fa-copy" data-clipboard-target="#live-snapshot-dashboard-url" title="Copy URL"></i><a id="snapshot-api-url" href="" target="_blank"><i class="fa fa-external-link-alt icon-font external-link-url copy-url-icon" title="Open URL"></i></a>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="col-sm-12 col-md-12 margin-top-20">
+    <div class="col-md-12 no-padding">
+      <div class="portlet margin-bottom-20">
+        <div class="portlet-title">
+          <div class="caption">Recorded Snapshot</div>
+        </div>
+      </div>
+      <form id="recorded-api-calls" role="form" method="post" class="center-block">
+        <div class="api-call-input form-group">
+          <div class="my-row">
+            <label class="col-md-2 control-label margin-top-10" for="api-call-camera">Choose Camera</label>
+          </div>
+          <div class="padding-left-10 input-group col-xs-12 col-sm-12 col-md-8 max-width-310">
+            <select id="recorded-call-camera" name="recorded-call-camera" class="form-control is-required">
+              <% @cameras.each do |camera| %>
+                <% css = "onlinec"
+                  thumbnail_url = "https://media.evercam.io/v2/cameras/#{camera['id']}/thumbnail?api_id=#{current_user.api_id}&api_key=#{current_user.api_key}"
+                  if camera['status'] == "offline"
+                    css = "offlinec"
+                  end
+                %>
+                <option class="<%= css %>" value="<%= camera['id'] %>" data-val="<%= thumbnail_url %>" data-timezone="<%= camera['timezone'] %>">
+                  <%= camera['name'] %> <% if camera['status'] == "offline" %>(Offline)<% end %> <% unless camera['is_public'] %><% end %>
+                </option>
+              <% end %>
+            </select>
+          </div>
+        </div>
+        <div class="form-group api-call-input margin-top-10">
+          <div class="my-row">
+            <label class="col-md-2 control-label margin-top-10" for="api-call-datetime">Date & Time</label>
+          </div>
+          <div class="padding-left-10 input-group col-sm-12 col-xs-12 col-md-8">
+            <div class="col-md-2 dropdown-padding-left max-width-120 float-left"><input placeholder="Select Date" type="text" class="form-control" id="api-call-datetime" name="api-call-datetime"></div>
+            <div class="col-md-1 dropdown-padding-left max-width-60 float-left"><select id="api-call-hour" name="api-call-hour" class="time-dropdown form-control is-required"></select></div>
+            <div class="col-md-1 dropdown-padding-left max-width-60 float-left"><select id="api-call-minutes" name="api-call-hour" class="time-dropdown form-control is-required"></select></div>
+            <div class="col-md-1 dropdown-padding-left max-width-60 float-left"><select id="api-call-seconds" name="api-call-hour" class="time-dropdown form-control is-required"></select></div>
+          </div>
+        </div>
+
+        <div class="form-group api-call-input margin-top-10">
+          <div class="my-row">
+            <label class="col-md-2 control-label margin-top-10" for="api-call-datetime">URL to Snapshot</label>
+          </div>
+          <div id="no-recorded-snapshot" class="no-recorded-snapshot padding-left-10 input-group col-sm-12 col-xs-12 col-md-10">
+            <input class="max-width-440 url-input-design form-control" type="text" value="There are no snapshots available for the selected period." readonly>
+          </div>
+          <div class="recorded-url padding-left-10 input-group col-sm-12 col-xs-12 col-md-10">
+            <input id="recorded-snapshot-url" name="recorded-snapshot-url" placeholder="Recorded Snapshot Url" class="max-width-1075 url-input-design form-control" type="text" readonly><i class="btn margin-left-62 copy-url-icon far fa-copy" data-clipboard-target="#recorded-snapshot-url" title="Copy URL"></i><a id="recorded-api-link" href="" src="" target="_blank"><i class="fa fa-external-link-alt icon-font external-link-url copy-url-icon" title="Open URL"></i></a>
+          </div>
+        </div>
+        <div class="form-group api-call-input margin-top-10">
+          <div class="my-row">
+            <label class="col-md-2 control-label margin-top-10" for="api-call-datetime">URL to Dash</label>
+          </div>
+          <div class="padding-left-10 input-group col-sm-12 col-xs-12 col-md-10">
+            <input id="recorded-dashboard-url" name="recorded-snapshot-url" placeholder="Recorded Snapshot Url" class="max-width-1075 form-control" type="text" readonly><i class="btn margin-left-62 copy-url-icon far fa-copy" data-clipboard-target="#recorded-dashboard-url" title="Copy URL"></i><a id="recorded-dashboard-link" href="" src="" target="_blank"><i class="fa fa-external-link-alt icon-font external-link-url copy-url-icon" title="Open URL"></i></a>
+          </div>
+        </div>
+        <div class="col-lg-12 col-sm-12-col-md-12 no-padding margin-top-20">
+          <label class="col-md-12 api-id padding-right-10-media-992 float-left padding-left-0 padding-right-0 margin-top-10"><strong class="font-16">API Documentation available here.</strong><a id="api-document-link" href="https://media.evercam.io/v2/swagger/index.html" src="https://media.evercam.io/v2/swagger/index.html" target="_blank"><i class="fa fa-external-link-alt icon-font margin-left-5" title="Open URL"></i></a></label>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

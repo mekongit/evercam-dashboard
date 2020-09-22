@@ -1,0 +1,26 @@
+$(".cart").html("<%= escape_javascript(render :partial => 'subscriptions/cart') %>");
+$(".cart-count").text($("#cart-total").val());
+$(".cart-count").css("opacity", 10);
+Notification.show("<%= flash.now[:message] %>");
+<% if @added_to_cart %>
+  var qty = parseInt($("#add-<%= params["product_id"] %>-qty").val());
+  $("#add-<%= params["product_id"] %>-qty").val(qty+1);
+<% end %>
+
+(function() {
+  [].slice.call( document.querySelectorAll( '.checkout' ) ).forEach( function( el ) {
+    var openCtrl = el.querySelector( '.checkout__button' ),
+        closeCtrls = el.querySelectorAll( '.checkout__cancel' );
+
+    openCtrl.addEventListener( 'click', function(ev) {
+      ev.preventDefault();
+      classie.add( el, 'checkout--active' );
+    } );
+
+    [].slice.call( closeCtrls ).forEach( function( ctrl ) {
+      ctrl.addEventListener( 'click', function() {
+        classie.remove( el, 'checkout--active' );
+      } );
+    } );
+  } );
+})();

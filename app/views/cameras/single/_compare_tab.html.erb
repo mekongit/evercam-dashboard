@@ -1,0 +1,105 @@
+<div class="row">
+  <div class="div-compare-placeholder">
+    <input type="hidden" id="txtbefore">
+    <input type="hidden" id="txtafter">
+    <div class="js-img-compare">
+      <div style="display: none;">
+        <span id="calendar-before" class="images-compare-label before-calendar btn-primary" data-query="before-calendar"><i class="fas fa-calendar-alt compare-calendar icon-font"></i> Before</span>
+        <img id="compare_before" src="" alt="Before"/>
+      </div>
+      <div>
+        <span id="calendar-after" class="images-compare-label after-calendar btn-primary" data-query="after-calendar"><i class="fas fa-calendar-alt compare-calendar icon-font"></i> After</span>
+        <img id="compare_after" src="" alt="After"/>
+      </div>
+      <% if current_user %>
+        <div id="div-embed-code" class="div-embed-code">
+          <span class="images-compare-embed-code btn btn-primary" title="Share Embed Code" href="#" data-toggle="modal" data-target="#export-compare-modal">Share / Download / Embed</i></span>
+        </div>
+      <% end %>
+      <div class="evercam-brand">
+        <%= image_tag("evercam-logo-white.png", :class => "svg-logo", alt: "Evercam.io") %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="export-compare-modal" class="modal fade export-compare-modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div id="form-create-clip" class="modal-body">
+        <div class="row">
+          <div class='col-lg-12 col-md-12 col-sm-12'>
+            <div class='portlet'>
+              <div class="portlet-title">
+                <button type="button" class="close margin-top-minus5" data-dismiss="modal" aria-hidden="true"><i class="fas fa-times"></i></button>
+                <div class="caption">Share / Download / Embed</div>
+              </div>
+              <div class="portlet-body">
+                <div class="add-clip">
+                  <table class="table table-fixed table-borderless">
+                    <tr>
+                      <td style="width: 100px;"><label class="control-label camera-name margin-top-5" for="export_name">Title</label></td>
+                      <td>
+                        <input type="text" id="export-compare-title" required placeholder="e.g. My Export Compare" class="form-control clip-text-box" id="export_name" name="export_name">
+                      </td>
+                    </tr>
+                    <tr id="row-animation" class="hide">
+                      <td colspan="2">
+                        <div id="loading-image-div" class="loading-image-div">
+                          <img class="export-compare-animation" src="/assets/evercam-loading-gif.gif">
+                        </div>
+                      </td>
+                    </tr>
+                    <tr id="row-textarea" class="hide">
+                      <td class="col-md-4"><label class="control-label" for="txtEmbedCode">Embed Code</label></td>
+                      <td>
+                        <div class="input-group col-sm-12 col-xs-12 col-md-12">
+                          <textarea id="txtEmbedCode" class="form-control embed-code copy-text" readonly="true"></textarea>
+                          <i class="icon-font copy-url-icon copy_embed_code far fa-copy" data-clipboard-target="#txtEmbedCode" title="Copy URL"></i>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr id="row-gif-url" class="hide">
+                      <td class="col-md-4"><label class="control-label" for="gif_url">GIF URL</label></td>
+                      <td>
+                        <div class="input-group col-sm-12 col-xs-12 col-md-12">
+                          <input type="text" name="gif_url" id="gif_url" class="form-control copy-text" readonly="true" />
+                          <i class="icon-font copy-url-icon far fa-copy" data-clipboard-target="#gif_url" title="Copy URL"></i>
+                          <i class="icon-font copy-url-icon fa fa-download download-animation" data-download-target="#gif_url" title="Download GIF (Good for emails)"></i>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr id="row-mp4-url" class="hide">
+                      <td class="col-md-4"><label class="control-label" for="mp4_url">MP4 URL</label></td>
+                      <td>
+                        <div class="input-group col-sm-12 col-xs-12 col-md-12">
+                          <input type="text" name="mp4_url" id="mp4_url" class="form-control copy-text" readonly="true" />
+                          <i class="icon-font copy-url-icon far fa-copy" data-clipboard-target="#mp4_url" title="Copy URL"></i>
+                          <i class="icon-font copy-url-icon fa fa-download download-animation" data-download-target="#mp4_url" title="Download MP4 (Good for everything else)"></i>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr id="row-message" class="hide">
+                      <td></td>
+                      <td>
+                        This may take up to 1 minute<br>Once completed, links will appear here to view / download.<br>This will also appear in your <a href="javascript:;" id="switch_archive">Archives</a> tab above.
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <fieldset>
+          <div class="export-buttons">
+            <div class='pull-left form-group1'>
+              <input type="button" class="push btn btn-primary margin-right-10 margin-left-5" id="export_compare_button" value="Create Compare"/>
+            </div>
+            <span id="spn-success-export" class="alert alert-info hide"></span>
+          </div>
+        </fieldset>
+      </div>
+    </div>
+  </div>
+</div>

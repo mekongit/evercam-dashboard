@@ -1,0 +1,126 @@
+<% provide(:title, "Create New Account") %>
+<section id="new-account" class="site-min-height">
+  <%= render partial: "users/background_video" %>
+  <div class="container section section-position no-padding" id="new-account">
+    <div id="signin" class="col-md-12 text-center no-padding">
+      <div class="bb-alert alert alert-danger" style="display:none;">
+        <span></span>
+      </div>
+      <div id="registration" class="center-div width-400 col-lg-4 col-lg-offset-4 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+        <div class="branding logo-padding">
+          <%= link_to root_path, class: 'sign-in-logo' do %>
+            <%= image_tag("evercam_logo.png", :class => "svg-logo", alt: "Evercam.io") %>
+          <% end %>
+        </div>
+        <div class="col-sm-12 padding-left-right-40">
+          <%= form_for(:user, url: signup_path, :html => { :id => "create-account" } ) do |f| %>
+            <% field_errors = (flash[:field_errors] || {}) %>
+
+            <div class="text-center">
+              <div class="col-sm-12 no-padding margin-top-bottom-15 form-group<%= field_errors.include?("firstname") ? " has-error" : "" %>">
+                <%= f.text_field :firstname, value: params.fetch('user', {})[:firstname], class: "form-control", "required" => "" %>
+                <% if field_errors.include?("firstname") %>
+                  <span class="help-block arrow_box form-error text-left"><%= field_errors["firstname"] %></span>
+                <% end %>
+                <%= f.label :firstname, 'First Name', class: "float-label" %>
+                <span id="invalid-userfirst-name" class="username-error float-left">Last names can consist of alphabetical characters and spaces only.</span>
+              </div>
+            </div>
+
+            <div class="text-center">
+              <div class="col-sm-12 no-padding margin-top-bottom-15 form-group<%= field_errors.include?("lastname") ? " has-error" : "" %>">
+                <%= f.text_field :lastname, value: params.fetch('user', {})[:lastname], class: "form-control", "required" => "" %>
+                <% if field_errors.include?("lastname") %>
+                  <span class="help-block arrow_box form-error text-left"><%= field_errors["lastname"] %></span>
+                <% end %>
+                <%= f.label :lastname, 'Last Name', class: "float-label" %>
+                <span id="invalid-userlast-name" class="username-error float-left">Last names can consist of alphabetical characters and spaces only.</span>
+              </div>
+            </div>
+
+            <div class="text-center">
+              <div id="signup-email" class="col-sm-12 no-padding margin-top-bottom-15 form-group<%= field_errors.include?("email") ? " has-error" : "" %>">
+                <% if @share_request.nil? %>
+                  <%= f.text_field :email, value: params.fetch('user', {})[:email], class: "form-control", "required" => "" %>
+                  <%= f.label :email, 'Email', class: "float-label" %>
+                <% else %>
+                  <%= f.text_field :email, value: @share_request.email, readonly: 'readonly', class: "form-control grey-background" %>
+                <% end %>
+                <% if field_errors.include?("email") %>
+                  <span class="help-block arrow_box form-error text-left"><%= field_errors["email"] %></span>
+                  <%= f.label :email, 'Email', class: "float-label" %>
+                <% end %>
+                <img src="/assets/refresh.gif" class="refresh-gif icon-position email-loading-icon">
+                <span id="email-error-block" class="username-error">Email has already been taken.</span>
+                <span id="incorrect-email-block" class="username-error">You have not type correct Email address.</span>
+                <span id="email-not-available" class="red hide"><i class="fa fa-times icon-position icon-font"></i></span>
+                <span id="email-available" class="green hide"><i class="fa fa-check icon-position icon-font"></i></span>
+              </div>
+            </div>
+
+            <div class="text-center">
+              <div class="col-sm-12 no-padding margin-top-bottom-15 form-group<%= field_errors.include?("password") ? " has-error" : "" %>">
+                <%= f.password_field :password, autocomplete: "off", class: "form-control" %>
+                <% if field_errors.include?("password") %>
+                  <span class="help-block form-error arrow_box text-left"><%= field_errors["password"] %></span>
+                <% end %>
+                <%= f.label :password, class: "float-label" %>
+                <span id="invalid-password" class="username-error">Password should be at least 6 characters.</span>
+              </div>
+            </div>
+            <div class="col-sm-12 no-padding text-center">
+              <%= f.submit "Create Account", class: "btn btn-large btn-primary width100" %>
+            </div>
+
+            <% if @share_request %>
+              <input type="hidden" name="key" id="key" value="<%= @share_request.key %>"/>
+            <% end %>
+          <% end %>
+          <div class="col-md-12 col-sm-12 text-center grey margin-top-20">
+            <p>Already have an account? <%= link_to "Sign in", signin_path %></p>
+          </div>
+          <div class="col-md-12 col-sm-12 text-center grey">
+            <a href="https://www.evercam.io/terms" target="blank">Terms of Use</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+  if (!window.Evercam) {
+    window.Evercam = {};
+  }
+
+
+  Notification.init(".bb-alert");
+  <% if flash[:message] %>
+  Notification.show('<%= flash[:message] %>');
+  <% end %>
+
+  window.Evercam.ENV = '<%= Rails.env %>';
+  $(function () {
+    $("alert").on("click", function () {
+      $("." + $(this).attr("data-hide")).hide();
+      });
+  });
+  $.validate();
+
+  $( document ).ready(function() {
+    if ($('div').find("input[type=text]").val() == '') {
+      $('.form-error').hide();
+    }
+    // $("#referral_url").val(document.referrer);
+  });
+  $('#create-account').submit(function(){
+    $(this).find('input:text').each(function(){
+      $(this).val($.trim($(this).val()));
+    });
+  });
+</script>
+
+<script>
+  $(document).ready(function () {
+    window.initializeVideoBackground();
+  });
+</script>

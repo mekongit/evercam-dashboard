@@ -1,0 +1,162 @@
+<div id="tab_timelapse" class="tab_timelapse">
+  ﻿
+  <div id="timelapse-form" class="settings-modal-width modal fade">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="row">
+            <div class='col-sm-12'>
+              <div class='portlet'>
+                <div class="portlet-title">
+                  <div class="caption"> New Timelapse</div>
+                </div>
+                <div class="portlet-body">
+                  <div class="row">
+                    <div class='col-sm-12'>
+                      <table class="table table-fixed table-borderless">
+                        <tr>
+                          <td class="col-xs-3 col-sm-3 pading-left-0"><label>Camera:</label></td>
+                          <td colspan="2">
+                            <select id="timelapse-camera" class="form-control" style="width: 100%;height: 40px;">
+                              <option value="">Select Camera</option>
+                              <% @cameras.each do |camera| %>
+                                <option value="<%= camera['id'] %>" status="<%= camera['status'] == "online" ? true : false %>" thumbnail="<%= "#{EVERCAM_MEDIA_API}cameras/#{camera['id']}/thumbnail?api_id=#{current_user.api_id}&api_key=#{current_user.api_key}" %>">
+                                  <%= camera["name"] %>
+                                </option>
+                                <% end %>
+                            </select>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td><label>Title:</label></td>
+                          <td colspan="2">
+                            <input type="text" name="timelapse-title" id="timelapse-title" required="required" class="form-control"
+                                   placeholder="Timelapse Title"/>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td><label>Interval:</label></td>
+                          <td colspan="2">
+                            <select id="timelapse-frequency" class="form-control">
+                              <option value="0">Select Interval</option>
+                              <option value="1">1 Frame Every 1 min</option>
+                              <option value="5">1 Frame Every 5 min</option>
+                              <option value="15">1 Frame Every 15 min</option>
+                              <option value="30">1 Frame Every 30 min</option>
+                              <option value="60">1 Frame Every 1 hour</option>
+                              <option value="360">1 Frame Every 6 hours</option>
+                              <option value="720">1 Frame Every 12 hours</option>
+                            </select>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td><label>Date Range:</label></td>
+                          <td>
+                            <div class="radio-list">
+                              <label class="radio-inline">
+                                <input id="chkDateRangeAlways" name="date_range" type="radio" checked value="true" class="icheck"/>&nbsp;Always
+                              </label>
+                            </div>
+                          </td>
+                          <td>
+                            <div class="radio-list">
+                              <label class="radio-inline">
+                                <input id="chkDateRange" name="date_range" type="radio" value="false" class="icheck"/>&nbsp;Range
+                              </label>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr class="range-row">
+                          <td></td>
+                          <td colspan="2">
+                            <div id="row_date_range" style="display: none;">
+                              <div class='col-sm-6 padding-left0'><input type="text" id="txt_from_date" class="form-control daterange" placeholder="From Date"></div>
+                              <div class='col-sm-6 padding-left0'><input type="text" id="txt_to_date" class="form-control daterange" placeholder="To Date"></div>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td><label>Time Range:</label></td>
+                          <td>
+                            <div class="radio-list">
+                              <label class="radio-inline">
+                                <input id="chkTimeRangeAlways" name="time_range" type="radio" checked value="true" class="icheck" />&nbsp;Always
+                              </label>
+                            </div>
+                          </td>
+                          <td>
+                            <div class="radio-list">
+                              <label class="radio-inline">
+                                <input id="chkTimeRange" name="time_range" type="radio" value="false" class="icheck" />&nbsp;Range
+                              </label>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr class="range-row">
+                          <td></td>
+                          <td colspan="2">
+                            <div id="row_time_range" style="display: none;">
+                              <div class='col-sm-6 padding-left0'><input type="text" id="txt_from_time" class="form-control timerange" placeholder="From Time" readonly value="00:00"></div>
+                              <div class='col-sm-6 padding-left0'><input type="text" id="txt_to_time" class="form-control timerange" placeholder="To Time" readonly value="23:59"></div>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td><label>Watermark Position:</label></td>
+                          <td colspan="2">
+                            <select id="timelapse-watermark-pos" class="form-control">
+                              <option value="TopLeft">Top Left</option>
+                              <option value="TopRight">Top Right</option>
+                              <option value="BottomLeft">Bottom Left</option>
+                              <option value="BottomRight">Bottom Right</option>
+                            </select>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td><label>Watermark Logo:</label></td>
+                          <td colspan="2">
+                            <label id='custom-fileselect' for='timelapse-watermark' class='custom-file-upload'><i class='fa fa-upload margin-top-4'></i> Choose File</label>
+                            <input id="timelapse-watermark" data-val="" type="file" class="form-control hide dialogue-logo-button" accept="image/*">
+                            <div style="display: none;" id="div-logo-upload" class="col-sm-12 padding-left0">
+                              <div class='col-sm-3 padding-left0'>
+                                <img id="img-watermark" src="" style="width: 70px;">
+                                <input type="hidden" id="watermark-base64">
+                              </div>
+                              <div class='col-sm-3 padding-left0'>
+                                <button id="btn-cancel-upload" class="btn btn-default cancel-upload" data-val="">
+                                  <i class="fa fa-ban"></i>
+                                  <span>Cancel</span>
+                                </button>
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <fieldset>
+            <div class="row save-settings">
+              <div class="col-md-12 pull-left form-group"><label for="add-button"></label>
+                <button id="save-timelapse" type="button" class="btn btn-primary"><i class="fa fa-check"></i> Save</button>
+                <button id="btn-cancel" type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-remove"></i> Cancel</button>
+                <input type="hidden" id="txt_timelapse_id">
+              </div>
+            </div>
+          </fieldset>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="divTimelapses" class=""></div>
+  <div class="clear-f"></div>
+  <div id="new-timelapse-btn1" class="col-sm-12 margin-bottom-10">
+    <div class="btn btn-primary" data-toggle="modal" data-target="#timelapse-form">
+      Create a new Timelapse
+    </div>
+  </div>
+</div>

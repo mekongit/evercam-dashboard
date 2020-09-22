@@ -1,0 +1,107 @@
+<div id="local_recordings_tab">
+  <div class="left-column">
+    <div id="local-recording-placeholder">
+      <div id="local-recording-stream" class="vjs-waiting">
+        <img id="evercam-loading-animation" class="evercam-loading-animation" src="/assets/evercam-loading-gif.gif">
+        <video id="local-recording-video-player" style="width: 100%;height: 100%;" class="video-js vjs-default-skin" controls autoplay
+               data-setup='{ "playbackRates": [0.25, 0.5, 1, 1.5, 2, 5, 10] }'>
+        </video>
+      </div>
+      <div id="clip-create-message" class="clip-create-message"></div>
+      <div id="div-capture" class="image_save">
+        <div class="save-live">
+          <i class="fa fa-camera icon-font" aria-hidden="true"></i>
+        </div>
+      </div>
+    </div>
+    <div class="visavail_container_class">
+      <p id="time_graph" class="margin-top-5 single-status-bar"></p>
+    </div>
+    <div id="div-tooltip" class="div-tooltip">
+      <div id="tooltip-img"><img src="" class="md-Img" id="nvr-img-popup"></div>
+      <div id="spn_datetime"></div>
+    </div>
+    <div id="div-stream-count-down" class="stream-count-down"></div>
+  </div>
+  <div class="right-column">
+    <div id="ui_date_picker_inline_lr" class="datepicker-bg">
+      <div id="nvr_days_loader" class="img-loader-calendar2">
+        <%= image_tag('loader3.gif', alt: 'Loading', class: 'center-gif') %>
+      </div>
+    </div>
+    <div class="datepicker datepicker-bg datepicker-inline">
+      <div id="nvr_hour_loader" class="img-loader-calendar hide">
+        <%= image_tag('loader3.gif', alt: 'Loading', class: 'center-gif') %>
+      </div>
+      <div class="datepicker-day show">
+        <table id="local_recording_hourCalendar" class="table-condensed width100">
+          <thead>
+          <tr>
+            <th colspan="7">Hour</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td id="lr_tdI0" class="day">0</td>
+            <td id="lr_tdI1" class="day">1</td>
+            <td id="lr_tdI2" class="day">2</td>
+            <td id="lr_tdI3" class="day">3</td>
+            <td id="lr_tdI4" class="day">4</td>
+            <td id="lr_tdI5" class="day">5</td>
+            <td id="lr_tdI6" class="day">6</td>
+          </tr>
+          <tr>
+            <td id="lr_tdI7" class="day">7</td>
+            <td id="lr_tdI8" class="day">8</td>
+            <td id="lr_tdI9" class="day">9</td>
+            <td id="lr_tdI10" class="day">10</td>
+            <td id="lr_tdI11" class="day">11</td>
+            <td id="lr_tdI12" class="day">12</td>
+            <td id="lr_tdI13" class="day">13</td>
+          </tr>
+          <tr>
+            <td id="lr_tdI14" class="day">14</td>
+            <td id="lr_tdI15" class="day">15</td>
+            <td id="lr_tdI16" class="day">16</td>
+            <td id="lr_tdI17" class="day">17</td>
+            <td id="lr_tdI18" class="day">18</td>
+            <td id="lr_tdI19" class="day">19</td>
+            <td id="lr_tdI20" class="day">20</td>
+          </tr>
+          <tr>
+            <td id="lr_tdI21" class="day">21</td>
+            <td id="lr_tdI22" class="day">22</td>
+            <td id="lr_tdI23" class="day">23</td>
+            <td class="day"></td>
+            <td class="day"></td>
+            <td class="day"></td>
+            <td class="day"></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="time-box">
+      <div class="padding-right-left-zero width-140 margintop-5">
+        <span class="color-grey font-14">Jump To:</span>
+         <input id="nvr_time_select" autocomplete="off" value="12:00:00" class="form-control1 nvr-time-picker font-14"/>
+      </div>
+      <div class="text-right width-60 margintop-5">
+        <span id="spn_load_stream" class="btn go-btn btn-primary">GO</span>
+      </div>
+      <div class="clear-f"></div>
+    </div>
+
+    <div class="row form-vertical margin-top-15">
+      <div class="col-md-12">
+        <div id="local-recording-archive-button" class="btn create-clip-btn btn-primary margin-bottom-40 width100" data-toggle="modal" data-target="#archive-modal">
+          Create a new Clip
+        </div>
+      </div>
+    </div>
+  </div>
+  <img id="captured" style="display: none;" />
+  <div class="clear-f"></div>
+</div>
+<input type="hidden" id="txtData">
+<input type="hidden" id="rtspValue" value="<%= @camera.deep_fetch('external', 'rtsp', 'port') {} %>">

@@ -1,0 +1,363 @@
+
+/* metronic-component.css overrides */
+/* Set default body */
+body {
+  color: black;
+  font-family: $regular-family;
+  padding: 0px !important;
+  margin: 0px !important;
+  font-size: 15px;
+  direction: ltr;
+}
+input, select, button, p {
+  border-radius: $border-radius !important;
+}
+
+/***
+General typography
+***/
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: $regular-family;
+}
+h5 {
+  font-size:16px;
+  font-family: $bold-family;
+  font-weight: normal;
+}
+th {
+  font-size: 16px;
+  font-family: $bold-family;
+  font-weight: normal;
+}
+/* Links */
+a {
+  text-shadow: none;
+  color: $main-color;
+}
+/* General utilities */
+.bold {
+  font-weight: normal !important;
+  font-family: $bold-family;
+  font-size: 1.07em;
+}
+b, strong {
+  font-family: $bold-family;
+  font-weight: normal;
+}
+em {
+  font-family: 'Proxima-Nova-It';
+}
+a:hover {
+  color: #2a6496;
+}
+/* Form inputs */
+.page-sidebar .page-sidebar-menu .sub-menu > li.active > a {
+  color: #ffffff;
+  position: relative;
+}
+.page-sidebar .page-sidebar-menu .sub-menu > li.active:before {
+  font-family: 'Font Awesome 5 Free';
+  right: -1px;
+  content: "\f0d9";
+  color: #ffffff;
+  position: relative;
+  float: right;
+  font-size: 22px;
+  margin-top: -2px;
+}
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  display: none;
+  float: left;
+  list-style: none;
+  text-shadow: none;
+  padding: 0px;
+  margin: 0px 0px 0px 13px;
+  background-color: #ffffff;
+  border: none;
+  font-size: 14px;
+  font-family: $regular-family;
+  border-radius: 1px !Important;
+  width: 208px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+}
+/***
+Customized Bootstrap Buttons
+***/
+/* Default buttons */
+.btn {
+  font-size: 16px;
+}
+/* Bootstrap buttons */
+.btn-default:hover, .btn-default:focus, .btn-default:active, .btn-default.active {
+  background-color: #f0f0f0;
+}
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active {
+  color: white !important;
+  background-color: lighten($main-color, 10%);
+  border-color: lighten($main-color, 10%);
+}
+.open .btn-default.dropdown-toggle {
+  background-color: #f0f0f0;
+}
+
+/***
+Form Layouts
+****/
+/* Help blocks */
+#add-ip .form .form-actions {
+  margin-top: 20px;
+  background-color: $secondary-grey;
+  border-top: 1px solid $main-grey;
+  *zoom: 1;
+}
+.form .form-actions {
+  padding: 20px 10px;
+  margin-top: 20px;
+  background-color: $secondary-grey;
+  border-top: 1px solid $main-grey;
+  *zoom: 1;
+}
+.form .form-actions.fluid > [class^="col-"] {
+  padding-left: 13px;
+}
+@media (max-width: 767px) {
+  /* 767px */
+  /* Portlet form action */
+  .portlet-body.form .form-actions {
+    padding-left: 15px;
+  }
+
+  .form-horizontal .form-actions {
+    padding-left: 180px;
+  }
+  .portlet .form-horizontal .form-actions {
+    padding-left: 190px;
+  }
+}
+@media (max-width: 480px) {
+  .portlet .form-horizontal .form-actions {
+    padding-left: 10px;
+  }
+}
+/* Rows seperated form layout */
+.form-row-seperated .form-group {
+  margin: 0;
+  border-bottom: 1px solid #efefef;
+  padding: 10px 0px 10px 0px;
+}
+
+/***
+Forms
+***/
+/* Input placeholder font color */
+.form-control::-moz-placeholder {
+  color: #e0e0e0;
+  opacity: 1;
+}
+.form-control:-ms-input-placeholder {
+  color: #e0e0e0;
+}
+.form-control::-webkit-input-placeholder {
+  color: #e0e0e0;
+}
+/* Form inputs */
+.form-control {
+  background-color: #f0f0f0;
+}
+/* Form uneditable input */
+.uneditable-input {
+  padding: 6px 12px;
+  min-width: 206px;
+  font-size: 14px;
+  font-weight: normal;
+  height: 34px;
+  color: #333333;
+  background-color: white;
+  border: 1px solid $main-grey;
+  border-radius: 0;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+  transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+.input-small {
+  width: 120px !important;
+}
+.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+  cursor:default;
+}
+
+/* Form labels */
+label {
+  font-size: 12px;
+}
+/* Feedback states */
+.has-success .form-control {
+  border-color: #3c763d;
+}
+.has-success .form-control:focus {
+  border-color: #2b542c;
+}
+.has-success .input-group-addon {
+  border-color: #3c763d;
+}
+.has-warning .form-control {
+  border-color: #8a6d3b;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+.has-warning .form-control:focus {
+  border-color: #66512c;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+.has-warning .input-group-addon {
+  color: #8a6d3b;
+  border-color: #8a6d3b;
+  background-color: #fcf8e3;
+}
+.has-warning .form-control-feedback {
+  color: #8a6d3b;
+}
+.has-error .form-control {
+  border-color: #a94442;
+}
+.has-error .form-control:focus {
+  border-color: #843534;
+}
+.has-error .input-group-addon {
+  color: #a94442;
+  border-color: #a94442;
+  background-color: #f2dede;
+}
+.has-error .form-control-feedback {
+  color: #a94442;
+}
+.note.note-info {
+  border: 1px solid $main-color;
+  background-color: $white;
+  color:$main-color;
+  padding: 10px 10px 10px 10px;
+}
+/***
+Input icons
+***/
+.input-icon {
+  position: relative;
+}
+.input-icon > .form-control {
+  padding-left: 33px;
+}
+.input-icon > i {
+  margin: 10px 2px 4px 10px;
+}
+.modal .input-icon > i {
+  z-index: 10055000;
+}
+.has-warning .input-icon > i {
+  color: #ecbc29;
+}
+
+/* Labels variants */
+.label-warning {
+  background-color: #ecbc29;
+}
+.label-warning[href]:hover, .label-warning[href]:focus {
+  background-color: #d0a112;
+}
+
+/***
+Customized Bootstrap Modal
+***/
+.modal {
+  z-index: 1005000 !important;
+}
+
+/***
+Customized Bootstrap Popover
+***/
+.popover {
+  -webkit-box-shadow: 0 1px 8px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0 1px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.2);
+  padding: 0;
+}
+.popover .popover-title {
+  -webkit-border-radius: 0 !important;
+  -moz-border-radius: 0 !important;
+  border-radius: 0 !important;
+  margin: 0 !important;
+}
+.popover.name .popover-title,
+name .popover .popover-content,
+.popover.name .popover-content {
+  color: #ecbc29;
+}
+
+/***
+Custom tabs
+***/
+.nav-tabs > li > a, .nav-pills > li > a {
+  font-size: 14px;
+  padding: 8.5px 15px;
+}
+/* In BS3.0.0 tabbable class was removed. We had to added it back */
+.tabbable:before, .tabbable:after {
+  content: " ";
+  display: table;
+}
+.tabbable:after {
+  clear: both;
+}
+
+.tabbable-custom {
+  margin-bottom: 15px;
+  padding: 0px;
+
+  /* justified tabs */
+  /* boxless tabs */
+  /* below justified tabs */
+  /* full width tabs */
+  /* below tabs */
+}
+
+.tabbable-custom > .nav-tabs {
+  border: none;
+  margin: 0px;
+}
+.tabbable-custom > .nav-tabs > li {
+  border-top: 2px solid transparent;
+}
+.tabbable-custom > .nav-tabs > li > a {
+  margin-right: 0;
+
+}
+.tabbable-custom > .nav-tabs > li > a:hover {
+  background: none;
+  border-color: transparent;
+  padding:10px 15px;
+}
+.tabbable-custom > .nav-tabs > li.active {
+  border-top: 0px solid $main-color;
+  margin-top: 0;
+  position: relative;
+}
+.tabbable-custom > .nav-tabs > li.active > a {
+  border-top: none;
+  font-family: $regular-family;
+}
+
+
+.tabbable-custom.nav-justified .tab-content {
+  margin-top: -1px;
+}

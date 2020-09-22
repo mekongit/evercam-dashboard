@@ -1,0 +1,189 @@
+<div class="camera-preview">
+  <div class="camera-preview-online <%= 'hide' if @camera['status'] == "offline" %>" id="camera-preview">
+    <div id="flash-message" class="flash-error-message">Flash Plugin status could not be determined, please verify the installation if the content does not load, <a class="message" href="https://get.adobe.com/flashplayer/">Click here to install</a></div>
+    <% has_edit_right = @camera["rights"].split(",").include?("edit") %>
+    <% port = @camera.deep_fetch('external', 'rtsp', 'port') {} %>
+    <% host = @camera.deep_fetch('external', 'host') {} %>
+    <% external_port = @camera.deep_fetch('external', 'http', 'port') {} %>
+    <% h264 = "rtsp://#{host}:#{port}/" %>
+    <% external_host = "http://#{host}:#{external_port}" %>
+    <% h264url = @camera.deep_fetch('external', 'rtsp' , 'h264') {} %>
+    <% rtmp_stream = @camera.fetch('proxy_url', {}).fetch('rtmp', {}) if @camera['external'].blank? || port.present? %>
+    <% hls_stream = @camera.fetch('proxy_url', {}).fetch('hls', {}) if @camera['external'].blank? || port.present? %>
+    <input type="hidden" id="hls_stream_url" value="<%= hls_stream %>">
+    <div id="live-view-placeholder">
+      <div id="fullscreen" class="html5-fullscreen-api <% if rtmp_stream.blank? %>active<% else %>inactive<% end %>">
+        <div id="jpg-portion" class="wrap">
+          <img id="live-player-image" src="<%= thumbnail_url(@camera) %>" />
+          <div class="inactive-jpeg-error-display hide"><div></div></div>
+          <div class="play-options">
+            <div class="btn-live-player play-pause hide hide-icon">
+              <i class="fas fa-pause icon-font" title="pause"></i>
+            </div>
+            <div id="live-snapshot-magnifier" type="button" class="btn-live-player ui-snapshot-magnifier hide">
+              <i class="fa fa-search magnifier-icon icon-font" aria-hidden="true" title="Magnifier"></i>
+            </div>
+            <div id="save-live-snapshot" class="btn-live-player save-live hide hide-icon">
+              <i class="fa fa-download icon-font" aria-hidden="true" title="Download Image"></i>
+            </div>
+            <% if @current_user %>
+              <div id="edit-live-image" class="btn-live-player edit-live-image hide hide-icon"><%= image_tag("edit-icon-white.svg", :class => "edit-image", title: "Edit Image") %></div>
+            <% end %>
+            <div class="live-option hide-icon hide btn-live-player" id="toggle">
+              <span class="glyphicon glyphicon-fullscreen icon-font" title="Fullscreen"></span>
+            </div>
+          </div>
+          <% if has_edit_right %>
+            <div class="ptz-controls hide" id="ptz-control">
+              <table>
+                <thead>
+                  <tr>
+                    <th colspan="5" style="position: relative">PTZ</th>
+                  </tr>
+                </thead>
+                <tr>
+                  <td rowspan="3" class="text-center small-column">
+                    <div href="#" data-toggle="modal" data-target="#camera-presets">
+                      <i title="Change Preset" class="fa fa-map-signs"></i>
+                    </div>
+                  </td>
+                  <td class="text-center large-column" colspan="3"><i title="Move Up" data-val="up=4" class="fa fa-chevron-up"></i></td>
+                  <td class="text-center small-column" style="vertical-align: bottom;"><i title="Zoom In" data-val="zoom=1" class="fa fa-plus"></i></td>
+                </tr>
+                <tr>
+                  <td class="text-center small-column"><i title="Move Left" data-val="left=4" class="fa fa-chevron-left"></i></td>
+                  <td class="text-center small-column"><i title="Go to Home" data-val="home" class="fa fa-home"></i></td>
+                  <td class="text-center small-column"><i title="Move Right" data-val="right=4" class="fa fa-chevron-right"></i></td>
+                </tr>
+                <tr>
+                  <td class="text-center large-column" colspan="3"><i title="Move Down" data-val="down=4" class="fa fa-chevron-down"></i></td>
+                  <td class="text-center small-column"><i title="Zoom Out" data-val="zoom=-1" class="fa fa-minus"></i></td>
+                </tr>
+              </table>
+            </div>
+          <% end %>
+        </div>
+      </div>
+      <% unless rtmp_stream.blank? %>
+        <div id="camera-video-stream" class="active">
+          <video id="camera-video-player" class="video-js vjs-default-skin"
+                 poster='<%= "#{thumbnail_url(@camera)}" %>'
+                 controls autoplay>
+            <% unless hls_stream.blank? %>
+              <source src="<%= hls_stream %>" type="application/x-mpegURL">
+            <% end %>
+            <source src="<%= rtmp_stream %>&requester=<%= @ip %>" type="rtmp/flv">
+          </video>
+          <div class="inactive-error-display hide"><div></div></div>
+        </div>
+        <div class="pull-right">
+          <table id="select-stream-table" class="select-stream-table">
+            <tr>
+              <td class="padding-5 padding-right-0">Feed:&nbsp;</td>
+              <td>
+                <select id="select-stream-type" class="form-control">
+                  <option value="jpeg" selected="selected">JPEG</option>
+                  <option value="video">VIDEO</option>
+                </select>
+              </td>
+            </tr>
+          </table>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="camera-preview-offline <%= 'hide' if @camera['status'] == "online" %>">
+    <div class="offline-camera-placeholder">
+      <div class="wrap">
+        <div class="offline-image">
+          <%= preview(@camera, true) %>
+          <span id="offline_message" class="offline-message" style="display:none;">
+            Camera is Offline<br>
+            Cause: <%= @camera['offline_reason'] %>
+          </span>
+          <div class="offline-play-icons">
+            <% if @current_user %>
+            <div class="offline-edit hide-icon">
+              <div class="edit-offline-image"><%= image_tag("edit-icon-white.svg", :class => "edit-image", title: "Edit Image") %></div>
+            </div>
+            <% end %>
+            <div id="offline-snapshot-magnifier" type="button" class="btn-live-player ui-snapshot-magnifier">
+              <i class="fa fa-search magnifier-icon icon-font" aria-hidden="true" title="Magnifier"></i>
+            </div>
+            <div id="save-offline-snapshot" class="btn-live-player save-live hide-icon">
+              <i class="fa fa-download icon-font" aria-hidden="true" title="Download Image"></i>
+            </div>
+            <div id="refresh-offline-camera" title="refresh" class="refresh-camera hide-icon">
+              <div class="offline-refresh-icon">
+                <i class="fas fa-sync icon-font fa-still"></i>
+                <i class='fas fa-sync fa-spin fa-1x fa-fw refresh-gif icon-font' aria-hidden='true'></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="camera-presets" class="modal fade camera-preset">
+  <div class="modal-dialog" style="width:300px;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="caption"><strong>Presets</strong></div>
+        <div class="cancel">
+          <a class="cancel-link" href="#" data-dismiss="modal"><i class="fa fa-remove"></i></a>
+        </div>
+      </div>
+      <div class="row-create" data-dismiss="modal" data-target="#create-preset" data-toggle="modal" ><i class="fa fa-plus"></i> Create a preset </div>
+      <div class="modal-body">
+        <div id="presets-table" class="form-group"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="create-preset" class="modal fade create-presets">
+  <div class="modal-dialog" >
+    <div class="modal-content">
+        <div class="modal-body">
+          <input type="text" class="preset-value" placeholder="Enter Preset Name">
+          <div class="pull-right margin-top-15">
+            <button type="button" class="btn btn-primary btn-default add-preset" data-dismiss="modal">Add</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>
+
+<div id="edit-preset" class="modal fade edit-presets">
+  <div class="modal-dialog" >
+    <div class="modal-content">
+      <div class="modal-body">
+        <input type="text" class="edit-value" placeholder="Enter Preset Name">
+        <div class="pull-right margin-top-15">
+          <button type="button" class="btn btn-default btn-primary preset-edit" token_val=""  data-dismiss="modal">Update</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="delete-preset" class="modal fade delete-presets">
+  <div class="modal-dialog" >
+    <div class="modal-content">
+      <div class="modal-body">
+        <input type="text" class="delete-value">
+        <div class="pull-right">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-default preset-delete" token_val=""  data-dismiss="modal">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<input type="hidden" class="hidden-input" value="<%= external_host %>">

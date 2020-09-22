@@ -1,0 +1,328 @@
+#logs {
+  .checkbox-inline {
+    padding-left: 0 !important;
+  }
+
+  .paginate_button {
+    padding: 0px;
+  }
+
+  .paginate_button:hover {
+    background: #ffffff;
+    border: solid 1px #dddddd;
+  }
+
+  .thumb-div {
+    float: left;
+  }
+
+  span {
+    vertical-align: middle;
+    padding: 5px;
+  }
+
+  .checkbox label {
+    font-size: 12px;
+  }
+
+  div#chartdiv a {
+    display: none !important;
+  }
+
+  .graph-label {
+
+    label {
+      font-size: 16px;
+      margin-top: 10px;
+      margin-bottom: 10px;
+      line-height: 1.1;
+      font-family: "proxima-nova-bold", "Open Sans", Arial, Helvetica, sans-serif;
+    }
+
+    span {
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .graph-avg-label {
+      color: $green;
+    }
+
+    .graph-failed-request {
+      color: $evercam-red;
+    }
+  }
+
+  .dataTables_wrapper .row {
+    margin: 0px;
+  }
+
+  .disabled-textarea {
+    background-color: $white;
+    border: solid 1px $main-grey;
+    padding: 5px;
+    width: 100%;
+    height: 250px;
+    line-height: 1.8;
+    overflow-y: scroll;
+
+    .tail-datetime {
+      float: left;
+      width: 140px;
+    }
+
+    .tail-padding-left5 {
+      padding-left: 5px;
+    }
+
+    .float-left {
+      float: left;
+      padding-right: 8px;
+    }
+  }
+}
+
+.checkbox-inline input[type="checkbox"] {
+  float: left;
+  margin-top: 4px;
+}
+
+@media (min-width: 968px) {
+
+  .checkbox-list > div.input-group:first-child {
+    margin-left: 0px;
+  }
+}
+
+@media (max-width: 968px) {
+
+  .button-margin-left-10 {
+    margin-left: 10px;
+  }
+}
+
+@media (max-width: 768px) {
+
+  .to-time {
+    margin-left: 15px;
+    margin-top: 10px;
+  }
+
+  .btn-setting {
+    margin-top: 10px;
+  }
+
+  .filter {
+    margin-top: 10px;
+  }
+
+}
+
+@media (max-width: 540px) {
+
+  .dates {
+    margin-top: 30px;
+  }
+}
+
+@media (max-width: 400px) {
+
+  .dates {
+    margin-top: 60px;
+
+    .set-margin {
+      margin-top: 40px;
+    }
+
+  }
+
+}
+
+@media (max-width: 340px) {
+  .dates {
+    margin-top: 90px;
+  }
+}
+
+[id^=uniform-type-] {
+  display: none !important;
+}
+
+.offlines {
+  color: $evercam-red;
+}
+
+.message {
+  color: $evercam-black;
+}
+
+.onlines {
+  color: $green;
+}
+
+.datetimepicker {
+  font-size: 12px;
+  width: 123px;
+}
+
+.padding-right15 {
+  padding-right: 15px;
+}
+
+.margin-top-bottom10 {
+  margin: 10px 0px;
+}
+
+.min-width200 {
+  min-width: 200px;
+  margin-top: 3px;
+}
+
+.info-panel .table {
+  font-size: 12px;
+}
+
+.padding-right-left-10 {
+  padding: 0 5px;
+}
+
+.margin-top-3 {
+  margin-top: 3px;
+}
+
+.thumbs {
+  cursor: pointer;
+}
+
+.div-elms {
+  max-width: 600px;
+  position: fixed;
+  left: 0;
+  right: 0;
+  margin: auto;
+  overflow: hidden;
+  border: 2px solid $border-black;
+  z-index: 9999;
+  display: none;
+}
+
+.table-logs .fa-sync {
+  margin-left: 20px;
+}
+
+.filter-dialog {
+  height: 31px;
+  padding: 5px 13px;
+
+  i {
+    font-size: 14px;
+  }
+
+}
+
+@media (min-width: 760px) {
+
+  .width-770 {
+    min-width: 770px;
+  }
+}
+
+.min-width150 {
+  min-width: 150px;
+}
+
+.max-width-300 {
+  max-width: 300px;
+}
+
+.min-width-114 {
+  min-width: 114px;
+}
+
+.max-width-400 {
+  max-width: 400px;
+}
+
+.red-border {
+  border: 1px solid $error-border-color;
+}
+
+#form-create-clip {
+
+  .note-error-message {
+    position: absolute;
+    width: auto;
+    color: $error-border-color;
+    padding-left: 5px;
+    margin-top: 0px;
+  }
+
+  .padding-left-right-zero {
+    padding: 5px 3px;
+  }
+
+  .height-100 {
+    height: 100px;
+  }
+
+  .padding-0 {
+    padding: 0px;
+  }
+}
+
+.custom-note-css {
+  background-color: $light-yellow !important;
+
+  .sorting_1 {
+    background-color: $lighter-yellow !important;
+  }
+}
+
+.info-panel .checkbox-list {
+  float: left;
+}
+
+.text-align-center {
+  text-align: center;
+}
+
+.checkbox-list .input-group {
+  float: left;
+  margin-top: 8px;
+  margin-left: 10px;
+}
+
+.min-height-67 {
+  min-height: 67px;
+}
+
+#logs-table_length {
+  display: none;
+}
+
+#status_bar foreignObject.ytitle {
+  display: none;
+}
+
+td.details-control {
+  cursor: pointer;
+  width: 20px;
+}
+
+tr.shown td.details-control {
+  width: 20px;
+}
+
+.expand-icon {
+  margin-left: 4px;
+  margin-top: 3px;
+}
+
+.dataTables_wrapper .dataTables_filter {
+  margin-bottom: 15px;
+}
+
+.single-status-bar {
+  font-weight: bold;
+  margin-bottom: 0px;
+}

@@ -1,0 +1,19 @@
+<div class="camera-title">
+  <div class="col-xs-12 col-md-12">
+    <div class="btn-group camera-switch">
+      <h3 class="page-title"><%= @camera['name'] %></h3>
+    </div>
+    <div class="pull-right camera-status">
+      <% if @camera['status'] == "online" %>
+        <div class="green">Online</div>
+      <% else %>
+        <div class="red">Offline</div>
+      <% end %>
+    </div>
+    <% unless @camera['owner'] == current_user.username %>
+      <div class="pull-right margin-right-10">
+        <i class="icon icon-users"></i>
+      </div>
+    <% end %>
+  </div>
+</div>

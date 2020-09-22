@@ -1,0 +1,338 @@
+<div class="row padding-right15">
+  <div id="archives-tab" class="col-md-12 margin-top-15 margin-bottom-20">
+    <div id="no-archive-text" class="margin-top-20 hide no-archive-text">
+      <p>There's nothing here yet.<br>
+      <br>
+      This area shows all the media (clips, videos, compares etc.) related to your camera.<br>
+      <br>
+      You can create these by clicking on the  <i class="fas fa-plus icon-font"></i>  icon in the bottom right corner.</p>
+    </div>
+    <div id="archives-box">
+      <div id="back-button">
+        <a style="display: none" id="back-archives"><i class="fas fa-arrow-left"></i> Back</a>&nbsp;
+
+        <div id="popup-delete-view" class="popbox float-right">
+          <span id="open-delete-view" class="open">
+            <span href="#" class="archive-actions delete-archive">
+              <i class="fas fa-trash-alt"></i>
+            </span>
+          </span>
+          <div class="collapse-popup">
+            <div class="box-new" id="box-delete-view">
+              <div class="arrow" id="arrow-delete-view"></div>
+              <div class="arrow-border" id="arrow-border-delete-view"></div>
+              <div class="margin-bottom-10">Are you sure?</div>
+              <div class="margin-bottom-10">
+                <input id="archive_delete_view" type="button" value="Yes, Remove" class="btn btn-primary delete-btn delete-archive2" camera_id="" archive_id="" archive_type="">
+                <div id="closepopup-delete-view" class="btn delete-btn closepopup grey">
+                  <div class="text-center" fit="">CANCEL</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div id="camera-video-archive" style="float: left; display: none">
+        <div>
+          <video id="archive-play" class="video-js vjs-default-skin" width="100%" controls autoplay data-setup='{ "playbackRates": [0.25, 0.5, 1, 1.5, 2] }'></video>
+          <iframe id="iframe_archive" width="100%" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+          <img id="file_upload_viewer" src="" width="100%">
+        </div>
+        <div id="text-info">
+          <div class="player-header">
+            <div id="player-buttons"></div>
+            <strong class="div-archive-values" id="txt_title"></strong>
+            <input type="hidden" id="txt-archive-type">
+            <input type="hidden" id="txt-archive-id">
+            <input type="hidden" id="txt-archive-title">
+            <input type="hidden" id="txt-media-url">
+            <a id="edit-archive-title"><i class="fas fa-pencil-alt font-16"></i></a>
+            <a style="display: none" id="update-archive"><i class="far fa-save font-16"></i></a>
+            <a style="display: none" id="cancel-title"><i class="fas fa-times font-16"></i></a>
+          </div>
+          <div id="info-archive">
+            <span id="archive-autor"></span>
+            <span id="archive-dates"></span>
+          </div>
+        </div>
+        <div class="inactive-error-display hide"></div>
+      </div>
+      <div id="archives-box-2" style="float: right"></div>
+    </div>
+    <table id="archives-table" class="table table-striped table-bordered responsive nowrap">
+      <thead>
+        <th data-priority="1">Title</th>
+        <th data-priority="5">Created</th>
+        <th data-priority="4">Public</th>
+        <th data-priority="2">Share</th>
+        <th data-priority="3">Actions</th>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</div>
+
+<div id="div-full-thumbnail" class="div-thumbnail-hover">
+  <div id="div-full-image"><img src="" class="fullsize-thumbnail" id="fullsize-thumbnail"></div>
+</div>
+
+<% if current_user %>
+  <input id="archive-api-url" type="hidden" value="<%= "#{EVERCAM_API}cameras/#{params[:id]}/archives?api_id=#{current_user.api_id}&api_key=#{current_user.api_key}" %>">
+<% end %>
+
+<div id="add-button" class="hide-add-button row text-right add-archive-button">
+  <div id="archive-add" class="btn btn-primary archive-add margin-bottom-30">+</div>
+
+  <div class="m-menu__submenu">
+    <span class="triangle-right-border"></span>
+    <ul class="m-menu__subnav">
+      <li class="m-menu__item " aria-haspopup="true"  data-redirect="true">
+        <a  href="#" class="type-link create-clip-link" data-type="cloud" data-toggle="modal" data-target="#archive-modal">
+          <i class="fa fa-cloud"></i>
+          <span class="menu-ink-text">
+            Cloud Recordings Clip
+          </span>
+        </a>
+      </li>
+      <li class="m-menu__item " aria-haspopup="true"  data-redirect="true">
+        <a href="#" class="type-link create-clip-link" data-type="local" data-toggle="modal" data-target="#archive-modal">
+          <i class="fas fa-video"></i>
+          <span class="menu-ink-text">
+            Local Recordings Clip
+          </span>
+        </a>
+      </li>
+      <li class="m-menu__item " aria-haspopup="true"  data-redirect="true">
+        <a  href="#" class="type-link" data-type="compare">
+          <img height="15" src="/assets/compare-scale.png" class="compare-img">
+          <span class="menu-ink-text">
+            Evercam Compare
+          </span>
+        </a>
+      </li>
+      <li class="m-menu__item " aria-haspopup="true"  data-redirect="true">
+        <a  href="javascript:;" class="type-link" data-toggle="modal" data-target="#social-media-url-modal">
+          <i class="fa fa-link"></i>
+          <span class="menu-ink-text">
+            URL (Youtube, Vimeo...)
+          </span>
+        </a>
+      </li>
+      <li class="m-menu__item" aria-haspopup="true"  data-redirect="true">
+        <a  href="#" class="type-link" data-type="upload" data-toggle="modal" data-target="#upload-file-modal">
+          <i class="fa fa-upload"></i>
+          <span class="menu-ink-text">
+            Upload File
+          </span>
+        </a>
+      </li>
+    </ul>
+    <div class="clear-f"></div>
+  </div>
+</div>
+
+<div id="modal-archive-info" class="modal fade modal-archive-info">
+  <div class="modal-dialog max-width-600">
+    <div class="modal-content">
+      <div id="form-create-clip" class="modal-body">
+        <div class="row">
+          <div class="col-md-12" id="list-content">
+            <button type="button" class="close margin-top-minus5" data-dismiss="modal" aria-hidden="true"><i class="fas fa-times"></i></button>
+            <div id="row-compare" class="div-archive-compare">
+              <div id="image-compare" class="archive-img-compare embed">
+                <div style="display: none;">
+                  <span class="images-compare-label">Before</span>
+                  <img id="archive_compare_before" src="" alt="Before"/>
+                </div>
+                <div>
+                  <span class="images-compare-label">After</span>
+                  <img id="archive_compare_after" src="" alt="After"/>
+                </div>
+                <div class="evercam-brand">
+                  <%= image_tag("evercam-logo-white.png", :class => "svg-logo", alt: "Evercam.io") %>
+                </div>
+              </div>
+            </div>
+            <div class="div-thumbnail margin-top-15">
+              <img id="archive-thumbnail" class="archive-thumbnail" src=""/>
+              <video id="archive_player" style="width: 100%;height: 100%;" class="hide video-js vjs-default-skin" data-setup="{}" controls="">
+              </video>
+            </div>
+            <div id="row-frames" class="div-row">
+              <div class="col-md-2 archive-label margin-top-2">Frames</div>
+              <div id="div_frames" class="input-group col-sm-10 col-xs-10 col-md-10"></div>
+            </div>
+            <div id="row-duration" class="div-row">
+              <div class="col-md-2 archive-label margin-top-2">Duration</div>
+              <div id="div_duration" class="input-group col-sm-10 col-xs-10 col-md-10"></div>
+            </div>
+            <div id="row-embed-code" class="div-row">
+              <div class="col-md-2 archive-label margin-top-40">Embed</div>
+              <div class="input-group col-sm-12 col-xs-12 col-md-10">
+                <textarea id="archive_embed_code" class="form-control embed-code copy-text" readonly="true"></textarea>
+                <i class="icon-font copy-url-icon copy-embed-code fas fa-copy" data-clipboard-target="#archive_embed_code" title="Copy URL"></i>
+              </div>
+            </div>
+            <div id="row-gif" class="div-row">
+              <div class="col-md-2 archive-label margin-top-10">GIF</div>
+              <div class="input-group col-sm-12 col-xs-12 col-md-10">
+                <input type="text" name="archive_gif_url" id="archive_gif_url" class="form-control copy-text" readonly="true" />
+                <i class="icon-font copy-url-icon fa fa-download download-animation" data-download-target="#archive_gif_url" title="Download GIF (Good for emails)"></i>
+                <i class="icon-font copy-url-icon fas fa-copy copy-animation" data-clipboard-target="#archive_gif_url" title="Copy URL"></i>
+              </div>
+            </div>
+            <div id="row-mp4" class="div-row">
+              <div class="col-md-2 archive-label margin-top-10">MP4</div>
+              <div class="input-group col-sm-12 col-xs-12 col-md-10">
+                <input type="text" name="archive_mp4_url" id="archive_mp4_url" class="form-control copy-text" readonly="true" />
+                <i class="icon-font copy-url-icon fa fa-download download-animation" data-download-target="#archive_mp4_url" title="Download MP4 (Good for everything else)"></i>
+                <i class="icon-font copy-url-icon fas fa-copy copy-animation" data-clipboard-target="#archive_mp4_url" title="Copy URL"></i>
+              </div>
+            </div>
+            <div id="div_shares" class="div-row">
+              <div class="col-md-2 archive-label margin-top-10">Share</div>
+              <div class="input-group col-sm-12 col-xs-12 col-md-10" id="share-buttons-new">
+                <a class="facebook archive-share" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i> Share</a>
+                <a class="whatsapp archive-share" target="_blank" title="Whatsapp"><i class="fab fa-whatsapp"></i> Message</a>
+                <a class="linkedin archive-share" target="_blank" title="Linkedin"><i class="fab fa-linkedin-in"></i> Post</a>
+                <a class="twitter archive-share" target="_blank" title="Twitter"><i class="fab fa-twitter"></i> Tweet</a>
+              </div>
+            </div>
+            <div class="disabled share-buttons">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="upload-file-modal" class="modal fade">
+  <div class="modal-dialog max-width-470">
+    <div class="modal-content">
+      <div id="form-create-clip" class="modal-body">
+        <div class="row">
+          <div class='col-lg-12 col-md-12 col-sm-12'>
+            <div class='portlet'>
+              <button type="button" class="close margin-top-minus5" data-dismiss="modal" aria-hidden="true"><i class="fas fa-times"></i></button>
+              <div class="portlet-title">
+                <div class="caption"> Upload File</div>
+              </div>
+              <div class="portlet-body">
+                <div class="add-clip">
+                  <table class="table table-fixed table-borderless">
+                    <tr>
+                      <td style="width: 70px;"><label class="control-label camera-name" for="upload_file_title">Title</label></td>
+                      <td><input type="text" required placeholder="e.g. My Video" class="form-control clip-text-box" id="upload_file_title" name="upload_file_title"></td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">
+                        <div class="file-drag-drop text-center" for="file-upload">
+                          <span class="file-label" id="spn-upload-file-name">Choose a file or drag it here.</span>
+                          <input type="file" name="file-upload" id="file-upload" class="inputfile inputfile-4" data-multiple-caption="{count} files selected" />
+                        </div>
+                        <div id="file-upload-progress" class="progress progress-striped progress-success">
+                          <div class="bar" style="width: 0%;"></div>
+                        </div>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <fieldset>
+          <div class="export-buttons">
+            <div class='pull-left form-group1'>
+              <input type="button" class="push btn btn-primary margin-right-10 margin-left-5" id="start-file-upload" value="Start upload"/>
+            </div>
+            <span id="spn-success-export" class="alert alert-info hide"></span>
+          </div>
+        </fieldset>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="social-media-url-modal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div id="form-create-clip" class="modal-body">
+        <div class="row">
+          <div class='col-lg-12 col-md-12 col-sm-12'>
+            <div class='portlet'>
+              <button type="button" class="close margin-top-minus5" data-dismiss="modal" aria-hidden="true"><i class="fas fa-times"></i></button>
+              <div class="portlet-title">
+                <div class="caption"> Media URL</div>
+              </div>
+              <div class="portlet-body">
+                <div class="add-clip">
+                  <table class="table table-fixed table-borderless">
+                    <tr>
+                      <td style="width: 70px;"><label class="control-label camera-name" for="media_title">Title</label></td>
+                      <td><input type="text" required placeholder="e.g. My Video" class="form-control clip-text-box" id="media_title_title" name="media_title_title"></td>
+                    </tr>
+                    <tr>
+                      <td><label class="control-label camera-name" for="social_media_url">URL</label></td>
+                      <td>
+                        <div class="input-group col-sm-12 col-xs-12 col-md-12">
+                          <input type="text" required placeholder="e.g. Youtube, Matterport, Vimeo, Other..." class="form-control clip-text-box" id="social_media_url" name="social_media_url">
+                          <i id="icon-media-type" class="fa fa-link copy-url-icon icon-font" title="URL"><img src="" id="media_url_type"></i>
+                        </div>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <fieldset>
+          <div class="export-buttons">
+            <div class='pull-left form-group1'>
+              <input type="button" class="push btn btn-primary margin-right-10 margin-left-5" id="save_social_media_url" value="Save"/>
+              <input type="button" class="push btn btn-primary margin-right-10 margin-left-5 hide save-buuton" id="update_archive_value" value="Save"/>
+            </div>
+            <span id="spn-success-export" class="alert alert-info hide"></span>
+          </div>
+        </fieldset>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="popup-warning-modal" class="modal fade">
+  <div class="modal-dialog max-width-470">
+    <div class="modal-content">
+      <div id="form-create-clip" class="modal-body">
+        <div class="row">
+          <div class='col-lg-12 col-md-12 col-sm-12'>
+            <div class='portlet'>
+              <button type="button" class="close margin-top-minus5" data-dismiss="modal" aria-hidden="true"><i class="fas fa-times"></i></button>
+              <div class="portlet-title">
+                <div class="caption"> Warning!</div>
+              </div>
+              <div class="portlet-body">
+                <div class="col-md-12 padding-0 margin-top-10">
+                  <p class="text-left margin-0">You are making this clip public.</p><br>
+                  <p class="text-left margin-0">Are you sure?</p><br>
+                  <p class="text-left margin-0">This means that anyone with whom you share a link to this clip will be able to download it.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <fieldset>
+          <div class="export-buttons">
+            <div class='pull-left form-group1  margin-top-20'>
+              <input type="button" class="push btn btn-primary margin-right-10 pull-left" id="make-archive-public" value="Yes, I am sure"/>
+              <input type="button" class="btn btn-default pull-left" value="No, Cancel" data-dismiss="modal" />
+            </div>
+          </div>
+        </fieldset>
+      </div>
+    </div>
+  </div>
+</div>

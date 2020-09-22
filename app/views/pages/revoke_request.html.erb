@@ -1,0 +1,68 @@
+<style type="text/css">
+    div.dialog {
+    max-width: 35em;
+    margin: 50px auto 0 auto;
+    border: 1px solid #e5e5e5;
+    border-radius: 4px;
+    background-color: white;
+    padding: 24px 40px 28px;
+    box-shadow:0 3px 10px rgba(0,0,0,0.06);
+  }
+
+  h3 {
+    font-size: 100%;
+    color: #303030;
+    line-height: 1.5em;
+    font-weight: 700;
+      font-size: 18px;
+  }
+  p {
+      font-family: 'Lato', "Helvetica Neue", Helvetica, Arial, sans-serif;
+      line-height: 1.5em;
+
+  }
+  .logo {
+      margin: 50px auto 0px;
+      width: 200px;
+      display: block;
+  }
+  .logo img {
+      width: 200px;
+  }
+  .footer {
+    text-align: center;
+  }
+</style>
+<div class="logo">
+  <a href="//dash.evercam.io"><img src="//www.evercam.io/img/logo.png"></a>
+</div>
+<div class="dialog">
+  <h3>Share request reminder revoked</h3>
+  <p id="content-panel">Share request reminder has been revoked. You will not receive Evercam reminder emails on this share request.</p>
+</div>
+<div class="footer">
+  <p><a href="//dash.evercam.io" style="text-decoration: none;color:#aaaaaa;font-size:12px;">dash.evercam.io</a></p>
+</div>
+<script type="text/javascript">
+  $(document).ready(function(){
+
+    jQuery.ajax({
+      type: 'DELETE',
+      url: window.Evercam.MEDIA_API_URL+"cameras/<%= @camera_id %>/shares/requests",
+      data: {key: getQueryStringByName("key"), email: getQueryStringByName("email")},
+      dataType: 'json',
+      error: function(jqXHR, status, error) {
+        //console.log(jqXHR.responseText)
+        //$("#content-panel").html("asdas")
+      },
+      success: function(){}
+    })
+  });
+
+  var getQueryStringByName = function (name) {
+    name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+      results = regex.exec(location.search);
+    return results == null ? null : decodeURIComponent(results[1].replace(/\+/g, " "));
+  };
+</script>

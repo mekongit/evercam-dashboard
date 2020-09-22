@@ -1,0 +1,117 @@
+<%= stylesheet_link_tag "widgets" %>
+
+<div id="live-widget" class="widget-config">
+  <% if @cameras.empty? %>
+    <div class="col-md-5">
+      <p class="note note-info">No public cameras found. Only public cameras can be used to make a widget. You
+        can make a camera public from the sharing tab of camera or add a public camera from the list of public
+        cameras.</p>
+    </div>
+  <% else %>
+    <div class="col-md-5 padding-right-10">
+      <form id="widget-new" role="form" method="post" class="widget-new center-block">
+        <div class="widget-input margin-bottom-20">
+          <div class="my-row">
+            <label class="col-md-4 control-label" for="widget-camera">Select Camera</label>
+          </div>
+          <div class="input-group col-sm-12 col-md-8 col-xs-12">
+            <select id="widget-camera" name="widget-camera" class="form-control is-required">
+              <% @cameras.each do |camera| %>
+                <% port = camera.deep_fetch('external', 'rtsp', 'port') {} %>
+                 <% css = "onlinec"
+                     thumbnail_url = "https://media.evercam.io/v2/cameras/#{camera['id']}/thumbnail?api_id=#{current_user.api_id}&api_key=#{current_user.api_key}"
+                     if camera['status'] == "offline"
+                       css = "offlinec"
+                     end
+                  %>
+                  <option class="<%= css %>" value="<%= camera['id'] %>" data-val="<%= thumbnail_url %>">
+                    <%= camera['name'] %> <% if camera['status'] == "offline" %>(Offline)<% end %> <% unless camera['is_public'] %>(Private)<% end %>
+                  </option>
+              <% end %>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group widget-input">
+          <div class="my-row">
+            <label class="col-md-4 control-label" for="widget-refresh-rate">Image Refresh Rate </label>
+          </div>
+          <div class="input-group col-md-8">
+            <input type="text" pattern="\d*" value="1" class="form-control input-inline" min="0.05" maxlength="3" max="100" id="widget-refresh-rate" name="widget-refresh-rate" placeholder="1" data-validation="number" data-validation-allowing="range[0.05;100],float" data-validation-error-msg="Refresh Rate must be between 0.05 and 100 seconds">
+            <span class="input-group-addon">seconds</span>
+          </div>
+        </div>
+
+        <div class="form-group widget-input margin-top-20">
+          <div class="my-row">
+            <label class="col-md-4 control-label" for="widget-camera-width">Width of Image</label>
+          </div>
+            <div class="input-group col-md-8">
+              <input type="text" pattern="\d*" value="100" class="form-control" id="widget-camera-width" name="widget-camera-width" placeholder="100" min="20" max="1600" maxlength="4" data-validation="number" data-validation-allowing="range[20;1600],float" data-validation-error-msg="Image Width must be between 20 and 1600 pixels or percentage">
+              <span class="input-group-addon"><select id="width-option" class="width-option" name="width-option" onchange="admSelectCheck(this);">
+                <option> % </option>
+                <option> px </option>
+              </select></span>
+            </div>
+        </div>
+
+        <div class="form-group widget-input margin-top-20">
+          <div class="my-row">
+            <label class="col-md-4 control-label" for="widget-authenticate">Pre-Authenticate<span style="visibility: hidden;" class="true switch grey">*</span></label>
+          </div>
+          <div class="input-group col-md-8">
+            <select id="widget-authenticate" name="widget-authenticate" class="form-control is-required" onchange="admSelectCheck(this);">
+              <option value="false">No</option>
+              <option value="true">Yes</option>
+            </select>
+          </div>
+        </div>
+      </form>
+      <div class="margin-top-30 row widget-code">
+        <div class="col-md-12">
+          <h5>Embed this code on your webpage:</h5>
+          <textarea id="code" class="pretty-code col-md-12" type="text">
+          </textarea>
+        </div>
+      </div>
+      <div class="true switch help-block margin-top-20" style="visibility: hidden;">
+        * Warning. Choosing 'Yes' will include your API ID and Key. This should only be done on private sites.
+        We recommend you do not choose this option for public sites.
+      </div>
+    </div>
+
+    <div class="col-md-7">
+      <div class="preview">
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.1.47/jquery.form-validator.min.js"></script>
+<script>
+  $(document).ready(function () {
+    jQuery(document).ready(function () {
+      Metronic.init(); // init metronic core components
+      Layout.init(); // init current layout
+      QuickSidebar.init() // init quick sidebar
+      window.api_credentials = {api_id: '<%= current_user.api_id %>', api_key: '<%= current_user.api_key %>'}
+    });
+
+    $.validate();
+  });
+
+  function admSelectCheck(nameSelect) {
+    if (nameSelect.value) {
+      var preElements = document.getElementsByClassName('switch');
+      for (var i = 0; i < preElements.length; i++) {
+        //if the class contains the selected value, then show it, else hide it
+        preElements[i].style.visibility = preElements[i].classList.contains(nameSelect.value) ? 'visible' : 'hidden';
+      }
+    }
+  }
+  window.onload = function () {
+    document.getElementById('widget-authenticate').onchange();
+  }
+</script>
+
+<%= javascript_include_tag "widgets" %>

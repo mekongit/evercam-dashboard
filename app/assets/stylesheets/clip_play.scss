@@ -1,0 +1,9 @@
+@import "utils/variables";
+
+html .video-js {
+  position: inherit;
+}
+
+.video-js .vjs-tech {
+  background-color: $evercam-black;
+}

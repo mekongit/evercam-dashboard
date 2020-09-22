@@ -1,0 +1,29 @@
+<div class="portlet solid margin-top-40">
+  <div class="portlet-title">
+    <div class="caption">Other</div>
+  </div>
+  <div class="portlet-body col-md-12">
+    <table class="table table-fixed table-borderless">
+      <tr>
+        <td class="col-md-4 col-xs-4">Notifications:</td>
+        <td class="col-md-8">
+          <div class="form-group checkbox uniform-camera-notification">
+            <input type="checkbox" id="camera-notification" name="camera-notification" <%= "checked" if @camera['is_online_email_owner_notification'] == true %>/>
+            <label id="cameras" class="camera-notification" for="camera-notification">Send me a notification if this camera goes offline (<%= current_user.email %>)</label>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<script>
+  is_notification_enabled = <%= @camera['is_online_email_owner_notification'] %>;
+  $(document).ready(function () {
+    if (is_notification_enabled === true) {
+      $(".camera-notification span").addClass("checked");
+    } else {
+      $(".camera-notification span").removeClass("checked");
+    }
+  });
+</script>

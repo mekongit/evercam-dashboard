@@ -1,0 +1,25 @@
+.poem {
+  margin-top: 80px;
+
+  ul {
+    max-width: 330px;
+    margin: 0 auto;
+  }
+
+  li {
+    font-family: Times New Roman;
+    font-style: italic;
+    padding-bottom: 0.1em;
+  }
+
+  p {
+    max-width: 170px;
+    margin: 0 auto;
+    margin-top: 20px;
+  }
+}
+
+.poem ul,
+.poem ol {
+  list-style-type: none;
+}

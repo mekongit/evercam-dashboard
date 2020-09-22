@@ -1,0 +1,369 @@
+<div id="recording-tab">
+  <% has_right = @camera["rights"].split(",").include?("edit") %>
+  <div id="project-finished-div"><span class="project-finished-span bb-alert alert alert-info hide">Project Finished</span></div>
+  <div class="left-column">
+    <div class="snapshots">
+      <div id="no-recording-message" class="no-recording-message hide">
+        Some recordings are unavailable. They are not lost, just currently unavailable.
+      </div>
+      <button id="calendar" type="button" class="ui-datepicker-trigger"><i class="fas fa-expand-arrows-alt icon-font" title="Expand Navigator"></i></button>
+      <button id="xray" type="button" class="ui-xray-trigger"><i class="fas fa-x-ray icon-font xray-icon" title="Image Xray"></i></button>
+      <div class="loader-bg" id="imgLoaderRec">
+        <table cellspacing="0" cellpadding="6" border="0" width="100%" height="100%">
+          <tr>
+            <td width="35%">&nbsp;</td>
+            <td style="width:105px; height:66px;text-align: center;font-weight: bold;">
+              <%= image_tag('loader3.gif', alt: 'Loading') %>
+              &nbsp;Loading Image
+            </td>
+            <td width="35%">&nbsp;</td>
+          </tr>
+        </table>
+      </div>
+      <div id="fullscreen" class="html5-fullscreen-api">
+        <img id="imgPlayback" style="width: 100%;" src="data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAAoAAAAHgCAYAAAA10dzkAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAACxIAAAsSAdLdfvwAAAAcdEVYdFNvZnR3YXJlAEFkb2JlIEZpcmV3b3JrcyBDUzbovLKMAAAIUElEQVR4Xu3IMQHAQBAEofdv+mJgFUwoaHh3BwDAj8wEAKBrJgAAXTMBAOiaCQBA10wAALpmAgDQNRMAgK6ZAAB0zQQAoGsmAABdMwEA6JoJAEDXTAAAumYCANA1EwCArpkAAHTNBACgayYAAF0zAQDomgkAQNdMAAC6ZgIA0DUTAICumQAAdM0EAKBrJgAAXTMBAOiaCQBA10wAALpmAgDQNRMAgK6ZAAB0zQQAoGsmAABdMwEA6JoJAEDXTAAAumYCANA1EwCArpkAAHTNBACgayYAAF0zAQDomgkAQNdMAAC6ZgIA0DUTAICumQAAdM0EAKBrJgAAXTMBAOiaCQBA10wAALpmAgDQNRMAgK6ZAAB0zQQAoGsmAABdMwEA6JoJAEDXTAAAumYCANA1EwCArpkAAHTNBACgayYAAF0zAQDomgkAQNdMAAC6ZgIA0DUTAICumQAAdM0EAKBrJgAAXTMBAOiaCQBA10wAALpmAgDQNRMAgK6ZAAB0zQQAoGsmAABdMwEA6JoJAEDXTAAAumYCANA1EwCArpkAAHTNBACgayYAAF0zAQDomgkAQNdMAAC6ZgIA0DUTAICumQAAdM0EAKBrJgAAXTMBAOiaCQBA10wAALpmAgDQNRMAgK6ZAAB0zQQAoGsmAABdMwEA6JoJAEDXTAAAumYCANA1EwCArpkAAHTNBACgayYAAF0zAQDomgkAQNdMAAC6ZgIA0DUTAICumQAAdM0EAKBrJgAAXTMBAOiaCQBA10wAALpmAgDQNRMAgK6ZAAB0zQQAoGsmAABdMwEA6JoJAEDXTAAAumYCANA1EwCArpkAAHTNBACgayYAAF0zAQDomgkAQNdMAAC6ZgIA0DUTAICumQAAdM0EAKBrJgAAXTMBAOiaCQBA10wAALpmAgDQNRMAgK6ZAAB0zQQAoGsmAABdMwEA6JoJAEDXTAAAumYCANA1EwCArpkAAHTNBACgayYAAF0zAQDomgkAQNdMAAC6ZgIA0DUTAICumQAAdM0EAKBrJgAAXTMBAOiaCQBA10wAALpmAgDQNRMAgK6ZAAB0zQQAoGsmAABdMwEA6JoJAEDXTAAAumYCANA1EwCArpkAAHTNBACgayYAAF0zAQDomgkAQNdMAAC6ZgIA0DUTAICumQAAdM0EAKBrJgAAXTMBAOiaCQBA10wAALpmAgDQNRMAgK6ZAAB0zQQAoGsmAABdMwEA6JoJAEDXTAAAumYCANA1EwCArpkAAHTNBACgayYAAF0zAQDomgkAQNdMAAC6ZgIA0DUTAICumQAAdM0EAKBrJgAAXTMBAOiaCQBA10wAALpmAgDQNRMAgK6ZAAB0zQQAoGsmAABdMwEA6JoJAEDXTAAAumYCANA1EwCArpkAAHTNBACgayYAAF0zAQDomgkAQNdMAAC6ZgIA0DUTAICumQAAdM0EAKBrJgAAXTMBAOiaCQBA10wAALpmAgDQNRMAgK6ZAAB0zQQAoGsmAABdMwEA6JoJAEDXTAAAumYCANA1EwCArpkAAHTNBACgayYAAF0zAQDomgkAQNdMAAC6ZgIA0DUTAICumQAAdM0EAKBrJgAAXTMBAOiaCQBA10wAALpmAgDQNRMAgK6ZAAB0zQQAoGsmAABdMwEA6JoJAEDXTAAAumYCANA1EwCArpkAAHTNBACgayYAAF0zAQDomgkAQNdMAAC6ZgIA0DUTAICumQAAdM0EAKBrJgAAXTMBAOiaCQBA10wAALpmAgDQNRMAgK6ZAAB0zQQAoGsmAABdMwEA6JoJAEDXTAAAumYCANA1EwCArpkAAHTNBACgayYAAF0zAQDomgkAQNdMAAC6ZgIA0DUTAICumQAAdM0EAKBrJgAAXTMBAOiaCQBA10wAALpmAgDQNRMAgK6ZAAB0zQQAoGsmAABdMwEA6JoJAEDXTAAAumYCANA1EwCArpkAAHTNBACgayYAAF0zAQDomgkAQNdMAAC6ZgIA0DUTAICumQAAdM0EAKBrJgAAXTMBAOiaCQBA10wAALpmAgDQNRMAgK6ZAAB0zQQAoGsmAABdMwEA6JoJAEDXTAAAumYCANA1EwCArpkAAHTNBACgayYAAF0zAQDomgkAQNdMAAC6ZgIA0DUTAICumQAAdM0EAKBrJgAAXTMBAOiaCQBA10wAALpmAgDQNRMAgK6ZAAB0zQQAoGsmAABdMwEA6JoJAEDXTAAAumYCANA1EwCArpkAAHTNBACgayYAAF0zAQDomgkAQNdMAAC6ZgIA0DUTAICumQAAdM0EAKBrJgAAXTMBAOiaCQBA10wAALpmAgDQNRMAgK6ZAAB0zQQAoGsmAABdMwEA6JoJAEDXTAAAumYCANA1EwCArpkAAHTNBACgayYAAF0zAQDomgkAQNdMAAC6ZgIA0DUTAICumQAAdM0EAKBrJgAAXTMBAOiaCQBA10wAALpmAgDQNRMAgK6ZAAB0zQQAoGsmAABdMwEA6JoJAEDXTAAAumYCANA1EwCArpkAAHTNBACgayYAAF0zAQDomgkAQNdMAAC6ZgIA0DUTAICumQAAdM0EAKBrJgAAXTMBAOiaCQBA10wAALpmAgDQNRMAgK6ZAAB0zQQAoGsmAABdMwEA6JoJAEDXTAAAumYCANA1EwCArpkAAHTNBACgayYAAF0zAQDomgkAQNdMAAC6ZgIA0DUTAICumQAAdM0EAKBrJgAAXTMBAOiaCQBA10wAALpmAgDQNRMAgK6ZAAB0zQQAoGsmAABdMwEA6JoJAEDXTAAAumYCANA1EwCArpkAAHTNBACgayYAAF0zAQDomgkAQNdMAAC6ZgIA0DUTAICqex8S0sIfHl2RqAAAAABJRU5ErkJggg=="/>
+        <div id="snapshot-tab-save" class="play-options">
+          <div id="save-recording-image" class="btn-live-player save-live hide-icon"><i class="fa fa-download icon-font" aria-hidden="true" title="Download Image"></i></div>
+          <div id="edit-recording-image" class="btn-live-player save-live hide-icon"><%= image_tag("edit-icon-white.svg", :class => "edit-image", title: "Edit Image") %></div>
+          <div id="snapshot-magnifier" class="ui-snapshot-magnifier btn-live-player save-live"><i class="fa fa-search magnifier-icon icon-font" aria-hidden="true" title="Magnifier"></i></div>
+        </div>
+        </div>
+        <div id="navbar-section" class="navbar-settings">
+          <span id="snapshot-notes-text" class="mobile-hide"></span>
+          <span id="snapshot-notes-text" style="display: none;"></span>
+          <div id="divInfo" class="playback-info-bar"></div>
+          <div id="show-info"><i class="icon icon-info"></i></div>
+          <div id="divSliderBackground" class="slider slider-basic ui-slider ui-slider-horizontal ui-slider-recordings ui-widget ui-widget-content ui-corner-all">
+            <div id="divSlider" class="playback-slider-outer">
+              <div id="divPointer" class="playback-slider-inner"></div>
+            </div>
+          </div>
+
+          <div class="clear-f"></div>
+
+          <div id="divDisableButtons">
+            <div class="playback-buttons-bar">
+              <div class="btn-group">
+                <a class="btn disabled">-100</a>
+                <a class="btn disabled">-10</a>
+
+              </div>
+              <div class="btn-group">
+                <a class="btn disabled">-1</a>
+                <a class="btn btn-padding-tab btn-padding disabled"><i class="fas fa-play"></i></a>
+                <a class="btn disabled">+1</a>
+              </div>
+              <div class="btn-group">
+
+                <a class="btn disabled">+10</a>
+                <a class="btn disabled">+100</a>
+              </div>
+            </div>
+          </div>
+          <div id="divFrameMode" class="hide">
+            <div class="playback-buttons-bar">
+              <div class="btn-group">
+                <a class="btn skipframe">-100</a>
+                <a class="btn skipframe">-10</a>
+
+              </div>
+              <div class="btn-group">
+                <a class="btn skipframe left">-1</a>
+                <a class="btn btn-padding-tab btn-padding" id="btnPlayRec"><i class="fas fa-play"></i></a>
+                <a class="btn skipframe">+1</a>
+              </div>
+              <div class="btn-group">
+                <a class="btn skipframe">+10</a>
+                <a class="btn skipframe">+100</a>
+              </div>
+            </div>
+          </div>
+          <div id="divPlayMode" class="hide">
+            <div class="playback-buttons-bar playback-buttons-padding">
+              <div class="btn-group" data-toggle="tooltip" data-placement="bottom" title="-10">
+                <a class="btn btn-padding" id="btnFRwd"><i class="fas fa-backward"></i></a>
+              </div>
+              <div class="btn-group" data-toggle="tooltip" data-placement="bottom" title="-5">
+                <a class="btn btn-padding" id="btnRwd"><i class="fas fa-backward"></i></a>
+              </div>
+              <div class="btn-group">
+                <a class="btn btn-padding" id="btnPauseRec"><i class="fas fa-pause"></i></a>
+              </div>
+              <div class="btn-group" data-toggle="tooltip" data-placement="bottom" title="+5">
+                <a class="btn btn-padding" id="btnFwd"><i class="fas fa-forward"></i></a>
+              </div>
+              <div class="btn-group" data-toggle="tooltip" data-placement="bottom" title="+10">
+                <a class="btn btn-padding" id="btnFFwd"><i class="fas fa-forward"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="clear-f"></div>
+  </div>
+  <div class="right-column">
+    <div class="col-recording-right">
+      <div class="portlet">
+        <div id="ui_date_picker_inline" class="datepicker-bg" data-date-end-date="0d">
+          <div id="img-days-loader" class="img-loader-calendar2 hide">
+            <%= image_tag('loader3.gif', alt: 'Loading', class: 'center-gif') %>
+          </div>
+        </div>
+
+        <div class="datepicker datepicker-bg datepicker-inline">
+          <div id="img-hour-Loader" class="img-loader-calendar hide">
+            <%= image_tag('loader3.gif', alt: 'Loading', class: 'center-gif') %>
+          </div>
+          <div class="datepicker-day show">
+            <table id="hourCalendar" class="table-condensed width100">
+              <thead>
+              <tr>
+                <th colspan="7">Hour</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+                <td id="tdI0" class="day">0</td>
+                <td id="tdI1" class="day">1</td>
+                <td id="tdI2" class="day">2</td>
+                <td id="tdI3" class="day">3</td>
+                <td id="tdI4" class="day">4</td>
+                <td id="tdI5" class="day">5</td>
+                <td id="tdI6" class="day">6</td>
+              </tr>
+              <tr>
+                <td id="tdI7" class="day">7</td>
+                <td id="tdI8" class="day">8</td>
+                <td id="tdI9" class="day">9</td>
+                <td id="tdI10" class="day">10</td>
+                <td id="tdI11" class="day">11</td>
+                <td id="tdI12" class="day">12</td>
+                <td id="tdI13" class="day">13</td>
+              </tr>
+              <tr>
+                <td id="tdI14" class="day">14</td>
+                <td id="tdI15" class="day">15</td>
+                <td id="tdI16" class="day">16</td>
+                <td id="tdI17" class="day">17</td>
+                <td id="tdI18" class="day">18</td>
+                <td id="tdI19" class="day">19</td>
+                <td id="tdI20" class="day">20</td>
+              </tr>
+              <tr>
+                <td id="tdI21" class="day">21</td>
+                <td id="tdI22" class="day">22</td>
+                <td id="tdI23" class="day">23</td>
+                <td class="day"></td>
+                <td class="day"></td>
+                <td class="day"></td>
+                <td class="day"></td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div style="padding:5px 0px 5px 0px;" class="hide">
+          <div class="col-md-6">
+            Min:&nbsp;<select id="ddlRecMinutes" style="width: 50%;" class="">
+            <option value="0">00</option>
+          </select>
+          </div>
+          <div class="col-md-6">
+            Sec:&nbsp;<select id="ddlRecSeconds" style="width: 50%;" class="">
+            <option value="0">00</option>
+          </select>
+          </div>
+        </div>
+        <div class="clear-f"></div>
+        <div class="col-sm-12 old-new-snapshot-link align-center padding-none ">
+          <div class="col-sm-6 get-image border-right width-50" data-query="oldest"><< First</div>
+          <div id="latest-get-image" class="col-sm-6 get-image" data-query="latest">Last >></div>
+        </div>
+        <div class="clear-f"></div>
+        <div>
+          <% if has_right %>
+          <div class="recording-text margin-top-10">
+            <div class="setting-heading">
+              <b>Recording Settings</b><a id= "show-schedule-calendar" href="#" class="btn btn-edit right padding-left-5" data-toggle="modal" data-target="#cloud-recording-calendar-wrap">Edit</a>
+              <a id= "show-infinity-camera-info" href="#" class="btn btn-edit right padding-left-5" data-toggle="modal" data-target="#infinity-recording-text-dialogue">Edit</a>
+              <div id="show-image-info" class="btn btn-primary info-menu show-image-info" title="Storage Info"><i class="fa info-icon fa-info" aria-hidden="true"></i></div>
+                <div class="m-menu__submenu">
+                  <span class="triangle-right-border"></span>
+                  <ul class="m-menu__subnav">
+                    <li class="m-menu__item style-none" aria-haspopup="true"  data-redirect="true">
+                      <div id="image-info-box" class="info-schedule">
+                        <div id="image-info-div">
+                          <div class="recording-header">
+                            <span class="recording-heading">Image Size Estimates</span>
+
+                            <div id="image-size-div" class="image-size-div margin-top-20">
+                              <label class="color-grey width-100">Image Size:</label>
+                              <span id="image-file-size" class="image-file-size font-size-12">O KB</span>
+                            </div>
+
+                            <div id="image_dimension" class="image_dimension">
+                              <label class="color-grey width-100">Image Dimension:</label>
+                              <span id="recording_image_dimension" class="recording_image_dimension font-size-12">0x0</span>
+                            </div>
+
+                            <div id="monthlyGB-size-div" class="monthlyGB-size-div">
+                              <label class="color-grey width-100">Monthly GB (est):</label>
+                              <span id="monthlyGB-file-size" class="monthlyGB-file-size font-size-12">O KB</span>
+                            </div>
+
+                            <div id="totalGb-size-div" class="totalGb-size-div">
+                              <label class="color-grey width-100">Total GB (est):</label>
+                              <span id="totalGb-file-size" class="totalGb-file-size font-size-12">O KB</span>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                  <div class="clear-f"></div>
+                </div>
+              </div>
+              <div class="cloud-info margin-top-10">
+                <div class="status-off">
+                  <label class="color-grey">Recording Status:</label>
+                  <span class="off-status"></span>
+                </div>
+                <div class="storage">
+                  <label class="color-grey">Storage Duration:</label>
+                  <span class="storage-duration"></span>
+                </div>
+                <div class="frequency-text">
+                  <label class="color-grey">Snapshot per min:</label>
+                  <span class="recording-frequency"></span>
+                </div>
+              </div>
+            </div>
+            <div id="cloud-recording-calendar-wrap" class="modal fade setting-schedule hide">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-body">
+                    <button type="button" class="close margin-top-minus5" data-dismiss="modal" aria-hidden="true"><i class="fas fa-times"></i></button>
+                    <div id="recording-toggle">
+                      <div class="recording-header"><span class="recording-heading">Recording settings</span></div>
+                      <form class="margin-topbottom-10">
+                        <input type="radio" name="cloud_recording" id="cloud-recording-on" value="on"/>
+                        <label class="color-grey">Continuous</label>
+                        <br/>
+                        <input type="radio" name="cloud_recording" id="cloud-recording-on-scheduled" value="on-scheduled"/>
+                        <label class="color-grey">On Schedule</label>
+                        <br/>
+                        <input type="radio" name="cloud_recording" id="cloud-recording-paused" value="paused"/>
+                        <label class="color-grey">Paused</label>
+                        <br/>
+                        <input type="radio" name="cloud_recording" id="cloud-recording-off" value="off"/>
+                        <label class="color-grey">Off</label>
+                        <br/>
+                      </form>
+                    </div>
+                    <div id="cloud-recording-duration-wrap">
+                      <b>Schedule:</b>
+                      <br/>
+                      <label class="color-grey width-135">Storage duration:</label>
+                      <select id="cloud-recording-duration" style="width: 175px;">
+                        <option value="1">24 hours recording</option>
+                        <option value="7">7 days recording</option>
+                        <option value="30">30 days recording</option>
+                        <option value="90">90 days recording</option>
+                        <option disabled value="-1">Infinity (Call Customer Support) </option>
+                      </select>
+                    </div>
+                    <div id="cloud-recording-frequency-wrap">
+                      <label class="color-grey width-135">Snapshots per minute:</label>
+                      <select id="cloud-recording-frequency" style="width: 175px;">
+                        <option value="60">60 (1 per second)</option>
+                        <option value="30">30 (1 every 2 seconds)</option>
+                        <option value="12">12 (1 every 5 seconds)</option>
+                        <option value="6">6 (1 every 10 seconds)</option>
+                        <option value="1">1 (1 every 60 seconds)</option>
+                        <option value="5">1 (1 every 5 minutes)</option>
+                        <option value="10">1 (1 every 10 minutes)</option>
+                      </select>
+                    </div>
+                    <div id="schedule-recording-presets" class="margin-top-5">
+                      <label class="color-grey width-135">Presets:</label>
+                      <select id="select-schedule-presets" class="select-schedule-presets">
+                        <option value="None">None</option>
+                        <option value="MF_24_hr">MTWTF 24hrs</option>
+                        <option value="MF_Site_Working">MTWTF 07:00-19:00 (Site Working)</option>
+                        <option value="MF_Site_Working_Sat">MTWTF 07:00-19:00 & Sat 07:00-14:00 (Site Working & Sat)</option>
+                        <option value="MF_Sat_sun_off">MTWTF 18:00-08:00 & Sat & Sun (Office Closed)</option>
+                      </select>
+                    </div>
+                    <div id="calendarfull-wrap" class="calendar-width margin-top-25">
+                      <div class="clear-f"></div>
+                      <div id="cloud-recording-calendar" class="margin-topbottom-10">
+                        <span id="cloud-recording-collaps"><span class="glyphicon glyphicon-chevron-down"></span></span>
+                      </div>
+                    </div>
+                    <fieldset>
+                      <div class="row save-settings margin-top-20">
+                        <div class='pull-left form-group'><label class="control-label" for="add-button"></label>
+                          <button id="add-button" name="add-button" class="margin-left-15 alert push btn btn-primary margin-right-10 schedule-save">Save</button>
+                        </div>
+                      </div>
+                    </fieldset>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div id="infinity-recording-text-dialogue" class="modal fade infinity-modal">
+              <div class="modal-dialog max-width-430">
+                <div class="modal-content max-width-430">
+                  <div class="modal-body">
+                    <button type="button" class="close margin-top-minus5" data-dismiss="modal" aria-hidden="true"><i class="fas fa-times"></i></button>
+                    <div class="col-md-12 padding-0 margin-top-10">
+                      <p class="text-left margin-0">You cannot change the Recording Settings please talk to your Account Manager.</p><br>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <%end%>
+        </div>
+      </div>
+    </div>
+    <div class="row form-vertical margin-top-15">
+      <div class="col-md-12">
+        <div id="recording-archive-button" href="#" class="btn btn-primary margin-bottom-40 width100" data-toggle="modal" data-target="#archive-modal">
+          Create a new Clip
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="clear-f"></div>
+</div>
+
+<div id="divPopup"></div>
+<input type="hidden" name="camera_time_offset" id="camera_time_offset" value="<%= @offset %>">
+<input type="hidden" name="camera_selected_time" id="camera_selected_time" value="<%= @selected_date %>">
+<input type="hidden" name="camera_current_time" id="camera_current_time" value="<%= @current_time %>">
+<input type="hidden" name="snapshot-diff" id="snapshot-diff" value="<%= @snapshot_navigator %>">
+<div id="off-pause-modal" class="modal fade">
+  <div class="modal-dialog width-420">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="col-md-12 padding-0">
+          <p class="text-left margin-0">Your recordings were paused <span class="lblPauseFrom"></span> ago. If you resume recording ( <span class="lblResumePeriod"></span> ) then footage outside of this range will be lost.</p>
+          <br>
+          <p>Are you sure you want to continue?</p>
+        </div>
+      </div>
+      <div class="modal-footer padding-15">
+        <div class="col-sm-8 padding-0">
+          <input type="hidden" id="cr_change_to" name="cr_change_to" value="">
+          <input type="hidden" id="camera-created-at" name="camera-created-at" value="<%= @camera['created_at'] %>">
+          <button id="resume-recordings" name="resume-recordings" class="btn btn-danger pull-left">Yes</button>
+          <input type="button" id="resume-recordings-no" class="btn btn-default pull-left" value="No" data-dismiss="modal" />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

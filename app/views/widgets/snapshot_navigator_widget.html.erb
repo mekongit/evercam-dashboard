@@ -1,0 +1,68 @@
+<head lang="en">
+  <title>Evercam: Snapshot Navigator Widget</title>
+  <%= stylesheet_link_tag "views/widgets/widget" %>
+  <%= javascript_include_tag "snapshot_navigator_widget" %>
+</head>
+<body class="body-transparent">
+<div id="recording">
+  <%= render partial: "cameras/single/snapshots_navigator_tab" %>
+</div>
+<script>
+  window.sendAJAXRequest = function(settings) {
+    var headers, token, xhrRequestChangeMonth;
+    token = $('meta[name="csrf-token"]');
+    if (token.size() > 0) {
+      headers = {
+        "X-CSRF-Token": token.attr("content")
+      };
+      settings.headers = headers;
+    }
+    return xhrRequestChangeMonth = $.ajax(settings);
+  };
+  window.showFeedback = function(message) {
+    Notification.show(message);
+    return true;
+  };
+  window.Evercam.API_URL = '<%= EVERCAM_API %>';
+  window.Evercam.MEDIA_API_URL = '<%= EVERCAM_MEDIA_API %>';
+  <% params_subpath = params.fetch('subpath', '') %>
+  <% params_format = params.fetch('format', '') %>
+  <% params_subpath = "#{params_subpath}.#{params_format}" unless params_format.blank? %>
+  window.Evercam.Camera = {
+    id: '<%= @camera['id'] %>',
+    status: '<%= @camera['status'] %>',
+    vendor_id: '<%= @camera['vendor_id'] %>',
+    model_name: '<%= @camera['model_name'] %>',
+    location: {
+      lat: <%= @camera.deep_fetch('location', 'lat') {} %>,
+      lng: <%= @camera.deep_fetch('location', 'lng') {} %>
+    },
+    cloud_recording: {
+      frequency: <%= @cloud_recording['frequency'].to_i %>,
+      storage_duration: <%= @cloud_recording['storage_duration'].to_i %>,
+      status: '<%= @cloud_recording['status'].to_s %>',
+      schedule: <%= raw(@cloud_recording['schedule'].to_json) %>
+    }
+  };
+  window.Evercam.request = {
+    url: '<%= request.url %>',
+    path: '<%= request.path %>',
+    subpath: '<%= params_subpath %>',
+    tabpath: '<%= params_subpath.split('/').first %>',
+    rootpath: '<%= request.path.sub(params_subpath, '').chomp('/') %>'
+  };
+  window.Evercam.User = {
+    username: '<%= current_user.username %>',
+    api_id: '<%= current_user.api_id %>',
+    api_key: '<%= current_user.api_key %>'
+  };
+  $(document).ready(function () {
+    window.initializeRecordingsTab();
+    Metronic.init();
+    Notification.init();
+    return $("input[type=radio]").iCheck({
+      radioClass: "iradio_flat-blue"
+    });
+  });
+</script>
+</body>

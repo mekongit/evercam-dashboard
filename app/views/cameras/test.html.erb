@@ -1,0 +1,76 @@
+<%= content_for(:title, "Evercam: Evercam Compatibility Tests") %>
+
+<div class="page-content-wrapper">
+  <div class="page-content" id="browser-compatiblity">
+    <div class="portlet-body">
+      <div class="col-sm-12 col-md-12 margin-top-20">
+        <div class="javascipt-section">
+          <div class="yes-javascript hide">
+            <i class="yes-icon fa fa-check green icon-font"></i>
+            <span>Javascript is enabled on this browser.</span>
+          </div>
+          <div class="no-javascript">
+            <noscript>
+              <div class="no-javascript margin-top-20"><i class="no-icon fa fa-times red icon-font"></i><span class="margin-left-5">Javascript is not enabled on this browser.</span></div>
+            </noscript>
+          </div>
+        </div>
+        <div class="clear-f"></div>
+        <div class="flash-section">
+          <div class="yes-flash hide margin-top-10">
+            <i class="yes-icon fa fa-check green icon-font"></i>
+            <span>Flash is installed on this browser.</span>
+          </div>
+          <div class="clear-f"></div>
+          <div class="no-flash hide margin-top-10">
+            <i class="no-icon fa fa-times red icon-font"></i>
+            <span class="margin-left-5">Flash is not detected on this browser.</span>
+          </div>
+        </div>
+        <div class="clear-f"></div>
+        <div class="media-resquest-section">
+          <div id="yes-blocked" class="hide margin-top-10">
+            <i class="no-icon fa fa-times red icon-font"></i>
+            <span class="margin-left-5">Your media sending requests are blocked.</span>
+          </div>
+          <div id="no-blocked" class="hide margin-top-10">
+            <i class="yes-icon fa fa-check green icon-font"></i>
+            <span>Your media sending requests are not blocked.</span>
+          </div>
+        </div>
+        <div class="clear-f"></div>
+        <div class="os-section margin-top-10">
+          <div>
+            <p class="os-info"></p>
+          </div>
+        </div>
+        <div class="clear-f"></div>
+        <div class="browser-section">
+          <div>
+            <p class="browser-info"></p>
+          </div>
+        </div>
+        <div class="clear-f"></div>
+        <div class="listNurl-section">
+          <div>
+            <p>List of the URLs and IP addresses that should not be blocked and are used to run dashboard smoothly.</p>
+          </div>
+          <div class="col-sm-12 col-md-12">
+            <ul>
+              <li><span>88.99.215.251</span></li>
+              <li><span>seaweedfs2.evercam.io</span></li>
+              <li><span>media.evercam.io (http://, rtmp://, rtsp://)</span></li>
+              <li><span>gravatar.com</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+$(document).ready(function () {
+  window.initializeBrowserCompatiblity();
+});
+</script>

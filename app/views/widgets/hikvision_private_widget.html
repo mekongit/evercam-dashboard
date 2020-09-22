@@ -1,0 +1,15 @@
+<head lang="en">
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+</head>
+<body style="margin: 0px;">
+<% if @unathorized %>
+    <h1>Unauthorized</h1>
+You are not allowed to view this camera
+<% elsif @not_exist %>
+    <p style="font-family: helvetica, arial">We are unable to fetch storage from this camera.<p>
+<% else %>
+    <div>
+        <iframe style="overflow-y: hidden; overflow-x: scroll; width: 100%; height: 640px;" src="https://playback.azurewebsites.net/home/doc/page/main.aspx?camera=<%= params[:camera] %>&date_time=<%= params[:date_time] %>&api_id=<%= current_user.api_id %>&api_key=<%= current_user.api_key %>" />
+    </div>
+<% end %>
+</body>

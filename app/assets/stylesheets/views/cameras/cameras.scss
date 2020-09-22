@@ -1,0 +1,362 @@
+/*CAMERA INDEX PAGE*/
+#camera-index {
+  padding: 0;
+
+  &.cam-active .camera-offline{
+      display: none;
+  }
+
+  .camera-name a {
+    color:#aaa;
+    transition:all 0s linear 0.2s,all 0.3s linear;
+  }
+  .camera-name {
+    position: absolute;
+    bottom: 0px;
+    left: 5px;
+    font-size: 12px;
+    font-weight: 300;
+    color: #f5f5f5;
+  }
+  .camera-index:hover .camera-name a {
+    color:#fff;
+    opacity: 1;
+  }
+  .camera-info {
+    background-image: linear-gradient(
+                    to top,
+                    rgba(0, 0, 0, .85) 0%,
+                    rgba(0, 0, 0, 0.15) 30%,
+                    rgba(0, 0, 0, 0) 90%,
+                    rgba(0, 0, 0, 0) 100%
+    );
+    padding: 10px 5px 10px;
+    position: absolute;
+    bottom: 0;
+    cursor: pointer;
+    pointer-events:none;
+    height: 100%;
+    width: 100%;
+  }
+}
+.camera-index:hover #cam-refresh {
+  visibility: visible;
+  opacity: 1;
+}
+
+@media (max-width: 730px) {
+  .nav > li > a {
+    padding: 10px 10px;
+  }
+}
+.dropdown-menu{
+  width: auto;
+}
+.nav-tabs,
+.nav-pills {
+  margin-bottom: 5px;
+  margin-top: 8px;
+}
+
+.nav-tabs {
+  border-bottom: 1px solid $grey;
+}
+
+.nav-tabs li a {
+  color: #333333;
+}
+.nav-tabs li a:hover, .nav-tabs li a:active  {
+  color: rgba(6, 17, 27, 0.65);
+}
+.nav-tabs > li > a:hover {
+  border:1px solid transparent;
+}
+
+.copy-from li {
+  width: 100%;
+
+  a {
+    color: $form-dark-grey;
+  }
+}
+
+.copy-from > li > a:hover,
+.nav-tabs li a:active  {
+  color: $main-color;
+}
+
+.copy-from > li > a:hover {
+  border:1px solid transparent;
+}
+
+.copy-from .dropdown-menu {
+  height: 250px;
+  margin-left: 24px;
+  margin-top: 0px;
+  border: 1px solid $grey;
+  border-top: none;
+  box-shadow: none;
+
+  li {
+    padding: 5px;
+
+    a {
+      text-align: left;
+      padding-left: 5px;
+      display: inline-block;
+      width: 80%;
+    }
+  }
+
+  li:hover a{
+    color: $white;
+    background-color: $hover-blue;
+  }
+}
+
+.copy-from .cameras-dropdown-toggle {
+  padding: 10px;
+  border: 1px solid $grey;
+}
+
+.tabbable-custom > .tab-content {
+  border: none;
+}
+
+.margin-top-3 {
+  margin-top: 3px;
+}
+#my-cameras .panel-body, #my-shared-cameras .panel-body {
+  padding: 0px 0 4px 0;
+  margin-left: -10px;
+}
+
+.page-content .camera-index-height {
+  height: 600px;
+}
+
+.camera-index {
+  overflow: hidden;
+  height: 412px;
+  margin-top: 0px;
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+@media screen and (max-width: 1600px) {
+
+  .camera-index {
+    height: 300px;
+  }
+
+  .page-content .camera-index-height {
+    height: 420px;
+  }
+}
+.add-camera-outer {
+  border: 1px solid #e5e5e5;
+  height: 412px;
+  text-align: center;
+}
+@media screen and (max-width: 1600px) {
+  .add-camera-outer {
+    height: 300px;
+  }
+}
+.add-camera-info {
+  @include vertical-align;
+}
+.add-camera-icon {
+  font-size: 46px;
+  line-height: 35px;
+}
+.add-camera-index {
+  color:#333333;
+}
+
+.link {
+  z-index: 100000;
+  height: 300px;
+}
+.snapshot {
+  position:relative;
+  height: 100%;
+  text-align: center;
+}
+.snapshot img {
+  height: 100%;
+}
+
+#camera-index .page-content{
+  overflow-y:hidden !important;
+  overflow-x:hidden !important;
+}
+
+.camera-index a:hover {
+  color:#fff;
+  text-decoration: none;
+}
+
+.camera-index:hover .camera-name a {
+  color:#fff;
+  opacity: 1;
+}
+.camera-info {
+  background-image: linear-gradient(
+                  to top,
+                  rgba(0, 0, 0, .85) 0%,
+                  rgba(0, 0, 0, 0.15) 30%,
+                  rgba(0, 0, 0, 0) 90%,
+                  rgba(0, 0, 0, 0) 100%
+  );
+  padding: 10px 5px 10px;
+  position: absolute;
+  bottom: 0;
+  cursor: pointer;
+  pointer-events:none;
+  height: 100%;
+  width: 100%;
+}
+
+.offline-snapshot img {
+  filter: grayscale(100%);
+}
+
+.camera-index:hover #cam-refresh {
+  visibility: visible;
+  opacity: 1;
+}
+
+.camera-index:nth-child(3n+1) {
+  padding-right: 8px;
+}
+
+ul.scroll-menu {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  -moz-overflow-scrolling: touch;
+  -ms-overflow-scrolling: touch;
+  -o-overflow-scrolling: touch;
+  overflow-scrolling: touch;
+  width: 100%;
+  height: auto;
+  min-width: 250px;
+  max-height: 600px;
+  margin: 0;
+  border-left: none;
+  border-right: none;
+  -webkit-border-radius: 0 !important;
+  -moz-border-radius: 0 !important;
+  -ms-border-radius: 0 !important;
+  -o-border-radius: 0 !important;
+  border-radius: 0 !important;
+  margin-top: -7px;
+  left: -24px;
+  padding: 10px 0px;
+}
+
+.rotate-refresh-icon {
+  -webkit-animation-name: rotate;
+  -webkit-animation-duration: 1s;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
+  -moz-animation-name: rotate;
+  -moz-animation-duration: 1s;
+  -moz-animation-iteration-count: infinite;
+  -moz-animation-timing-function: linear;
+}
+@-webkit-keyframes rotate {
+  from {-webkit-transform: rotate(360deg);}
+  to {-webkit-transform: rotate(0deg);}
+}
+
+@-moz-keyframes rotate {
+  from {-moz-transform: rotate(360deg);}
+  to {-moz-transform: rotate(0deg);}
+}
+
+.snapshot-proxy{
+  height: auto;
+}
+
+.no-thumbnail {
+  .offline-camera-placeholder & {
+    background: #ffffff;
+    width: 100%;
+  }
+
+  .snapshot & {
+    width: 100%;
+  }
+}
+
+.cameras-dropdown-toggle {
+  min-width: 230px;
+}
+
+.fa-copy-from {
+  color: #A0A0A0;
+  float: right;
+  font-size: 12px;
+  margin-top: 3px;
+}
+
+.fa-copy-from:hover {
+  color: #428bca;
+}
+
+.margin-top-set {
+  margin-top: 28px;
+}
+
+.camera-index:not(.camera-offline),
+.sub-menu-item:not(.sidebar-offline) {
+  .fa-unlink {
+    display: none;
+  }
+}
+
+.refresh-camera-thumbnail {
+  position: absolute;
+  top: 0%;
+  right: 0%;
+  width: 36px;
+  height: 36px;
+  text-align: center;
+  cursor: pointer;
+  background: rgba(0, 0, 0, 0.65);
+  border-radius: 50px;
+  font-family: sans-serif;
+  z-index: 1;
+
+  i {
+    color: $white;
+    margin: 9px;
+  }
+
+  .refresh-gif-thumbnail {
+    width: 18px;
+    margin-top: 9px;
+    right: 0%;
+    display: none;
+  }
+}
+
+.refresh-camera-thumbnail:hover {
+  background: #68a2d5;
+}
+
+@media (max-width: 992px) {
+
+  .page-content-wrapper {
+    padding: 21px 0px;
+    margin: 33px 0 0;
+  }
+
+}
+
+@media screen and (max-width: 480px) {
+  .page-content .camera-index-height {
+    height: 300px;
+  }
+}

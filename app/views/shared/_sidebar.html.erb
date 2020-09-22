@@ -1,0 +1,122 @@
+<div class="page-sidebar-wrapper">
+  <div class="page-sidebar navbar-collapse collapse">
+    <ul class="page-sidebar-menu" data-auto-scroll="true" data-slide-speed="200">
+      <% if @current_user %>
+        <li class="cameras-sidebar">
+          <div class="sidebar-title">
+            <div id="hello" class="col-md-12">
+              <%= link_to cameras_index_path do %>
+                <img src="/favicon-white-24x24.png" class="camera-icon"><span class="title"> Cameras</span>
+              <% end %>
+              <span class="camera-fadrop">
+                <i class="fa fa-caret-down pull-right title icon-font"></i>
+                <i class="fa fa-caret-up title icon-font"></i>
+              </span>
+            </div>
+            <div class="clear-f"></div>
+          </div>
+        </li>
+      <% end %>
+      <% unless @archive_view %>
+      <li class="cameralist-height title">
+        <ul class="sub-menu sidebar-cameras-list">
+          <% if @cameras %>
+            <% @cameras.each do |camera| %>
+              <li class="sub-menu-item camera-<%= camera['id'] %> <%= is_active?("/cameras/#{camera['id']}") %> <% if camera['status'] == "offline" %>sidebar-offline<% end %>" <% if camera['status'] == "offline" %>title="Offline Cause: <%= camera['offline_reason'] %>"<% end %>>
+                <% if camera['cloud_recordings'] %>
+                  <% recording_status = camera['cloud_recordings'].fetch('status') %>
+                  <% recording_duration = camera['cloud_recordings'].fetch('storage_duration') %>
+                  <% if recording_duration == -1 %>
+                    <% recording_duration = '∞' %>
+                  <% end %>
+                  <% if recording_status != 'off' && recording_status != 'paused' %>
+                    <div id="green-dot-div" class="green-dot-div" title='<%= recording_duration %>'>
+                      <i class="fas fa-circle green-dot"></i>
+                    </div>
+                  <% end %>
+                <% end %>
+                <%= link_to camera['name'] , cameras_single_path(camera['id']), data: {"camera-id" => camera['id']} %>
+                <i class="red header-sidebar fa fa-unlink"></i>
+              </li>
+            <% end %>
+          <% else %>
+            <% if @camera %>
+            <li class="sub-menu-item public-active-list camera-<%= @camera['id'] %> <%= is_active?("/cameras/#{@camera['id']}") %> <% if @camera['status'] == "offline" %>sidebar-offline<% end %>">
+              <span class="title"> <%= @camera['name'] %></span>
+              <i class="red header-sidebar fa fa-unlink"></i>
+            </li>
+            <% else %>
+              <li class="sub-menu-item public-active-list">
+                <span class="title"> Test Results</span>
+              </li>
+            <% end %>
+          <% end %>
+        </ul>
+      </li>
+      <% end %>
+      <% if @current_user %>
+        <li class="sidebar-line">
+          <%= link_to snapmails_index_path do %>
+            <img class="icon-font snapimg" src="//dkzcs7h1dpzak.cloudfront.net/assets/snapmail-fd5f12a06005b85e0247e6fa206e9992c31af9f0c95a79544dcca1f9d216f620.png"><span class="title snapmail-text"> Snapmails</span>
+          <% end %>
+        </li>
+        <li>
+          <%= link_to archives_index_path do %>
+            <i class="fas fa-archive icon-font"></i><span class="title"> Archives</span>
+          <% end %>
+        </li>
+        <li class="nprogCall">
+          <%= link_to map_view_path do %>
+            <i class="fa fa-map width-20"></i> Map View
+          <% end %>
+        </li>
+        <li class="nprogCall sidebar-line">
+          <%= link_to user_settings_path do %>
+            <i class="fa fa-cog icon-font"></i> Settings
+          <% end %>
+        </li>
+        <% if Evercam::Config.env == :production %>
+          <li role="presentation">
+            <a onclick='$zoho.salesiq.floatwindow.visible("show");'><i class="fa fa-comment icon-font"></i><span class="title"> Live Support</span></a>
+          </li>
+        <% end %>
+        <li class="nprogCall">
+          <a rel="nofollow" data-method="delete" href=<%= signout_path %>><i class="fas fa-sign-out-alt right-ajustment icon-font"></i><span class="title"> Sign out </span></a>
+        </li>
+      <% else %>
+        <li class="nprogCall sidebar-line">
+          <%= link_to signin_path do %>
+            <i class="fas fa-sign-in-alt icon-font"></i> Sign In
+          <% end %>
+        </li>
+        <li class="nprogCall sidebar-line">
+          <%= link_to signup_path do %>
+            <i class="fa fa-user-plus icon-font"></i> Create New Account
+          <% end %>
+        </li>
+        <li class="nprogCall sidebar-line">
+          <%= link_to "https://evercam.io/construction-timelapse/" do %>
+            <img src="/favicon-white-24x24.png" class="camera-icon"> About Evercam
+          <% end %>
+        </li>
+        <li class="nprogCall sidebar-line">
+          <%= link_to "https://evercam.io/blog" do %>
+            <i class="fa fa-rss icon-font"></i> Evercam Blog
+          <% end %>
+        </li>
+      <% end %>
+
+    </ul>
+    <input type="hidden" id="controller" value="<%= params[:controller] %>">
+  </div>
+</div>
+<% if @current_user %>
+<script type="text/javascript">
+  var $zoho=$zoho || {};$zoho.salesiq = $zoho.salesiq || {widgetcode:"758857a8ab7b612c8dad41b0691f8b4f6386f191574508cc8aa8398bb8a1f17f", values:{},ready:function(){}};var d=document;s=d.createElement("script");s.type="text/javascript";s.id="zsiqscript";s.defer=true;s.src="https://salesiq.zoho.com/widget";t=d.getElementsByTagName("script")[0];t.parentNode.insertBefore(s,t);d.write("<div id='zsiqwidget' style='display:none;'></div>");
+  $zoho.salesiq.ready=function(embedinfo)
+  {
+    $zoho.salesiq.visitor.name("<%= current_user.firstname -%>");
+    $zoho.salesiq.visitor.email("<%= current_user.username -%>");
+  }
+</script>
+<% end %>

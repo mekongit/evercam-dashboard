@@ -1,0 +1,111 @@
+<div class="row">
+  <div class="col-md-12">
+    <ul class="list-group list-group-lg">
+      <li class="list-group-item">
+       <div class="panel-section">
+          <div class="panel-description col-md-4">
+            <% if @share.nil? %>
+              <h5 class="red">Delete Camera</h5>
+              <p class="grey">This will delete the camera from Evercam and everything associated with it.</p>
+            <% else %>
+              <h5>Remove Camera</h5>
+              <p class="grey">This will remove the camera from your dashboard. It will not delete it as user <span class="bold"><%= @camera['owner'] %></span> owns the camera.</p>
+            <% end %>
+          </div>
+          <div class="panel-content col-md-8 margin-top-10">
+            <button id="remove-camera-button" data-toggle="modal" data-target="#deleteModal" class="btn btn-danger" role="button" data-size="xl" data-style="expand-left">
+            <% if @share.nil? %>Delete<% else %>Remove<% end %>
+          </button>
+            <div id="deleteModal" class="modal fade">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-body">
+                    <div class="col-md-12">
+                      <% if @share.nil? %>
+                        <p class="text-left">Are you sure you want to <strong>Delete</strong> this camera?</p>
+                      <% else %>
+                        <p class="text-left">Are you sure you want to <strong>Remove</strong> this camera?</p>
+                      <% end %>
+                    </div>
+                    <% if @share.nil? %>
+                    <div class="col-md-12">
+                      <p>Enter camera id to confirm you want to permanently delete this camera</p>
+                      <input id="camera_specified_id" name="camera_specified_id" type="text" class="form-control">
+                    </div>
+                    <% end %>
+                  </div>
+                  <div class="modal-footer">
+                    <div class="col-sm-8 margin-top-10">
+                      <input type="hidden" id="id" name="id" value="<%= @camera['id'] %>"/>
+                      <% if @share.nil? %>
+                        <input type="hidden" id="share" name="share" value="false"/>
+                        <button id="delete-camera" name="delete-camera" class="btn btn-danger pull-left">Delete</button>
+                      <% else %>
+                        <input type="hidden" id="share_id" name="share_id" value="<%= @share['id'] %>"/>
+                        <input type="hidden" id="share" name="share" value="true"/>
+                        <button id="remove-camera" name="remove-camera" class="btn btn-danger pull-left">Yes</button>
+                      <% end %>
+                      <button type="button" class="btn btn-default pull-left" data-dismiss="modal"><% if @share.nil? %>Cancel<% else %>No<% end %></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+       </div>
+      </li>
+      <% has_edit_right = @camera["rights"].split(",").include?("edit") %>
+      <% if has_edit_right || @camera['owner'] == current_user.username %>
+        <li class="list-group-item">
+          <div class="col-md-4">
+            <h5>Clone Camera</h5>
+            <p class="grey">Add a new camera with the settings from this camera.</p>
+          </div>
+          <div class="panel-content col-md-8 margin-top-10">
+            <%= link_to cameras_clone_path(@camera['id']), class: 'btn btn-default' do %>
+              Clone
+            <% end %>
+          </div>
+        </li>
+      <% end %>
+      <% if @camera['owner'] == current_user.username %>
+      <li class="list-group-item">
+        <div class="col-md-4">
+          <h5>Transfer Ownership</h5>
+          <p class="grey">You can transfer ownership to a user who you are already sharing the camera with.</p>
+        </div>
+        <div class="col-md-8">
+            <div class="row">
+              <div class="col-md-6">
+                <select id="settings_new_owner_email" name="settings_new_owner_email" class="form-control">
+                  <option value="one">Select a new owner...</option>
+                  <% if @camera_shares %>
+                    <% @camera_shares.each do |share| %>
+                      <option value="<%= share["user_id"] %>"><%= share["user_id"] %></option>
+                    <% end %>
+                  <% end %>
+                </select>
+              </div>
+            </div>
+
+            <div class="row margin-top-10">
+              <div class="col-md-6">
+                <p id="change_owner_error" class="alert alert-danger" style="display: none;"></p>
+                <button type="button" id="submit_change_owner_button" camera_id="<%= @camera["id"] %>" data-model="setting" class="btn btn-default change_camera_ownership">Transfer</button>
+              </div>
+            </div>
+        </div>
+      </li>
+      <% end %>
+      <li class="list-group-item">
+        <div class="col-md-4">
+          <h5>Notifications</h5>
+          <p class="grey">Coming soon...</p>
+        </div>
+        <div class="col-md-8">
+          <div class="button"></div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>

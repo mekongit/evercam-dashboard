@@ -1,0 +1,22 @@
+<div id="logs-filter" class="filter">
+  <div class="row dates margin-top-10">
+    <div class="col-sm-1 min-width-114 set-margin padding-right-left-10"><h5>Filter by:</h5></div>
+    <div class="col-sm-6 min-width200">
+      From: <input id="datetimepicker_from" class="datetimepicker" type="text" value="" placeholder="From Date">
+      To: <input id="datetimepicker_to" class="datetimepicker to-time" type="text" value="" placeholder="To Date">
+      <button id="search-logs" class="btn btn-primary btn-setting filter-button">Filter</button>
+    </div>
+  </div>
+</div>
+<div class="container-margin">
+  <table id="user-activity" class="table table-striped table-bordered cell-border display compact responsive">
+    <thead>
+      <th data-priority="5" class="landscape">Browser</th>
+      <th data-priority="1" class="all">IP address</th>
+      <th data-priority="4" class="landscape">Country</th>
+      <th data-priority="3" class="all">Date &amp; Time</th>
+      <th data-priority="2" class="all">Event</th>
+    </thead>
+    <tbody class="font-12"></tbody>
+  </table>
+</div>

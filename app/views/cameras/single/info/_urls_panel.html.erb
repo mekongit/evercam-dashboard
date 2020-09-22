@@ -1,0 +1,86 @@
+<div class="portlet solid margin-top-40" id="urls-panel">
+  <div class="portlet-title">
+    <div class="caption">URLs</div>
+  </div>
+  <div class="portlet-body">
+    <section id="unseen">
+      <table class="table table-fixed table-borderless">
+        <tr id="camera-section">
+          <td class="col-md-4 col-xs-4">
+            Camera:
+          </td>
+          <td id="camera_link">
+            <% url = @camera.deep_fetch('external', 'http', 'camera') {} %>
+            <% if url.blank? %>
+              <span class="grey">Not available</span>
+            <% else %>
+              <%= link_to_unless(url.nil?, url, url, target: '_blank', :only_path => false) %>
+            <% end %>
+          </td>
+        </tr>
+        <% unless @has_edit_rights %>
+          <tr id="thumbail-url-section">
+            <td class="col-md-4 col-xs-4">
+              Snapshot:
+            </td>
+            <td id="thumbnail_jpg">
+              <%= link_to  @camera['thumbnail_url'], thumbnail_url(@camera), target: '_blank' %>
+            </td>
+          </tr>
+        <% end %>
+        <tr id="snapshot-section">
+          <td class="col-md-4 col-xs-4">
+            Snapshot:
+          </td>
+          <td id="camera_http_jpg">
+            <% url = @camera.deep_fetch('external', 'http', 'jpg') {} %>
+            <% if url.blank? %>
+              <span class="grey">Not available</span>
+            <% else %>
+              <%= link_to_unless(url.nil?, url, url, target: '_blank', :only_path => false) %>
+            <% end %>
+          </td>
+        </tr>
+        <tr id="hls-section">
+          <td class="col-md-4 col-xs-4">
+            HLS:
+          </td>
+          <td id="camera_hls">
+            <% url = @camera.deep_fetch('proxy_url', 'hls') {} %>
+            <% if url.blank? %>
+              <span class="grey">Not available</span>
+            <% else %>
+              <%= link_to_unless(url.nil?, "http://media.evercam.io:4000/live/index.m3u8?camera_id=#{@camera['id']}", url, target: '_blank', :only_path => false) %>
+            <% end %>
+          </td>
+        </tr>
+        <tr id="rtsp-section">
+          <td class="col-md-4 col-xs-4">
+            RTSP:
+          </td>
+          <td id="camera_h264">
+            <% url = @camera.deep_fetch('external', 'rtsp' , 'h264') {} %>
+            <% if url.blank? %>
+              <span class="grey">Not available</span>
+            <% else %>
+              <%= link_to_unless(url.nil?, url, url, target: '_blank', :only_path => false) %>
+            <% end %>
+          </td>
+        </tr>
+        <tr id="rtmp-section">
+          <td class="col-md-4 col-xs-4">
+            RTMP:
+          </td>
+          <td id="camera_rtmp">
+            <% url = @camera.deep_fetch('proxy_url', 'rtmp') {} %>
+            <% if url.blank? %>
+              <span class="grey">Not available</span>
+            <% else %>
+              <%= link_to_unless(url.nil?, "rtmp://media.evercam.io:1935/live?camera_id=#{@camera['id']}", url, target: '_blank', :only_path => false) %>
+            <% end %>
+          </td>
+        </tr>
+      </table>
+    </section>
+  </div>
+</div>

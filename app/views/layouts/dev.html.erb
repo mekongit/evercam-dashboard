@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="google" content="notranslate" />
+  <meta http-equiv="Content-Language" content="en" />
+  <%= csrf_meta_tags %>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <title><%= yield(:title) %></title>
+  <%= render partial: "shared/favicon" %>
+  <%= stylesheet_link_tag "application", media: "all" %>
+  <%= javascript_include_tag "application" %>
+  <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+  <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+  <![endif]-->
+</head>
+<body class="page-header-fixed page-quick-sidebar-over-content page-sidebar-fixed page-header-fixed-mobile page-footer-fixed1">
+<%= render partial: "shared/no_script_warning" %>
+<%= render :partial => "shared/header" %>
+<div class="page-container">
+  <%= render :partial => "shared/sidebar" %>
+  <%= yield %>
+</div>
+
+<div class="bb-alert alert alert-info" style="display:none;">
+  <span></span>
+</div>
+<script>
+  notifyMessage = '<%= flash[:message] %>';
+
+  if (!window.Evercam) {
+    window.Evercam = {};
+  }
+  window.Evercam.API_URL = '<%= EVERCAM_API %>';
+  window.Evercam.MEDIA_API_URL = '<%= EVERCAM_MEDIA_API %>';
+  window.Evercam.websockets_url = '<%= EvercamDashboard::Application.config.websockets_url %>';
+  window.Evercam.User = {
+    username: '<%= current_user.username %>',
+    api_id: '<%= current_user.api_id %>',
+    api_key: '<%= current_user.api_key %>'
+  };
+
+  <% params_subpath = params.fetch('subpath', '') %>
+  <% params_format = params.fetch('format', '') %>
+  <% params_subpath = "#{params_subpath}.#{params_format}" unless params_format.blank? %>
+  window.Evercam.request = {
+    url: '<%= request.url %>',
+    path: '<%= request.path %>',
+    subpath: '<%= params_subpath %>',
+    tabpath: '<%= params_subpath.split('/').first %>',
+    rootpath: '<%= request.path.sub(params_subpath, '').chomp('/') %>'
+  };
+
+  Metronic.init();
+  Layout.init();
+  QuickSidebar.init();
+</script>
+
+</body>
+</html>

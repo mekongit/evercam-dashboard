@@ -1,0 +1,201 @@
+@import "single/_info.scss";
+@import "single/_logs.scss";
+@import "single/_live.scss";
+@import "single/_settings.scss";
+@import "single/_sharing.scss";
+@import "single/_snapshot-recorder.scss";
+@import "single/_streams.scss";
+@import "single/_archives.scss";
+@import "single/compare.scss";
+@import "single/local_recording.scss";
+@import "single/image_editor.scss";
+
+.center-tabs .icon-bar-alignment {
+  font-size: 16px;
+  margin-top: 0px;
+  margin-right: -5px;
+}
+
+#ul-nav-tab .caret{
+  display: none;
+}
+.nav-tabs, .nav-pills {
+  margin-bottom: 0px;
+  margin-top: 0px;
+}
+
+.margin-0 {
+  margin: 0px;
+}
+
+.padding-15 {
+  padding: 15px;
+}
+
+.padding-0 {
+  padding: 0px;
+}
+
+.public-camera-alert {
+  position: fixed;
+  display: none;
+  top: 35px;
+  left: 49%;
+  padding: 0.8em 1em;
+  z-index: 99999999999999999999999999;
+  font-size: 13px;
+  max-width: 600px;
+  text-align: center;
+  margin-left: -142px;
+}
+
+#camera-not-found{
+  .dialog {
+    max-width: 34em;
+    margin: 50px auto 0 auto;
+    border: 1px solid #e5e5e5;
+    border-radius: 4px;
+    background-color: white;
+    padding: 24px 40px 28px;
+    box-shadow:0 3px 10px rgba(0,0,0,0.06);
+  }
+
+  p {
+    line-height: 1.5em;
+  }
+
+  .server-down-image {
+    width: 100%;
+  }
+}
+#ul-nav-tab .add-to-share {
+  margin-top: 10px;
+}
+
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:hover,
+.nav-tabs > li.active > a:focus {
+  margin-top: 2px;
+  border-bottom: 5px solid $evercam-red;
+}
+
+@media (max-width: 480px) {
+  #ul-nav-tab .add-to-share {
+    display: none;
+  }
+}
+
+#camera-single .tab-content {
+  overflow: hidden;
+}
+
+.center-tabs .delete-share-icon {
+  float: right;
+  padding: 6px;
+  cursor: pointer;
+  border-radius: 50%;
+  color: $secondary-color;
+  margin-top: 3px;
+  margin-right: 2px;
+}
+
+.center-tabs .colour-white {
+  color: $white;
+}
+
+.tabbable .create-share-button {
+  margin-top: -6px;
+}
+
+.delete-share-icon:hover {
+  background-color: $hover-blue;
+  color: $white;
+}
+
+.page-container .opacity {
+  opacity: 0.3;
+}
+
+.duration-input {
+  min-width: 45px;
+  width: 45px;
+  float: left;
+}
+
+.padding-top-7 {
+  padding-top: 7px;
+}
+
+.duration-text-error {
+  color: $evercam-red;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.clip-text {
+  position: fixed;
+  margin-top: 3px;
+}
+
+.read-only-sharing-tab {
+  font-size: 15px;
+  color: $white;
+  font-weight: bold;
+  padding: 5.5px 12px;
+  margin: 0px;
+}
+
+.date-input {
+  width: 30%;
+  float: left;
+  min-width: 100px;
+  background-color: $white;
+  height: 35px;
+}
+
+.timepicker-default:focus {
+  border-color: $border-grey;
+  box-shadow: none;
+}
+
+body .dropdown-menu {
+  margin-left: 0px;
+}
+
+.margin-top-1 {
+  margin-top: 1px;
+}
+
+.offline-flag {
+  width: 150px;
+  margin-left: 114px;
+  margin-top: -10px;
+}
+
+.margin-top-bottom-15 {
+  margin-bottom: 20px !important;
+  margin-top: 15px !important;
+}
+
+.logo-padding {
+  padding: 10px 0 20px;
+}
+
+.swagger-ui .info,
+.swagger-ui .topbar,
+.swagger-ui .information-container {
+  display: none;
+}
+
+.swagger-ui .wrapper {
+  padding: 0 10px;
+  max-width: none;
+}

@@ -1,0 +1,116 @@
+<div class="portlet solid" id="camera-details-panel">
+  <div class="portlet-title">
+    <div class="caption">Camera Details</div>
+    <% if @has_edit_rights %>
+      <div href="#" class="btn btn-edit" data-toggle="modal" data-target="#settings-modal">
+        edit
+      </div>
+    <% end %>
+  </div>
+  <div class="portlet-body col-md-12">
+    <table class="table table-fixed table-borderless">
+      <tr>
+        <td class="col-md-4 col-xs-4">ID:</td>
+        <td class="col-md-8">
+          <span id="ec_cam_id">
+            <%= @camera['id'] %>
+          </span>
+        </td>
+      </tr>
+      <tr>
+        <td>Name:</td>
+        <td id="camera_name">
+          <%= @camera['name'] %>
+        </td>
+      </tr>
+      <tr>
+        <td>Owner:</td>
+        <td>
+          <%= @camera['owner'] %>
+        </td>
+      </tr>
+      <tr>
+        <td>Project:</td>
+        <td>
+          <% project_name = @camera.deep_fetch('project', 'name') {""} %>
+          <% if project_name != "" %>
+            <%= project_name %>
+          <% else %>
+            <span class="grey">Not set</span>
+          <% end %>
+        </td>
+      </tr>
+      <tr id="vendor-value">
+        <td>Vendor:</td>
+        <td id="vendor_data" class="vendor-data">
+          <% if @camera['vendor_name'] != "" %>
+            <%= @camera['vendor_name'] %>
+          <% else %>
+            <span class="grey">Not set</span>
+          <% end %>
+        </td>
+      </tr>
+      <tr>
+        <td>Model:</td>
+        <td id="model_data">
+          <% if @camera['model_name'] != "" %>
+            <%= @camera['model_name'] %>
+          <% else %>
+            <span class="grey">Not set</span>
+          <% end %>
+        </td>
+      </tr>
+      <tr>
+        <td>Created:</td>
+        <td>
+          <%= Time.parse(@camera['created_at']).to_formatted_s(:long_ordinal) %>
+        </td>
+      </tr>
+      <tr>
+        <td>Status:</td>
+        <td>
+          <% if @camera['status'] == "online" %>
+            <div class="status green">Online</div>
+          <% else %>
+            <div class="status red">Offline (Cause: <%= @camera['offline_reason'] %>)</div>
+          <% end %>
+        </td>
+      </tr>
+      <% if @camera['status'] == "offline" %>
+      <tr>
+        <td>Last Online</td>
+        <td>
+          <%= Time.parse(@camera['last_online_at']).to_formatted_s(:long_ordinal) if @camera['last_online_at'] %>
+        </td>
+      </tr>
+      <% end %>
+      <tr>
+        <td>Timezone</td>
+        <td id="camera_timezone">
+          <% camera_timezone = ActiveSupport::TimeZone::MAPPING.key(@camera['timezone']) %>
+          <% if camera_timezone.blank? %>
+            <%= ActiveSupport::TimeZone.new(@camera['timezone']) %>
+          <% else %>
+            <%= ActiveSupport::TimeZone.new(camera_timezone) %>
+          <% end %>
+        </td>
+      </tr>
+      <tr>
+        <td>Sharing:</td>
+        <td>Is Public:
+          <span id="public-short-link" class="bold show-on-public" style="<%= 'display: none;' unless @camera['is_public'] %>">[Yes]</span>
+          <span id="private-short-link" class="bold show-on-private" style="<%= 'display: none;' if @camera['is_public'] %>">[No]</span>
+          <span>& Is Discoverable:</span>
+          <span id="public-short-link" class="bold show-on-public" style="<%= 'display: none;' unless @camera['discoverable'] %>">[Yes]</span>
+          <span id="private-short-link" class="bold show-on-private" style="<%= 'display: none;' if @camera['discoverable'] %>">[No]</span>
+        </td>
+      </tr>
+    </table>
+    <% if @camera['vendor_id'] != "" %>
+        <div class="image-placeholder-detail-page">
+          <img id="vemdor-image" src="https://evercam-public-assets.s3.amazonaws.com/<%= @camera['vendor_id'] %>/logo.jpg" >
+          <img id="model-image" src="https://evercam-public-assets.s3.amazonaws.com/<%= @camera['vendor_id'] %>/<%= @camera['model_id'] %>/thumbnail.jpg">
+        </div>
+    <% end %>
+  </div>
+</div>

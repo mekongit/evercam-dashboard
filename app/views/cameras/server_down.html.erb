@@ -1,0 +1,56 @@
+<%= content_for(:title, "Evercam: Camera View") %>
+
+<div class="page-content-wrapper">
+  <div class="page-content" id="camera-single">
+    <div class="row">
+      <div class="section-header">
+
+        <div class="camera-title">
+          <div class="col-xs-12 col-md-12">
+            <div class="btn-group camera-switch">
+              <h3 class="page-title"></h3>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="portlet-body">
+      <div id="camera-not-found">
+        <div class="dialog">
+          <%= image_tag("server-down.jpg", :alt => "Schedule Snapmails", :class =>"server-down-image margin-bottom-10") %>
+          <p>The server is not responding. We're working on it.</p>
+          <p>If the problem persists, feel free to contact <span style="color:#428BCA;"> support@evercam.io</span>.</p>
+          <p class="margin-bottom-0">This page will automatically check the server status and try reconnecting
+            in <strong id="seconds">5</strong> seconds.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  function checkAPI(){
+    $.ajax({
+      url: window.Evercam.API_URL+"vendors/hikvision",
+      timeout: 3000
+    })
+        .success(function() {
+          window.location.href = "v1/cameras";
+        })
+        .error(function() {
+          countdown(5);
+        });
+  }
+
+  function countdown(seconds){
+    if (seconds > 0) {
+      $("#seconds").text(seconds - 1);
+      setTimeout(function(){ countdown(seconds - 1) }, 1000);
+    } else {
+      checkAPI();
+    }
+  }
+
+  countdown(5);
+</script>

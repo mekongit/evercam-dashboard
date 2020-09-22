@@ -1,0 +1,173 @@
+<%= content_for(:title, "Evercam: SnapMail") %>
+
+<div class="page-content-wrapper">
+  <div class="page-content snapmail">
+    <div class="tabbable tabbable-custom">
+      <div class="center-tabs">
+        <ul class="nav nav-tabs add-camera-page">
+          <li class="active">
+            <a href="#tab_1_1" data-toggle="tab">
+              Snapmail - Scheduled Emails </a>
+          </li>
+        </ul>
+      </div>
+      <div class="tab-content">
+        <div class="tab-pane active" id="tab_1_1">
+    <!--***************New Snapmail Form**************** -->
+          <div id="snapmail-form" class="settings-modal-width modal fade">
+            <div class="modal-dialog">
+              <div id="loading-image-div" class="loading-image-div hide">
+                <span id="snapmail-loading-image" class="snapmail-loading-text">Saving...</span><i class='fa fa-spinner fa-spin snapmail-animation'></i>
+              </div>
+              <div class="modal-content">
+                <div class="modal-body">
+                  <div class="row">
+                    <div class='col-sm-12'>
+                      <div class='portlet'>
+                        <button type="button" class="close margin-top-minus5" data-dismiss="modal" aria-hidden="true"><i class="fas fa-times"></i></button>
+                        <div class="portlet-title">
+                          <div class="caption"> New Snapmail</div>
+                        </div>
+                        <div class="portlet-body">
+                          <div class="row">
+                            <div class='col-sm-12'>
+                              <table class="table table-fixed table-borderless">
+                                <tr class="hide">
+                                  <td class="col-xs-2 col-sm-2"><label class="control-label" for="camera-name">Title:</label></td>
+                                  <td class="col-sm-10"><input type="hidden" id="txtkey" class="m-wrap"></td>
+                                </tr>
+                                <tr>
+                                  <td class="col-xs-2 col-sm-2 pading-left-0"><label class="margin-top-12 control-label" for="camera-vendor">Cameras:</label></td>
+                                  <td class="select-camera-input col-sm-10">
+                                    <select id="ddlCameras" class="js-example-basic-multiple" multiple="multiple" style="width: 100%">
+                                      <% @cameras.each do |camera| %>
+                                        <% css = "onlinec"
+                                           thumbnail_url = "#{EVERCAM_MEDIA_API}cameras/#{camera['id']}/thumbnail?api_id=#{current_user.api_id}&api_key=#{current_user.api_key}"
+                                           if camera['status'] == "offline"
+                                             css = "offlinec"
+                                           end
+                                        %>
+                                        <option class="<%= css %>" data-val="<%= thumbnail_url %>" value="<%= camera['id'] %>" ><%= camera['name'] %></option>
+                                      <% end %>
+                                    </select>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td class="model-td pading-left-0"><label class="margin-top-12 control-label">Recipients:</label></td>
+                                  <td id="recepients-input-field"><input type="text" id="txtRecipient" class="form-input width100 tags"><span class="email-field-line-end"></span></td>
+                                </tr>
+                                <tr>
+                                  <td class="pading-left-0"><label class="margin-top-12 control-label" for="camera-username">Time:</label></td>
+                                  <td>
+                                    <input id="txtTime" readonly class="form-input col-sm-2 text-center timepicker-default" type="text" />
+                                    <select id="ddlTimezone" class="form-input col-sm-10">
+                                      <% ActiveSupport::TimeZone.all.each do |time_zone| %>
+                                        <% if time_zone.utc_offset % 3600 == 0 %>
+                                          <option value="<%= time_zone.tzinfo.name %>">
+                                            <%= time_zone %>
+                                          </option>
+                                        <% end %>
+                                      <% end %>
+                                    </select>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td class="pading-left-0"><label class="margin-top-12 control-label" for="camera-password">Days:</label></td>
+                                  <td>
+                                    <table class="checkbox-snapmail table table-borderless" style="margin-bottom:0px;">
+                                      <tr>
+                                        <td>
+                                          <label class="checkbox">
+                                            <input type="checkbox" value="" id="chkAllDay" /> <span class="days-span">All Days</span>
+                                          </label>
+                                        </td>
+                                        <td>
+
+                                          <label class="checkbox">
+                                            <input type="checkbox" value="Monday" id="chkMon"  class="days" /><span class="days-span">Mo</span>
+                                          </label>
+                                        </td>
+                                        <td>
+                                          <label class="checkbox">
+                                            <input type="checkbox" value="Tuesday" id="chkTue" class="days" /> <span class="days-span">Tu</span>
+                                          </label>
+                                        </td>
+                                        <td>
+                                          <label class="checkbox">
+                                            <input type="checkbox" value="Wednesday" id="chkWed" class="days" /> <span class="days-span">We</span>
+                                          </label>
+                                        </td>
+                                      </tr>
+                                      <tr>
+                                        <td>
+                                          <label class="checkbox">
+                                            <input type="checkbox" value="Thursday" id="chkThu" class="days" /> <span class="days-span">Th</span>
+                                          </label>
+                                        </td>
+                                        <td>
+                                          <label class="checkbox">
+                                            <input type="checkbox" value="Friday" id="chkFri" class="days" /> <span class="days-span">Fr</span>
+                                          </label>
+                                        </td>
+                                        <td>
+                                          <label class="checkbox">
+                                            <input type="checkbox" value="Saturday" id="chkSat" class="days" /> <span class="days-span">Sa</span>
+                                          </label>
+                                        </td>
+                                        <td>
+                                          <label class="checkbox">
+                                            <input type="checkbox" value="Sunday" id="chkSun" class="days" /> <span class="days-span">Su</span>
+                                          </label>
+                                        </td>
+
+                                      </tr>
+                                    </table>
+                                  </td>
+                                </tr>
+                                <tr class="hide">
+                                  <td><label class="control-label" for="snapshot">Subject:</label></td>
+                                  <td><input type="text" id="txtSubject" class="span12 m-wrap" placeholder="Subject"></td>
+                                </tr>
+                                <tr class="hide">
+                                  <td><label class="control-label" for="snapshot">Message:</label></td>
+                                  <td><textarea id="txtMessage" class="span12 m-wrap" rows="6"></textarea> </td>
+                                </tr>
+                              </table>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <fieldset>
+                    <div class="row save-settings">
+                      <div class="col-md-12 pull-left form-group"><label for="add-button"></label>
+                        <input id="add-snapmail" class="margin-bottom-0 alert push btn btn-primary margin-right-10 margin-left-5" type="button" value="Save"/>
+                        <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button> -->
+                      </div>
+                    </div>
+                  </fieldset>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="divSnapmails" class="div_snapmails row margin-top-20"></div>
+        <%= render partial: "cameras/no_snapmail_text" %>
+        <div class="col-sm-12 margin-bottom-40 padding-left-0">
+          <div href="#" class="btn btn-primary new-snapmail-btn" data-toggle="modal" data-target="#snapmail-form">
+            Create a new Snapmail
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  window.Evercam.Snapmails = <%= @snapmails.to_json.html_safe %>;
+  $(document).ready(function () {
+    window.initializeSnapmails();
+  });
+</script>

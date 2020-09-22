@@ -1,0 +1,607 @@
+.div_snapmails {
+
+  margin: 5px;
+
+  .col-md-4 {
+    min-width: 355px;
+
+    img {
+      min-width: 270px;
+      height: 213px;
+      width: 100%;
+    }
+
+  }
+
+  .card {
+    box-shadow:0 2px 5px 0 rgba(0, 0, 0, 0.26);
+    background:white;
+    border-radius:2px;
+    overflow: auto;
+    user-select:none;
+    animation:fly-in-from-left .5s 1s ease both;
+    transform-origin:top left;
+    padding-bottom: 1.5rem;
+    margin-bottom: 30px;
+    min-height: 340px !Important;
+
+    .rslides {
+      height: 190px;
+    }
+
+    .card-padding {
+      padding: 0 1.5rem;
+    }
+
+    .bx-wrapper {
+      border: 0px;
+    }
+  }
+
+  .card:nth-child(3n) {
+    margin:0rem 0rem 1rem 0rem;
+  }
+
+  .card:after {
+    position:absolute;
+    font-size:.9rem;
+    top:1.5rem;
+    right:1rem;
+    border:thin solid gray;
+    color:gray;
+    width:1rem;
+    line-height:1rem;
+    text-align:center;
+    border-radius:50%;
+    pointer-events:none;
+  }
+
+  .card .snapstack {
+    width: 100%;
+    text-align: center;
+    vertical-align:middle;
+    min-height: 100px;
+    height: 280px;
+    margin-bottom: 10px;
+    overflow-y: hidden;
+  }
+
+  .card .snapstack-loading {
+    width: 100%;
+    height: 290px;
+    text-align: center;
+    vertical-align:middle;
+    min-height: 100px;
+    margin-bottom: 10px;
+    overflow-y: hidden;
+    background-image: asset-url('ajaxloader1.gif');
+    background-repeat:no-repeat;
+    background-position:center center;
+  }
+
+  .card .snapstack-error {
+    width: 100%;
+    text-align: center;
+    vertical-align:middle;
+    min-height: 100px;
+    height: 280px;
+    margin-bottom: 10px;
+    overflow-y: hidden;
+    background-image: asset-url('cams.svg');
+    background-repeat: no-repeat;
+    background-position: center center;
+  }
+
+  @media (min-width: 992px) {
+
+    .col-md-4 {
+      width: 25%;
+    }
+
+  }
+
+  @media (max-width: 480px) {
+    .card .snapstack {
+      height: 180px;
+    }
+    .col-md-4 {
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 380px) {
+
+    .col-md-4 .div-snapmail-values {
+      width: auto;
+    }
+
+    .col-md-4 {
+      min-width: 318px;
+    }
+
+  }
+
+  @media (min-width: 992px) and (max-width: 1199px) {
+
+    .card .snapstack {
+      height: 180px;
+    }
+
+    html .card .rslides {
+      height: auto;
+    }
+
+  }
+
+  @media (min-width: 980px) and (max-width: 991px) {
+    .card .snapstack {
+      height: 450px;
+    }
+    html .card .rslides {
+      height: auto !important;
+    }
+  }
+
+  .hash-label {
+    color: $grey;
+    font-family: 'proxima-nova-regular', 'proxima-nova-regular', "Roboto", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+  }
+
+  .camera-name {
+    font-size: 15px;
+    line-height: 20px;
+    color: $main-color;
+    margin-right: 5px;
+    margin-bottom: 0;
+    cursor: pointer;
+  }
+
+  .spn-label {
+    color: $grey;
+    float: left;
+    margin-right: 5px;
+    width: 30px;
+    margin-top: 1px;
+  }
+  .div-snapmail-values {
+    float: left;
+    width: 83%;
+  }
+
+  .textarea-field {
+    overflow: auto;
+    overflow-y: auto;
+    max-height: 20px;
+  }
+
+  .camera-time {
+    color: $form-medium-grey;
+    font-size: 14px;
+    height: 26px;
+  }
+
+  .camera-days {
+    color: $form-medium-grey;
+    font-size: 14px;
+    height: 26px;
+  }
+
+  .camera-email {
+    color: $form-medium-grey;
+    font-size: 14px;
+    height: 24px;
+    float:left;
+    width: 100%;
+  }
+
+  .margin-top-5 {
+    margin-top: 5px;
+  }
+
+  .delete-snapmail {
+    position: absolute;
+    bottom:25px;
+    right:10px;
+    z-index: 100;
+  }
+  .delete-snapmail .icon-button {
+    color: $main-grey;
+    cursor: pointer;
+  }
+  .delete-snapmail .icon-button:hover {
+    color: $hover-blue;
+  }
+
+  /* Icon Button */
+  .icon-button {
+    position: relative;
+    display: inline-block;
+  }
+
+  .icon-trash {
+    font-size: 16px;
+    color: $grey;
+    cursor: pointer;
+  }
+  .icon-trash:hover {
+    color: $main-color;
+  }
+
+  /* Button */
+  .button {
+    display: inline-block;
+    position: relative;
+    width: 120px;
+    height: 32px;
+    line-height: 32px;
+    border-radius: 2px;
+    font-size: 0.9em;
+    background-color: $white;
+    color: $ever-background;
+  }
+
+  .button.narrow {
+    width: 60px;
+  }
+
+  .button.grey {
+    background-color: $lighter-grey;
+  }
+
+  .button.blue {
+    background-color: $hover-blue;
+    color: $white;
+  }
+
+  .button.raised {
+    transition: box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    transition-delay: 0.2s;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+  }
+
+  .button.raised:active {
+    box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2);
+    transition-delay: 0s;
+  }
+}
+
+.margin-top-12 {
+  margin-top: 12px;
+}
+
+.box-snapmail {
+  margin-left: -30px;
+
+  input {
+    margin-right: 15px;
+  }
+}
+
+.snapmail {
+
+  .modal {
+    margin-right: 0px;
+  }
+
+  .new-snapmail {
+    width: 48px;
+    position: fixed;
+    right: 30px;
+    bottom: 20px;
+    z-index: 100000;
+  }
+
+  /* FAB */
+  .fab {
+    position: relative;
+    display: inline-block;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    color: $white;
+    overflow: hidden;
+    transition: box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    transition-delay: 0.2s;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+  }
+
+  .fab.blue {
+    background-color: $main-color;
+  }
+
+  .fab:active {
+    box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2);
+    transition-delay: 0s;
+  }
+
+  div.tagsinput {
+    border: 1px solid $main-grey;
+  }
+
+  .plus-btn {
+    display: inline-block !important;
+    font-style: inherit;
+  }
+
+  .margin-24 {
+    margin-bottom: 23px;
+    margin-right: 20px;
+  }
+
+  .main-color {
+    color: $main-color;
+  }
+
+  .modal-header {
+    margin-bottom: 15px;
+  }
+
+  .form-input {
+    background-color: $white;
+    border: 1px solid $main-grey;
+    box-shadow: none;
+    color: $form-dark-grey;
+    font-size: 14px;
+    font-weight: normal;
+    height: 38px;
+    padding: 0 5px;
+    transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+  }
+
+  .error-border {
+    border: 1px solid $error-border-color;
+  }
+
+  div.tagsinput.error-border {
+    border: 1px solid $error-border-color;
+  }
+}
+
+.snapmail table td {
+  padding-top: 8px;
+}
+
+.select2-container {
+  z-index: 2147483647;
+}
+
+.snapmail .table-borderless td {
+  line-height: normal !important;
+}
+
+.snapmail li span {
+  color: $form-dark-grey;
+  font-size: 12px;
+  font-weight: normal;
+}
+
+#select2-ddlCameras-results {
+  color: $form-dark-grey;
+  font-size: 12px;
+  font-weight: normal;
+}
+
+.select2-container--default .select2-selection--multiple,
+.select2-container--default.select2-container--focus .select2-selection--multiple {
+  border: 1px solid $main-grey;
+}
+
+.select-camera-input .select2-container--default .select2-selection__choice__remove {
+  float: right;
+  margin-top: -1px;
+  margin-right: -2px;
+  padding-left: 5px;
+  padding-bottom: 3px;
+}
+
+div.tagsinput span.tag {
+
+  border: 1px solid $tag-border-color;
+  border-radius: 0px;
+  background-color: $secondary-grey;
+  color: $form-dark-grey;
+  padding: 5px 10px;
+  margin-bottom: 0px;
+
+  span {
+    display: grid;
+    overflow: hidden;
+    max-width: 160px;
+    float: left;
+    margin-right: 5px;
+  }
+
+  a {
+    position: absolute;
+    margin-top: -2px;
+    margin-left: -4px;
+    font-size: 16px;
+    color: $form-dark-grey;
+  }
+}
+
+.email-field-line-end {
+  background: linear-gradient(to right, $line-end-white-background, $white) repeat scroll 0 0 $line-end-gredient-background;
+  height: 31px;
+  margin-top: 3px;
+  position: absolute;
+  right: 24px;
+  width: 60px;
+}
+
+div.tagsinput span.tag:hover {
+
+  color: $black;
+  a {
+    color: $black;
+  }
+}
+
+.days-span {
+  position: absolute;
+}
+
+.days-chek {
+  background-color: $main-color;
+  color: $white;
+  padding: 2px;
+  padding-top: 3px;
+  width: 26px;
+  text-align: center;
+  float: left;
+  margin-right: 5px;
+  border-radius: 25px;
+  border: 1px solid $main-color;
+}
+
+.days-unchek {
+  background-color: $white;
+  color: $evercam-black;
+  padding: 2px;
+  padding-top: 3px;
+  width: 26px;
+  text-align: center;
+  float: left;
+  margin-right: 5px;
+  border-radius: 25px;
+  border: 1px solid $main-color;
+}
+
+#txtRecipient_tag {
+  width: 200px;
+}
+
+.bootstrap-timepicker-widget {
+  z-index: 2147483647 !important;
+}
+
+div.tagsinput input {
+  margin: 0px !important;
+}
+
+.snapmail .icheckbox_flat-blue input {
+  display: none;
+}
+
+.snapmail .row-fluid {
+  padding: 10px;
+}
+
+.page-content-wrapper {
+
+  .border-bottom-grey {
+    border-bottom: 1px solid $border-grey;
+  }
+
+  .portlet {
+    margin-bottom: 0px;
+
+    .portlet-title {
+      margin-bottom: 0px;
+
+      .caption-heading {
+        font-size: 12px;
+        font-family: $bold-family;
+        margin-top: 5px;
+        margin-bottom: 6px;
+      }
+
+    }
+
+  }
+
+  .table {
+    margin-top: 20px;
+  }
+
+  .margin-left-5 {
+    margin-left: 5px;
+  }
+
+  .margin-left-0 {
+    margin-left: 0px;
+  }
+
+  .snapmail-edit {
+    float: right;
+    margin-right: 22px;
+    margin-top: 20px;
+    cursor: pointer;
+  }
+
+  .snapmail-pause {
+    float: right;
+    margin-right: 10px;
+    margin-top: 20px;
+    cursor: pointer;
+  }
+
+  .snapmail-clone {
+    float: right;
+    margin-right: 10px;
+    margin-top: 20px;
+    cursor: pointer;
+  }
+
+  .snapmail-title{
+    display: block;
+    overflow: hidden;
+    position: relative;
+    white-space: nowrap;
+  }
+
+  .line-end{
+    background: linear-gradient(to right, rgba(255, 255, 255, 0), #FFFFFF) repeat scroll 0 0 rgba(0, 0, 0, 0);
+    bottom: 0;
+    height: 25px;
+    max-height: 100%;
+    position: absolute;
+    right: 0;
+    width: 60px;
+  }
+
+  .bolder-font {
+    font-weight: bolder;
+  }
+
+}
+
+.snapmail-image {
+  max-width: 350px;
+  min-width: 280px;
+  width: 100%;
+}
+
+@media (max-width: 480px) {
+
+  .snapmail {
+
+    .control-label {
+      min-width: 57px;
+      font-size: 10px;
+    }
+
+    .pading-left-0 {
+      padding-left: 0px;
+    }
+
+    .checker {
+      width: 100%;
+    }
+
+    label {
+      font-size: 10px;
+    }
+
+    .margin-left-5 {
+      margin-left: 0px;
+    }
+  }
+}
+
+.bxslider p{
+  margin: 10px 0 7px;
+}

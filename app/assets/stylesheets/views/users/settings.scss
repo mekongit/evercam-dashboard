@@ -1,0 +1,380 @@
+.account-setting,
+.account-password {
+ input, .form-group {
+   max-width: 300px;
+ }
+ .checker {
+   display: none;
+ }
+
+  .minus-margin-top-25 {
+    margin-top: -25px;
+  }
+
+  .icon-color {
+    color: $label-color;
+  }
+
+  .float-right {
+    float: right;
+  }
+
+  .has-error .form-control {
+    background-color: #ffffff;
+    border-top:none;
+    border-left:none;
+    border-right:none;
+  }
+  h4 {
+    font-size: 18px;
+    font-family: $bold-family;
+    margin-top: 0px;
+    color: #515254;
+    margin-bottom: 15px;
+  }
+  .gravatar {
+    border-radius: 50%;
+    margin-right: 15px;
+    margin-top: -4px;
+  }
+  img.gravatar {
+   max-width: 50px;
+  }
+  .control-label {
+    margin-top:-1px;
+    text-align: left;
+  }
+
+  label {
+    margin-bottom: 0px;
+  }
+  .alert-info {
+    background-color: #ffffff;
+    border-radius: 2px !important;
+    box-shadow: none;
+  }
+  .alert-info span {
+    color: #3d3d3d;
+  }
+  .form-control[disabled] {
+    padding:0;
+  }
+  .list {
+    padding-left: 25px;
+    margin-bottom: 10px;
+  }
+  .stripe-button-el span {
+    margin-top: 0px;
+  }
+  .list-group-lg > .list-group-item {
+    border-bottom: 1px solid #f5f5f5;
+  }
+  .panel-title {
+    padding-left: 15px;
+  }
+  .cancel {
+    margin-left: 10px;
+  }
+}
+
+.profile {
+  padding: 10px 0px 30px;
+}
+.username {
+  margin-bottom: 2px;
+}
+
+#account {
+  min-height: 400px;
+}
+.custom-amount {
+  padding: 4px 6px;
+}
+input.custom-amount {
+  max-width: 141px;
+  margin-left: -1px;
+  border-bottom-left-radius: 0px !Important;
+  border-top-left-radius: 0px !important;
+}
+span.input-group-addon .custom {
+  border-top-left-radius: 2px !important;
+  border-top-right-radius: 0px !important;
+  border-bottom-right-radius: 0px !important;
+  border-bottom-left-radius: 2px !important;
+}
+.panel-section {
+ margin: 15px 0;
+}
+.account .icon {
+  font-size: 16px;
+  margin-right: 8px;
+  height: 0;
+}
+.payment-confirmation {
+  margin-left: 250px;
+  margin-top: 15px;
+}
+
+.close {
+  text-indent: 0px;
+  height: 20px;
+}
+.cancel  {
+  margin-right: 10px;
+  float: left;
+}
+#user-settings .help-inline .input-inline:hover {
+  display: block;
+}
+#user-settings .blue.btn {
+  float: left;
+}
+#user-settings .has-error .help-block {
+  font-size: 12px;
+  background-color: transparent;
+}
+
+.user-settings-portal {
+  min-height: 340px;
+  margin-bottom: 40px;
+}
+.application {
+  border-bottom: 1px solid #f5f5f5;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+}
+.border-red{
+  border: 1px solid #ff0000 !important;
+}
+.error-msg-color{
+  font-size: 12px;
+  color: #a94442;
+  display: none;
+}
+
+#delete-account{
+  .camera-row{
+    margin-bottom: 5px;
+  }
+  .camera-row-label{
+    position: relative;
+    font-size: 15px;
+    color: #000000;
+    top: 3px;
+  }
+  .transfer-span{
+    margin-left: 10px;
+    height: 28px;
+  }
+  .transfer-link{
+    text-decoration: underline;
+    top: 3px;
+  }
+  div.checker span {
+    width: 21px;
+  }
+}
+
+#hello.form-group {
+
+  margin-top: 25px;
+
+  .toggle .toggle-control {
+    -webkit-transition: 0.3s cubic-bezier(0.95, 0.05, 0.795, 0.035);
+    transition: 0.05s cubic-bezier(0.95, 0.05, 0.795, 0.035);
+    width: 3.5em;
+    height: 1.5em;
+    display: inline-block;
+    border: 2px solid #8E8E93;
+    border-radius: 0.8em;
+    background-color: rgba(0, 0, 0, 0.06);
+    position: relative;
+    cursor: pointer;
+  }
+
+  .toggle .toggle-control::after {
+    -webkit-transition: 0.3s cubic-bezier(0.95, 0.05, 0.795, 0.035);
+    transition: 0.05s cubic-bezier(0.95, 0.05, 0.795, 0.035);
+    content: "";
+    width: 1em;
+    height: 1.2em;
+    display: inline-block;
+    background-color: #fff;
+    border-radius: 50%;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 3px 2px rgba(0, 0, 0, 0.4);
+    position: relative;
+    top: 0;
+    left: -1.1em;
+    cursor: pointer;
+  }
+
+  .toggle input {
+    display: none;
+  }
+
+  .toggle input:checked + .toggle-control {
+    border-color: #428bca;
+    background-color: #428bca;
+  }
+
+  .toggle input:checked + .toggle-control::after {
+    left: 1.1em;
+  }
+
+  .label {
+    position: relative;
+  }
+
+  #lbl-for-hide-cameras {
+    display: inline-block ;
+    margin-top: 2.2px;
+    font-size: 14px;
+  }
+
+}
+
+.table .api-id {
+  vertical-align: middle;
+}
+
+.table .api-key {
+  vertical-align: middle;
+}
+
+.username-error {
+  color: $help-block-color;
+  width: 100%;
+  position: absolute;
+  display: none;
+  line-height: 16px;
+  font-size: 12px;
+  margin-bottom: 0;
+}
+
+*::-webkit-media-controls-panel {
+  display: none !important;
+ -webkit-appearance: none;
+}
+
+#loop-video {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  z-index: -100;
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
+}
+
+.settings-tab {
+
+  .padding-left-0 {
+    padding-left: 0px;
+  }
+}
+
+.api-calls {
+
+  .padding-right-0 {
+    padding-right: 0px;
+  }
+
+  .padding-left-10 {
+    padding-left: 10px;
+  }
+
+  .font-14 {
+    font-size: 14px;
+  }
+
+  .max-width-310 {
+    max-width: 310px;
+  }
+
+  .max-width-120 {
+    max-width: 120px;
+  }
+
+  .max-width-60 {
+    max-width: 60px;
+  }
+
+  .height-34 {
+    height: 34px;
+  }
+
+  .design-none {
+    padding-left: 0px;
+    border: none;
+    background: none;
+  }
+
+  .font-16 {
+    font-size: 16px;
+  }
+
+  .max-width-115 {
+    max-width: 115px;
+  }
+
+  .url-input-design {
+    max-width: 860px;
+  }
+
+  .max-width-1075 {
+    max-width: 1075px;
+  }
+
+  .margin-left-62 {
+    margin-left: -62px;
+  }
+
+  .margin-left-5 {
+    margin-left: 5px;
+  }
+
+  .external-link-url {
+    color: $black;
+    margin-left: -33px;
+  }
+
+  .external-link-url:hover {
+    color: $main-color;
+  }
+
+  .minus-margin-left-31 {
+    margin-left: -31px;
+  }
+
+  .max-width-440 {
+    max-width: 440px;
+  }
+}
+
+#zsiqbtn {
+  float: left;
+  margin: 15px;
+  display: none !important;
+}
+
+.online-offline-toggle {
+  width: 152px;
+  min-width: 152px;
+}
+
+@media (max-width: 991px) {
+
+  .api-calls .padding-right-0 {
+    padding-right: 15px;
+  }
+}
+
+@media (max-width: 440px) {
+
+  .api-calls .margin-left-10 {
+    margin-left: 0px;
+  }
+}

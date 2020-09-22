@@ -1,0 +1,110 @@
+<%= content_for(:title, "Evercam: NVR Recordings") %>
+<style>
+  .video-js {
+    padding-top: 56.2%;
+  }
+</style>
+<div class="page-content-wrapper">
+  <div class="page-content snapmail">
+    <br />
+    <div class="col-lg-9">
+      <div id="live-view-placeholder">
+        <div id="camera-video-stream">
+          <video id="camera-video-player" style="width: 100%;height: 100%;" class="video-js vjs-default-skin" controls autoplay>
+            <source src="https://media.evercam.io/hls/stream/index.m3u8?nvr=true" type="application/x-mpegURL">
+            <source src="rtmp://media.evercam.io:1935/live/stream?nvr=true" type="rtmp/flv">
+          </video>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3">
+      <div>
+        <select class="form-control" id="ddlCameras">
+          <option value="">Select Camera</option>
+          <% @cameras.each do |camera| %>
+            <option value="<%= camera['id'] %>"><%= camera['name'] %></option>
+          <% end %>
+        </select>
+      </div>
+      <br />
+      <input type="text" id="txtDatetime" value=""/>
+      <br />
+      <input style="width: 100%;" class="btn btn-default" type="button" id="btnLoad" value="Go"/>
+      <input style="width: 100%;" class="btn btn-default" type="button" id="btncapture" value="Capture"/>
+    </div>
+    <img id="captured" style="display: none;" />
+  </div>
+</div>
+
+<script>
+  var player = undefined;
+  $(document).ready(function () {
+    Notification.init(".bb-alert");
+    player = videojs('camera-video-player');
+    var date = new Date()
+    $('#txtDatetime').val((date.getMonth()+1)+"/"+date.getDate()+"/"+date.getFullYear()+" "+date.getHours()+":00");
+
+    $('#txtDatetime').datetimepicker({
+      format: 'm/d/Y H:m',
+      inline: true,
+      lang: 'en'
+    });
+
+    $("#btnLoad").on("click", function(){
+      if ($("#ddlCameras").val() == "") {
+        Notification.show("Please select camera.");
+      } else {
+        var dp = new Date($('#txtDatetime').val());
+        var d = moment.utc([dp.getFullYear(), dp.getMonth(), dp.getDate(), dp.getHours(), 00, 00, 000]);
+        var from = Math.round(d / 1000);
+        var to_date = new Date(from*1000)
+        to_date.setHours(to_date.getHours()+1);
+        var to = to_date / 1000;
+
+        var query_string = "?api_id="+Evercam.User.api_id+"&api_key="+Evercam.User.api_key;
+        query_string += "&starttime="+from+"&endtime="+to;
+
+        $.ajax({
+          data: {},
+          dataType: 'json',
+          error: function(){
+            Notification.show("Failed to start stream.");
+          },
+          success: function(){
+            setTimeout(play_pause, 5000)
+          },
+          type: 'GET',
+          url: Evercam.API_URL+"cameras/"+$("#ddlCameras").val()+"/nvr/stream"+query_string
+        });
+      }
+    });
+
+    $("#btncapture").on("click", function(){
+      var $pop = Popcorn("#camera-video-player_html5_api");
+      $pop.capture({
+        set: false,
+        target: "img#captured",
+        reload: false
+      });
+      SaveImage.save($("#captured").attr('src'), $("#ddlCameras").val() + ".jpg")
+    });
+  });
+
+  function play_pause() {
+    if (player.paused) {
+      player.play();
+    } else {
+      player.pause();
+      player.play();
+    }
+    setTimeout(isplayed, 1000)
+  }
+
+  function isplayed() {
+    if (!player.played) {
+      player.play();
+      setTimeout(isplayed, 1000)
+      console.log("not played")
+    }
+  }
+</script>

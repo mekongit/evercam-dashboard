@@ -1,0 +1,24 @@
+<section id="make-payment-section">
+  <div class="container section">
+    <div id="signin" class="col-md-12 text-center">
+      <div class="bb-alert alert alert-danger" style="display:none;">
+        <span></span>
+      </div>
+      <div class="branding margin-bottom-50">
+        <%= link_to root_path, class: 'sign-in-logo' do %>
+          <%= image_tag("evercam_logo.png", :class => "svg-logo", alt: "Evercam.io") %>
+        <% end %>
+      </div>
+    </div>
+
+    <div id="sign-in" class="make-payment col-md-6 col-md-offset-3">
+      <div class="col-md-10 col-md-offset-1 text-center">
+        Payment completed. Thank You
+      </div>
+    </div>
+
+    <div class="grey col-md-4 col-md-offset-4 row text-center margin-top-20">
+      <p> <%= link_to "Sign in", signin_path %></p>
+    </div>
+  </div>
+</section>

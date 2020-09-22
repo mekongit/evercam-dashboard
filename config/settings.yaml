@@ -1,0 +1,83 @@
+:defaults: &defaults
+  :cookies:
+    :secret: qwertyuiop
+  :intercom:
+    :app_id: f9c1fd60de50d31bcbc3f4d8d74c9c6dbc40e95a
+    :api_key: <%= ENV['INTERCOM_ACCESS_TOKEN'] %>
+  :api:
+    :timeout: 5
+    :ssl:
+      :only_environments: production
+  :swagger:
+    :v1:
+      :api_version: '1.0'
+      :mount_path: swagger
+      :hide_documentation_path: true
+      :base_path: http://localhost:9292/v2
+  :sidekiq:
+    :url: redis://localhost:6379/0
+    :namespace: sidekiq
+  :amazon:
+    :access_key_id: AKIAIEAW7E6NFNPHRLVA
+    :secret_access_key: <%= ENV['AWS_SECRET_KEY'] %>
+    :route53:
+      :evr.cm: Z15MY0AN5PFWCW
+
+:development:
+  <<: *defaults
+  :database: <%= ENV['DATABASE_URL'] %>
+  :mail:
+    :from: evercam.io <noreply@evercam.io>
+    :via: :sendmail
+
+:test:
+  <<: *defaults
+  :database: postgres://localhost/evercam_tst
+  :mail:
+    :from: evercam.io <noreply@evercam.io>
+    :via: :test
+  :testserver: true
+
+:production: &production
+  <<: *defaults
+  :database: <%= ENV['DATABASE_URL'] %>
+  :api:
+    :ssl:
+      :force_secure_cookies: false
+      :redirect_html: "Sorry, all API calls must be made via https. Redirecting...\n"
+  :cookies:
+    :secret: <%= ENV['SESSION_COOKIE_SECRET'] %>
+  :swagger:
+    :v1:
+      :api_version: '1.0'
+      :mount_path: swagger
+      :hide_documentation_path: true
+      :base_path: https://api.evercam.io/v2
+  :sidekiq:
+    :url: <%= ENV['REDISCLOUD_URL'] %>
+    :namespace: sidekiq
+  :mail:
+    :from: Evercam <noreply@evercam.io>
+    :via: :smtp
+    :via_options:
+      :authentication: :plain
+      :user_name: <%= ENV['MAILGUN_USERNAME'] %>
+      :password: <%= ENV['MAILGUN_PASSWORD'] %>
+      :enable_starttls_auto: true
+      :address: 'smtp.mailgun.org'
+      :domain: <%= ENV['MAILGUN_DOMAIN'] %>
+      :port: 587
+
+:staging:
+  <<: *production
+  :mail:
+    :to: env.staging@evercam.io
+    :from: evercam.io <noreply@evercam.io>
+    :via: :sendmail
+  :swagger:
+    :v1:
+      :api_version: '1.0'
+      :mount_path: swagger
+      :hide_documentation_path: true
+      :base_path: https://proxy.evr.cm:9292/v2
+  :testserver: true

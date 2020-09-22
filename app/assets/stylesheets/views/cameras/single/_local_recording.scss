@@ -1,0 +1,287 @@
+.tab-content #local_recordings_tab {
+  margin: 0px -15px;
+}
+
+#local_recordings_tab {
+  .video-js {
+    outline: none;
+  }
+
+  .active {
+
+  }
+
+  .table-condensed tbody {
+    background-color: #fff;
+    border: none;
+  }
+
+  thead {
+    background-color: #f6f6f6;
+    border: 1px solid #e5e5e5;
+  }
+
+  .lr-md-slider-outer{
+    background-color: #e2e2e2;
+    border: 0px solid #b6b6b6;
+    height: 115px;
+    padding: 0px;
+  }
+
+  .lr-md-slider{
+    height: 114px;
+  }
+
+  .lr-md-slider-inner {
+  }
+
+  .lr-md-slider::-webkit-scrollbar {
+    border-radius: 3px;
+    height: 0.5em;
+  }
+
+  #div-lr-slider-md ul, ol{
+    margin-top: 5px;
+    padding-left: 3px;
+  }
+
+  #lr-md-slider-item li{
+    cursor: pointer;
+    font-size: 10px;
+    float: left;
+    list-style: none;
+    padding-left: 1.6px;
+    text-align: center;
+    color: #2a6496;
+  }
+
+  .md-Img {
+    background-image: asset-url("metronic/input-spinner.gif");
+    background-position: center center;
+    background-repeat: no-repeat;
+    height: 480px;
+    width: auto;
+    padding: 3px 0;
+  }
+
+  li.active {
+    border: solid 2px $evercam-black;
+  }
+
+  .thumbnail-scroll {
+    background-color: $evercam-black;
+    color: $white;
+    cursor: pointer;
+    height: 107px;
+    opacity: 0.8;
+    padding: 44px 4px;
+    position: absolute;
+    z-index: 1;
+  }
+
+  .thumbnail-scroll-right {
+    right: 2px;
+  }
+
+  foreignObject.ytitle {
+    display: none;
+  }
+
+  .evercam-loading-animation {
+    display: none;
+    position: absolute;
+    // left: 44.7%;
+    // margin: -25px 0 0 -25px;
+    opacity: .85;
+    text-align: left;
+    // border: 10px solid rgba(43,51,63,.7);
+    // -webkit-box-sizing: border-box;
+    // box-sizing: border-box;
+    // background-clip: padding-box;
+    width: 7em;
+    height: 7em;
+    border-radius: 100px;
+    z-index: 999999999;
+  }
+
+  .stream-count-down {
+    background-clip: padding-box;
+    border-radius: 100px;
+    box-sizing: border-box;
+    display: block;
+    font-size: 30px;
+    left: 49.3%;
+    opacity: .85;
+    position: absolute;
+    text-align: left;
+    top: 47.5%;
+    -webkit-box-sizing: border-box;
+
+  }
+
+  .evercam-loading-animation:before, .evercam-loading-animation:after {
+    margin: -10px;
+  }
+
+  .visavail_container_class {
+    background-color: $evercam-black;
+  }
+
+  #local-recording-video-player div.vjs-error-display {
+    display: none;
+  }
+
+  .rect_has_no_data {
+    fill: transparent;
+  }
+
+  .has-snapshot {
+    color: #428bca;
+    font-family: proxima-nova-bold;
+    font-weight: bold;
+  }
+
+  .video-js .vjs-big-play-button {
+    height: 2.5em;
+    line-height: 2.3em;
+    width: 2.5em;
+    top: 40%;
+    left: 47%;
+    border-radius: 100px !important;
+  }
+
+  .vjs-live-display {
+    display: none;
+  }
+
+  .image_save {
+    cursor: pointer;
+    font-size: 13px;
+    position: absolute;
+    margin-left: -18px;
+    color: #ffffff;
+    margin-top: 7px;
+    right: 90px;
+  }
+
+  .go-btn {
+    padding: 1px 12px;
+    margin-top: 1px;
+  }
+
+  .select2-container--default .select2-selection--single {
+    border-radius: 0px;
+  }
+
+  .select2-container {
+    z-index: 47;
+  }
+
+  .time-box{
+    border: 1px solid #efefef;
+    padding: 3px 8px;
+  }
+
+  .clip-create-message {
+    background-color: $white;
+    border-radius: 2px;
+    box-sizing: border-box;
+    color: $evercam-black;
+    display: none;
+    font-size: 16px;
+    font-weight: 700;
+    left: 30%;
+    opacity: .80;
+    padding: 12px;
+    text-align: center;
+    margin-top: 0px;
+  }
+
+  .nvr-time-picker {
+    background-color: $white;
+    margin-top: 1px;
+    width: 65px;
+    margin-left: 10px;
+    padding: 0 12px;
+    padding-top: 2px;
+  }
+
+  .padding-right-left-zero {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .div-tooltip {
+    position: absolute;
+    text-align: center;
+    display: none;
+    background-color: #FFFFE1;
+    border: 1px solid #000000;
+    font-size: 15px;
+    font-weight: 500;
+    padding-left: 3px;
+    padding-right:3px;
+    z-index: 1000001;
+  }
+
+  .rect_has_data {
+    cursor: pointer;
+    fill: #8cbae3;
+  }
+
+  .rect_has_data:hover {
+    fill: #458cc7;
+  }
+
+  .rect_has_data_active {
+    fill: #458cc7 !important;
+  }
+
+  .vjs-playback-rate .vjs-playback-rate-value,
+  .vjs-playback-rate .vjs-menu {
+    left: 5px;
+  }
+
+  .thumbnail-times {
+    background-color: $white;
+    bottom: 3px;
+    opacity: .6;
+    position: absolute;
+    width: 99%;
+  }
+}
+
+.font-14 {
+  font-size: 14px;
+}
+
+.width-140 {
+  width: 140px;
+  float: left;
+}
+
+.width-60 {
+  width: 60px;
+  float: left;
+}
+
+.local_recordings .right-column {
+  padding: 0px;
+}
+
+@media (max-width: 990px) {
+
+  .clip-create-message {
+    position: absolute;
+    width: 100%;
+    top: 0px;
+    left: 0% !important;
+  }
+}
+
+@media (max-width: 840px) {
+
+  .margintop-5 {
+    margin-top: 5px;
+  }
+}

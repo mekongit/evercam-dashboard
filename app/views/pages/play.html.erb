@@ -1,0 +1,16 @@
+<%= stylesheet_link_tag "clip_play" %>
+<%= content_for(:title, "Evercam: Archive") %>
+
+<% if @archive_type.eql?("image") %>
+  <img src="<%= @mp4_url %>" alt="">
+<% else %>
+  <video id="archive-play" class="video-js vjs-default-skin" controls autoplay data-setup='{ "playbackRates": [0.25, 0.5, 1, 1.5, 2] }'>
+      <source src="<%= @mp4_url %>" type="video/mp4">
+  </video>
+
+  <script>
+  $(document).ready(function(){
+    videojs("archive-play");
+  });
+  </script>
+<% end %>

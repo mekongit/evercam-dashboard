@@ -1,0 +1,3 @@
+public/assets/* linguist-vendored
+public/assets/** -diff
+vendor/** -diff

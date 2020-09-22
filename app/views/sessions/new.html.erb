@@ -1,0 +1,73 @@
+<% provide(:title, "Sign in") %>
+<%= render partial: "users/background_video" %>
+<div id="signout-user-message" class="logged-out-alert alert-info alert">
+  This is a private camera, To view this camera either Sign in below or <%= link_to "Create New Account", signup_path, :class => 'bold' %>.
+</div>
+<section id="sign-in-section">
+  <div class="section section-position no-padding col-sm-12 col-md-12">
+
+    <div id="sign-in" class="col-md-4 width-400 center-div">
+      <div id="sign-in-form" class="sign-in-form">
+      <div class="bb-alert alert alert-danger" style="display:none;">
+        <span></span>
+      </div>
+        <div id="signin" class="col-md-12 text-center">
+          <div class="branding logo-padding">
+            <%= link_to root_path, class: 'sign-in-logo' do %>
+              <%= image_tag("evercam_logo.png", :class => "svg-logo", alt: "Evercam.io") %>
+            <% end %>
+          </div>
+        </div>
+
+        <%= form_for(:session, url: sessions_path, :html => { :id => "user-sign-in" }) do |f| %>
+
+          <div class="form-group margin-top-bottom-15 grey col-md-12 padding-left-right-40 text-center">
+            <div class="input-icon right">
+              <i class="icon-user"></i>
+              <%= f.text_field :login, value: params.fetch(session, {})[:login], class: "form-control", required: "required" %>
+              <%= label_tag('session_login', "Email Or username", class: "float-label") %>
+            </div>
+          </div>
+
+          <div class="form-group margin-top-bottom-15 col-md-12 padding-left-right-40 text-center">
+            <div class="input-icon right">
+              <i class="icon-key"></i>
+              <%= f.password_field :password, class: "form-control", required: "required" %>
+              <%= f.label :password, class: "float-label" %>
+            </div>
+          </div>
+
+          <div class="col-md-12 padding-left-right-40">
+            <div class="sign-in">
+              <%= f.submit "Sign in", class: "btn btn-large btn-primary col-lg-6 col-lg-offset-3" %>
+            </div>
+          </div>
+
+          <div class="col-md-12 text-center">
+            <div class="grey margin-top-20">
+              <p class="margin-bottom-0">I've <%= link_to "forgotten my password", password_reset_path %></p>
+            </div>
+          </div>
+          <input type="hidden" id="session_anchor" name="session[anchor]">
+          <input type="hidden" name="remote_auth" id="remote_auth" value="<%= @remote_auth %>"/>
+        <% end %>
+
+        <input type="hidden" name="request_url" id="request_url_value" value="<%= requested_url_value %>"/>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.getElementById("session_anchor").value = window.location.hash;
+  Notification.init(".bb-alert");
+  <% if flash[:error] %>
+  Notification.show('<%= flash[:error] %>');
+  <% end %>
+</script>
+
+<script>
+  $(document).ready(function () {
+    window.initializeVideoBackground();
+  });
+</script>

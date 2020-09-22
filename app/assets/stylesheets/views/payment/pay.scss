@@ -1,0 +1,95 @@
+.make-payment {
+  .adjust-padding-col1 {
+    padding-left: 0;
+    padding-right: 3px;
+  }
+
+  .adjust-padding-col2 {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .expiry-drop-down {
+    height: 36px;
+  }
+
+  .input-icon > i {
+    color: $dark-grey;
+  }
+
+  .width-35 {
+    min-width: 35px;
+  }
+
+  //********* Cards CSS *******************
+  .cards {
+    height: 25px;
+    margin: 10px 0;
+  }
+
+  ul.unstyled,
+  ol.unstyled {
+    list-style: none;
+    margin-left: 0;
+  }
+
+  ul,
+  ol {
+    margin: 0 0 10px 25px;
+    padding: 0;
+  }
+
+  .cards li {
+    display: block;
+  }
+
+  li {
+    line-height: 20px;
+  }
+
+  .card.visa {
+    background-image: asset-url("card-visa.gif");
+  }
+
+  .card.master {
+    background-image: asset-url("card-mastercard.gif");
+  }
+
+  .card.amex {
+    background-image: asset-url("card-amex.gif");
+  }
+  .card.stripe {
+    background-image: asset-url("solid.png");
+  }
+
+  .card.laser {
+    background-image: asset-url("card-laser.gif");
+  }
+
+  .card.delta {
+    background-image: asset-url("card-delta.gif");
+  }
+
+  .card.diners-club {
+    background-image: asset-url("card-diners.gif");
+  }
+
+  .card.cdisabled {
+    background-position: 0 -25px;
+    opacity: 0.3;
+  }
+
+  .card {
+    background-position: 0 0;
+    float: left;
+    height: 25px;
+    margin-right: 4px;
+    text-indent: -9999px;
+    width: 39px;
+  }
+  .stripe {
+    height: 26px !important;
+    width: 119px !important;
+    float: right !important;
+  }
+}

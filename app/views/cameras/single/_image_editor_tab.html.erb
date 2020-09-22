@@ -1,0 +1,92 @@
+<div class="row">
+  <div id="image-editor" class="col-md-12 image-editor-placeholder">
+    <div class="tui-image-editor-controls">
+      <div class="back-btn-container">
+        <div class="back-container-left"><a id="back-to-archives"><i class="fas fa-arrow-left"></i> Back</a></div>
+        <div class="back-container-right">
+          <div id="popup-delete-edit-view" class="popbox float-right">
+            <span id="open-delete-edit-view" class="open">
+              <span href="#" class="archive-actions delete-archive" val-archive-id="howtom-h62i" val-camera-id="everc-dupzo">
+                <i class="fas fa-trash-alt"></i>
+              </span>
+            </span>
+            <div class="collapse-popup">
+              <div class="box-new" id="box-delete-edit-view">
+                <div class="arrow" id="arrow-delete-edit-view"></div>
+                <div class="arrow-border" id="arrow-border-delete-edit-view"></div>
+                <div class="margin-bottom-10">Are you sure?</div>
+                <div class="margin-bottom-10">
+                  <input type="button" value="Yes, Remove" id="btn-clear-objects" class="btn btn-primary">
+                  <div id="closepopup-delete-edit-view" class="btn delete-btn closepopup grey">
+                    <div class="text-center" fit="">CANCEL</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="clear-f"></div>
+      </div>
+      <div>
+        <ul class="menu">
+          <li class="menu-item input-wrapper hide"><i class="fa fa-upload fa-1x"></i> <input type="file" accept="image/*" id="input-image-file"></li>
+          <li class="menu-item disabled" id="btn-undo"><i class="fa fa-undo fa-1x"></i></li>
+          <li class="menu-item disabled" id="btn-redo"><i class="fa fa-redo fa-1x"></i></li>
+          <li class="menu-item activatable" id="selection"><i class="far fa-hand-paper fa-1x" aria-hidden="true"></i></li>
+          <li class="menu-item activatable" id="crop-image"><i class="fas fa-crop fa-1x"></i></li>
+          <li class="menu-item activatable" id="btn-draw-line-straight"><i class="fa fa-minus fa-1x"></i></li>
+          <li class="menu-item activatable" id="btn-draw-line-free"><%= image_tag('line.png', width: "30", alt: 'Loading') %></li>
+          <li class="menu-item activatable" id="btn-draw-rect"><i class="far fa-square fa-1x"></i></li>
+          <li class="menu-item activatable" id="btn-draw-circle"><i class="far fa-circle fa-1x"></i></li>
+          <li class="menu-item icon-text activatable hide" data-icon-type="arrow" id="btn-add-icon"><i class="fas fa-long-arrow-alt-right fa-1x"></i></li>
+          <li class="menu-item activatable" id="btn-text"><i class="fa fa-font fa-1x"></i></li>
+          <li class="menu-item">
+            <div class="sub-menu-container menu" id="draw-line-sub-menu">
+              <ul class="menu">
+                <li class="sub-menu-item">
+                  <div id="tui-brush-color-picker"></div>
+                </li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+        <div class="sub-menu-container" id="crop-sub-menu">
+          <ul class="menu">
+            <li class="menu-item" id="btn-apply-crop">Apply</li>
+            <li class="menu-item" id="btn-cancel-crop">Cancel</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="clear-f"></div>
+    <div class="tui-image-editor" id="tui-image-editor"></div>
+
+    <div class="div-save-edit-image">
+      <div class="saving-light-box"></div>
+      <img class="saving-image-animation" src="/assets/evercam-loading-gif.gif">
+    </div>
+
+    <div class="container-info">
+      <div class="editor-info-box">
+        <div class="edit-image-buttons">
+          <div class="dropdown">
+            <a class="image-edit-actions" title="Save Image" id="btn-save-edited-file"><i class="fa fa-save"></i> Save</a>
+            <div style="display:inline-block;cursor:pointer;" class="image-edit-actions">
+              <a id="btn-download" title="Download Image"><i class="fa fa-download"></i> Download</a>
+            </div>
+          </div>
+        </div>
+        <strong class="edit-image-label" id="edit-image-title"></strong>
+        <a id="change-archive-title"><i class="fas fa-pencil-alt" style="font-size:17px;"></i></a>
+        <a style="display: none" id="editor-update-title"><i class="far fa-save"></i></a>
+        <a style="display: none" id="editor-cancel-title"><i class="fas fa-times"></i></a>
+      </div>
+      <div class="image-info-container">
+        <span class="image-edit-autor">Requested By: Azhar Malik</span>
+        <span class="image-edit-cr-date">Cloud Recordings: </span>
+        <span class="image-edit-date">Created at </span>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,17 @@
+#dev {
+  input {
+    font-size: 15px !important;
+    line-height:19px;
+    width: 275px;
+  }
+  input:focus {
+    border-color:#e5e5e5 !Important;
+    box-shadow:none;
+  }
+}
+#code {
+  min-height: 130px;
+  border: 2px solid #e5e5e5;
+  padding: 7px;
+  width: 100%;
+}

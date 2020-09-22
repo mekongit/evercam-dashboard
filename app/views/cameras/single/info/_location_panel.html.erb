@@ -1,0 +1,52 @@
+<div class="info-location">
+  <div class="portlet solid">
+    <div class="portlet-title">
+      <div class="caption">Location</div>
+
+        <div <% unless @has_edit_rights %> style="display: none;" <% end %>class="btn btn-edit edit-location" id='edit-location'>edit</div>
+
+    </div>
+    <% lats = @camera.deep_fetch('location', 'lat') {} %>
+    <% lng = @camera.deep_fetch('location', 'lng') {} %>
+    <div class="portlet-body">
+      <div class="row">
+        <div class="col-md-12">
+          <input id="search-location" style="display: none;" class="location-search controls" type="text" placeholder="Enter Location">
+          <div id="map-info"></div>
+          <img id="static-map" class="width100" src="https://maps.googleapis.com/maps/api/staticmap?zoom=14&key=AIzaSyAy8aEXXqqJFG-kFVxrIJOJAR33O74G1Pg&size=780x350&maptype=roadmap&markers=label:C|<%= lats %>,%20<%= lng %>"/>
+        </div>
+        <div class="col-md-12">
+
+          <div id="co-ordinates">
+
+            <span id="coordinates-value">
+              <%= lats %>, <%= lng %>
+            </span>
+          </div>
+          <div id="search-coordinates" class="location-search margin-top-10" style="display: none;">
+            <% if @has_edit_rights %>
+              <input id="cameraLats" name="cameraLat" type="hidden" value="<%= lats %>">
+              <input id="cameraLng" name="cameraLng" type="hidden" value="<%= lng %>">
+              <table class="coordinates table table-fixed table-borderless">
+                <tr>
+                  <td class="col-md-6">
+                    <input id="camera_Lats_Lng" class="form-control makeEditable" type="text" value="<%= lats %>, <%= lng %>">
+                    <span class="help-block">Latitude, Longitude</span>
+                  </td>
+                  <td class="col-md-3">
+                    <a id="save-map-location" class="btn btn-primary margin-right-10">Looks good !</a>
+                  </td>
+                </tr>
+              </table>
+              <p id="search-notes" style="display: none;" class="location-search grey marker-info margin-top-10">
+                Use the search bar to find your camera's rough location. You can pick up the the red marker and place it on the exact point on the map. Or enter the camera's lat &amp; lng values above.
+              </p>
+            <% else %>
+              <p class="note note-info">You do not have permission to save edits to the camera location</p>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

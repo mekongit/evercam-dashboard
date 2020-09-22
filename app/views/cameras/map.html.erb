@@ -1,0 +1,22 @@
+<!-- BEGIN CONTENT -->
+<div class="page-content-wrapper">
+  <div class="page-content">
+    <div class="full-height-content full-height-content-scrollable">
+      <a id="lnkBacktoMap" class="link-to-map" title="Back to Map"><i class="fa fa-arrow-left"></i> Map</a>
+      <div class="slimScrollDiv">
+        <div class="full-height-content-body" data-initialized="1">
+            <div id="map-canvas"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!-- END CONTENT -->
+<script src="https://maps.googleapis.com/maps/api/js?v=3.11&sensor=false&key=<%= ENV['GOOGLE_MAP_KEY']%>" type="text/javascript"></script>
+<script>
+  window.Evercam.Cameras = <%= @map_data.to_json.html_safe %>;
+  $(document).ready(function () {
+    window.initializeMap();
+  });
+</script>

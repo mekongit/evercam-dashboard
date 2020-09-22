@@ -1,0 +1,8 @@
+ruby:
+  config_file: .style-ruby.yml
+coffeescript:
+  config_file: .style-coffeescript.json
+scss:
+  config_file: .style-scss.yml
+jshint:
+  enabled: false

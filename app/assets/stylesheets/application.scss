@@ -1,0 +1,71 @@
+//= require bootstrap
+//= require ladda
+//= require datetimepicker
+//= require uniform.default.min.css
+//= require bootstrap-datepicker
+//= require videojs/video-js.min.css
+//= require videojs/videojs-bitrate-graph.css
+//= require datatables/jquery.dataTables
+//= require jquery.bxslider.css
+//= require datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.scss
+//= require metronic/metronic-components.css
+//= require metronic/metronic-layout.css
+//= require iCheck/skins/minimal/_all.scss
+//= require iCheck/skins/square/_all.css
+//= require iCheck/skins/flat/_all.css
+//= require iCheck/skins/line/_all.css
+//= require iCheck/skins/polaris/polaris.css
+//= require iCheck/skins/futurico/futurico.css
+//= require popbox.css
+//= require fullcalendar
+//= require bs-slider
+//= require bootstrap-toggle
+//= require select2.min.css
+//= require selectize.css
+//= require nprogress
+//= require nprogress-bootstrap
+//= require responsiveslides.css
+//= require jquery-tags-input
+//= require bootstrap-timepicker.css
+//= require tui-color-picker.css
+//= require_self
+//= require jquery-ui.css
+
+@import "utils/variables";
+@import "utils/mixins";
+
+@import "base/font-awesome-v5.0.4";
+@import "base/glyphicons";
+
+@import "vendor-overrides/metronic_component_child";
+@import "vendor-overrides/metronic_layout_child";
+@import "vendor-overrides/datepicker_overrides";
+
+@import "layout/_header";
+@import "layout/_sidebar";
+@import "layout/_page";
+
+@import "components/_alerts";
+@import "components/_tables";
+@import "components/_buttons";
+@import "components/_forms";
+
+@import "style";
+
+@import "views/cameras/cameras";
+@import "views/cameras/swagger";
+@import "views/visavail";
+@import "views/cameras/single";
+@import "views/cameras/add_camera";
+@import "views/cameras/map";
+@import "views/public/index";
+@import "views/public/single";
+@import "views/users/settings";
+@import "views/users/activities";
+@import "views/users/sessions";
+@import "views/users/password_reset";
+@import "views/users/cameras_table";
+@import "views/api_docs";
+@import "views/payment/pay";
+@import "views/snapmails/snapmails";
+@import "views/archives/archives";

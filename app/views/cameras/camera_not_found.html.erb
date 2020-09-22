@@ -1,0 +1,27 @@
+<%= content_for(:title, "Evercam: Camera View") %>
+
+<div class="page-content-wrapper">
+  <div class="page-content" id="camera-single">
+    <div class="row">
+      <div class="section-header">
+
+        <div class="camera-title">
+          <div class="col-xs-12 col-md-12">
+            <div class="btn-group camera-switch">
+              <h3 class="page-title"></h3>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="portlet-body">
+      <div id="camera-not-found">
+        <div class="dialog">
+          <p>The camera you are looking for (<b><%= params[:id] %></b>) either no longer exists
+            or you (<b><%= current_user.username %></b>) don't have access to it.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

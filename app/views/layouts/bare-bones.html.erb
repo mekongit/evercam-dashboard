@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="google" content="notranslate" />
+  <meta http-equiv="Content-Language" content="en" />
+  <%= csrf_meta_tags %>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <title><%= yield(:title) %></title>
+  <%= render partial: "shared/favicon" %>
+  <% if @mp4_url %>
+    <%= render partial: "shared/ogp_metadata_archives" %>
+  <% end %>
+  <%= stylesheet_link_tag "application", media: "all" %>
+  <%= javascript_include_tag "bare-bones" %>
+  <%= render partial: "shared/no_script_warning" %>
+  <script src="//d2wy8f7a9ursnm.cloudfront.net/v4/bugsnag.min.js"></script>
+  <script>window.bugsnagClient = bugsnag('914a9c62307b9fccfdf29c7c381fa5d3')</script>
+  <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+  <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+  <![endif]-->
+</head>
+<body class="page-header-fixed page-quick-sidebar-over-content page-sidebar-fixed page-header-fixed-mobile page-footer-fixed1 live-view-popup">
+
+<%= yield %>
+
+<script>
+  if (!window.Evercam) {
+    window.Evercam = {};
+  }
+  window.Evercam.API_URL = '<%= EVERCAM_API %>';
+  window.Evercam.MEDIA_API_URL = '<%= EVERCAM_MEDIA_API %>';
+</script>
+</body>
+</html>
