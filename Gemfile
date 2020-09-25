@@ -39,7 +39,7 @@ gem 'iso_country_codes'
 
 group :evercam do
   gem 'evercam',
-    github: 'evercam/evercam-ruby', branch: 'use_v2', ref: 'ed6ce3e9a576226bbd075a090fa3ce0f57e756c7'
+    github: 'mekongit/evercam-ruby'
 end
 
 group :production do
